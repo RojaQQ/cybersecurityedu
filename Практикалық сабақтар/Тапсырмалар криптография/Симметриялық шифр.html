@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1 Вариант</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            font-size: 18px; /* Элементтердің жалпы өлшемін үлкейтеміз */
+        }
+        .question {
+            margin-bottom: 25px; /* Сұрақтар арасындағы қашықтықты үлкейтеміз */
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid red; /* Қызыл контур */
+            border-radius: 5px;
+            width: 300px; /* Енгізу жолының енін үлкейтеміз */
+            box-sizing: border-box; /* padding мен border енге қосылады */
+        }
+        button {
+            background-color: #f44336; /* Қызыл фон */
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer; /* Тінтуір курсоры */
+            font-size: 16px;
+            transition: transform 0.1s ease-in-out; /* Анимация үшін */
+        }
+        button:hover {
+            opacity: 0.9; /* Тінтуірді апарғанда сәл қараңғыланады */
+        }
+        button:active {
+            transform: scale(0.95); /* Басқанда кішірейеді (анимация) */
+        }
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+        .correct {
+            color: green;
+        }
+        .incorrect {
+            color: red;
+        }
+        h1 {
+            color: #f44336; /* Басты тақырыптың қызыл түсі */
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Гаммалау</h1>
+
+    <div class="question">
+        <label for="q1">1. Шифрлау: берілген кілтпен XOR көмегімен келесі мәтінді шифрлаңыз:
+            <ul>
+                <li><strong>Мәтін:</strong> Компьютер</li>
+                <li><strong>Кілт (он алтылық):</strong> 0F 0F 0F 0F 0F 0F 0F</li>
+                <li><strong>Шифрланған хабарламаны екілік кодпен жазыңыз.</strong></li>
+            </ul></label><br>
+        <input type="text" id="q1" name="q1"><br>
+        <button type="button" onclick="checkAnswer(1)">Тексеру</button>
+        <div id="result-q1" class="result"></div>
+    </div>
+
+    <div class="question">
+        <label for="q2">2. Дешифрлау: Келесі шифрланған мәтінді берілген кілтпен XOR арқылы дешифрлаңыз:
+            <ul>
+                <li><strong>Шифрланған мәтін (он алтылық):</strong> C2 89 C5 95 C6 AA C3 AB C4 94 C2 AD C4 A6 C7 92 C3 A4 C4 92 C2 AB C5 9A</li>
+                <li><strong>Кілт (он алтылық):</strong> 12 13 14 15 16</li>
+                <li><strong>Нәтижесін мәтіндік формада енгізіңіз.</strong></li>
+            </ul></label><br>
+        <input type="text" id="q2" name="q2"><br>
+        <button type="button" onclick="checkAnswer(2)">Тексеру</button>
+        <div id="result-q2" class="result"></div>
+    </div>
+
+    <div class="question">
+        <label for="q3">3. Кілтті табу: Егер түпнұсқа мәтін және шифрланған мәтін белгілі болса, қолданылған кілтті табыңыз:
+            <ul>
+                <li><strong>Түпнұсқа мәтін (ондық):</strong> 73</li>
+                <li><strong>Шифрланған мәтін (ондық):</strong> 29</li>
+                <li><strong>Кілт (ондық) - ?</strong> </li>
+            </ul></label><br>
+        <input type="text" id="q3" name="q3"><br>
+        <button type="button" onclick="checkAnswer(3)">Тексеру</button>
+        <div id="result-q3" class="result"></div>
+    </div>
+
+    <div class="question">
+        <label for="q4">4. Шифрлау: Келесі мәтінді берілген кілтпен XOR арқылы шифрлаңыз:
+            <ul>
+                <li><strong>Мәтін (ондық):</strong> 72</li>
+                <li><strong>Кілт (ондық):</strong> 15</li>
+                <li><strong>Нәтиже (екілік):</strong> -?</li>
+            </ul></label><br>
+        <input type="text" id="q4" name="q4"><br>
+        <button type="button" onclick="checkAnswer(4)">Тексеру</button>
+        <div id="result-q4" class="result"></div>
+    </div>
+
+    <div class="question">
+        <label for="q5">5. Дешифрлау: Келесі шифрланған мәтінді берілген кілтпен XOR арқылы дешифрлаңыз:
+            <ul>
+                <li><strong>Шифрланған мәтін (екілік):</strong> 1011111</li>
+                <li><strong>Кілт (ондық):</strong> 37</li>
+                <li><strong>Нәтиже (сегіздік):</strong> -?</li>
+            </ul></label><br>
+        <input type="text" id="q5" name="q5"><br>
+        <button type="button" onclick="checkAnswer(5)">Тексеру</button>
+        <div id="result-q5" class="result"></div>
+    </div>
+
+    <script>
+        const correctAnswers = {
+            1: "11011111 10010101 11011111 10110001 11011111 10110011 11011111 10110000 11011110 10000011 11011110 10000001 11011110 10001101 11011111 10111010 11011110 10001111",
+            2: "криптография",
+            3: "84",
+            4: "01000111",
+            5: "172"
+        };
+
+        function checkAnswer(questionNumber) {
+            const questionId = `q${questionNumber}`;
+            const answerId = `result-q${questionNumber}`;
+            const userAnswer = document.getElementById(questionId).value.toLowerCase();
+            const correctAnswer = correctAnswers[questionNumber];
+            const resultDiv = document.getElementById(answerId);
+
+            if (userAnswer === correctAnswer) {
+                resultDiv.textContent = "Дұрыс";
+                resultDiv.className = "result correct";
+            } else {
+                resultDiv.textContent = "Қате";
+                resultDiv.className = "result incorrect";
+            }
+        }
+    </script>
+</body>
+</html>

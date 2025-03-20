@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2-тапсырма</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            font-size: 18px; /* Элементтердің жалпы өлшемін үлкейтеміз */
+        }
+        .question {
+            margin-bottom: 25px; /* Сұрақтар арасындағы қашықтықты үлкейтеміз */
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid red; /* Қызыл контур */
+            border-radius: 5px;
+            width: 300px; /* Енгізу жолының енін үлкейтеміз */
+            box-sizing: border-box; /* padding мен border енге қосылады */
+        }
+        button {
+            background-color: #f44336; /* Қызыл фон */
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer; /* Тінтуір курсоры */
+            font-size: 16px;
+            transition: transform 0.1s ease-in-out; /* Анимация үшін */
+        }
+        button:hover {
+            opacity: 0.9; /* Тінтуірді апарғанда сәл қараңғыланады */
+        }
+        button:active {
+            transform: scale(0.95); /* Басқанда кішірейеді (анимация) */
+        }
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+        .correct {
+            color: green;
+        }
+        .incorrect {
+            color: red;
+        }
+        h1 {
+            color: #f44336; /* Басты тақырыптың қызыл түсі */
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h1>RSA алгоритмы</h1>
+
+    <div class="question">
+        <label for="q1">1.Берілген мәндер:
+            <ul>
+                <li>p = 7, q = 13</li>
+                <li>Ашық кілт: e = 5</li>
+                <li>Хабарлама: M = 12</li>
+            </ul>
+            <p>Шифрмәтінді (C) табыңыз.</p></label><br>
+        <input type="text" id="q1" name="q1"><br>
+        <button type="button" onclick="checkAnswer(1)">Тексеру</button>
+        <div id="result-q1" class="result"></div>
+    </div>
+
+    <div class="question">
+        <label for="q2">2. Берілген мәндер:
+            <ul>
+            <li>p = 11, q = 17</li>
+            <li>Ашық кілт: e = 7</li>
+            <li>Хабарлама: M = 8</li>
+        </ul>
+        <p>Шифрмәтінді (C) табыңыз.</p>
+
+        </label><br>
+        <input type="text" id="q2" name="q2"><br>
+        <button type="button" onclick="checkAnswer(2)">Тексеру</button>
+        <div id="result-q2" class="result"></div>
+    </div>
+
+    <div class="question">
+        <label for="q3">3. Берілген мәндер:
+            <ul>
+                <li>p = 5, q = 11</li>
+                <li>Ашық кілт: e = 3</li>
+                <li>Шифрмәтін: C = 23</li>
+            </ul>
+            <p>Бастапқы хабарламаны (M) табыңыз.</p>
+
+        </label><br>
+        <input type="text" id="q3" name="q3"><br>
+        <button type="button" onclick="checkAnswer(3)">Тексеру</button>
+        <div id="result-q3" class="result"></div>
+    </div>
+
+    <div class="question">
+        <label for="q4">4. Берілген мәндер:
+            <ul>
+                <li>p = 7, q = 17</li>
+                <li>Ашық кілт: e = 5</li>
+                <li>Шифрмәтін: C = 30</li>
+            </ul>
+            <p>Бастапқы хабарламаны (M) табыңыз.</p>
+
+
+        </label><br>
+        <input type="text" id="q4" name="q4"><br>
+        <button type="button" onclick="checkAnswer(4)">Тексеру</button>
+        <div id="result-q4" class="result"></div>
+    </div>
+
+    <div class="question">
+        <label for="q5">5. Берілген мәндер:
+            <ul>
+                <li>Жабық кілт:{ 37, 527}</li>
+                
+            </ul>
+            <p>RSA алгоритмі арқылы шифрланған C = (9D 01 95 01 CE 01 53 00 95 01 26 01)<sub>16</sub> мәтінін дешифрлаңыз(Шығару форматы мәтіндік). </p>
+        </label><br>
+        <input type="text" id="q5" name="q5"><br>
+        <button type="button" onclick="checkAnswer(5)">Тексеру</button>
+        <div id="result-q5" class="result"></div>
+    </div>
+
+    <script>
+        const correctAnswers = {
+            1: "38",
+            2: "134",
+            3: "12",
+            4: "81",
+            5: "rakhat"
+        };
+
+        function checkAnswer(questionNumber) {
+            const questionId = `q${questionNumber}`;
+            const answerId = `result-q${questionNumber}`;
+            const userAnswer = document.getElementById(questionId).value.toLowerCase();
+            const correctAnswer = correctAnswers[questionNumber];
+            const resultDiv = document.getElementById(answerId);
+
+            if (userAnswer === correctAnswer) {
+                resultDiv.textContent = "Дұрыс";
+                resultDiv.className = "result correct";
+            } else {
+                resultDiv.textContent = "Қате";
+                resultDiv.className = "result incorrect";
+            }
+        }
+    </script>
+</body>
+</html>
