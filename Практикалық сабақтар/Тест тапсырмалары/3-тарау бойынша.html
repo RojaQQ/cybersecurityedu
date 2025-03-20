@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3-тарау бойынша тест</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f8f9fa;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.4;
+            z-index: -1;
+        }
+        .container {
+            width: 80%;
+            max-width: 900px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .center-text {
+            text-align: center;
+            font-size: 96px;
+            font-weight: bold;
+            margin-top: 50px;
+        }
+        .hidden {
+            display: none;
+        }
+        .question {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .answer {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            background: #e9ecef;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            text-align: left;
+            font-size: 18px;
+            color: black;
+        }
+        .answer.selected {
+            background: rgb(253, 0, 0);
+            color: white;
+        }
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            gap: 20px;
+        }
+        .image-container {
+            width: 200px;  /* Установите нужный размер */
+    height: 200px; /* Делаем контейнер квадратным */
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto; /* Центрируем контейнер */
+    overflow: hidden; /* Обрезка изображения, если оно выходит за границы */
+    border-radius: 10px; /* Закругленные углы (если нужно) */
+        }
+        .image-container img {
+            width: 100%;
+    height: 100%;
+    object-fit: cover; /* Заполняет контейнер, обрезая изображение */
+    display: block;
+}
+        .timer {
+            font-size: 24px;
+            text-align: right;
+        }
+        .result {
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        /* Стили для кнопок */
+        button {
+            background-color: red;
+            color: white;
+            border: 2px solid black;
+            border-radius: 10px;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: rgb(250, 250, 250);
+        }
+        .nav-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.nav-btn {
+    width: 40px;
+    height: 40px;
+    background: #e9ecef;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 5px;
+    color: black;
+    transition: background 0.3s;
+}
+
+.nav-btn.selected {
+    background: red;
+    color: white;
+}
+
+    </style>
+</head>
+<body>
+    <video autoplay loop muted class="background-video">
+        <source src="Суреттер/videoback.mp4" type="video/mp4">
+        Ваш браузер не поддерживает видео.
+    </video>
+    <div class="container" id="start-screen">
+        <div class="center-text" id="countdown">3</div>
+    </div>
+    
+    <div class="container hidden" id="quiz-screen">
+        <div class="timer" id="timer">07:00</div>
+        <div class="question" id="question"></div>
+        <div id="answers"></div>
+        <div class="nav-buttons">
+            <button class="nav-btn" onclick="goToQuestion(0)">1</button>
+            <button class="nav-btn" onclick="goToQuestion(1)">2</button>
+            <button class="nav-btn" onclick="goToQuestion(2)">3</button>
+            <button class="nav-btn" onclick="goToQuestion(3)">4</button>
+            <button class="nav-btn" onclick="goToQuestion(4)">5</button>
+            <button class="nav-btn" onclick="goToQuestion(5)">6</button>
+            <button class="nav-btn" onclick="goToQuestion(6)">7</button>
+            <button class="nav-btn" onclick="goToQuestion(7)">8</button>
+            <button class="nav-btn" onclick="goToQuestion(8)">9</button>
+            <button class="nav-btn" onclick="goToQuestion(9)">10</button>
+            <button class="nav-btn" onclick="goToQuestion(10)">11</button>
+            <button class="nav-btn" onclick="goToQuestion(11)">12</button>
+            <button class="nav-btn" onclick="goToQuestion(12)">13</button>
+            <button class="nav-btn" onclick="goToQuestion(13)">14</button>
+            <button class="nav-btn" onclick="goToQuestion(14)">15</button>
+        </div>
+        <div class="image-container"> <img src="Суреттер/3-тарау.png" alt="Изображение"> </div>
+        <div class="controls">
+            <button id="prev" class="hidden">←</button>
+            <button id="finish" class="hidden">АЯҚТАУ</button>
+            <button id="next">→</button>
+        </div>
+    </div>
+    <div class="container hidden" id="result-screen">
+        <div class="image-container"> <img src="Суреттер/Соңы.png" alt="Изображение"> </div>
+        <div class="result" id="result"></div>
+        <div class="controls">
+            <button onclick="location.reload()" button id="retry">ТАFЫ ДА</button>
+            <button onclick="reviewMistakes()" id="review">ҚАТЕМЕН ЖҰМЫС</button>
+            <button onclick="javascript:history.back()" button id="home">АЯҚТАУ</button>
+        </div>
+    </div>
+    <script>
+        let countdownElement = document.getElementById('countdown');
+let startScreen = document.getElementById('start-screen');
+let quizScreen = document.getElementById('quiz-screen');
+let resultScreen = document.getElementById('result-screen');
+let questionElement = document.getElementById('question');
+let answersElement = document.getElementById('answers');
+let prevButton = document.getElementById('prev');
+let nextButton = document.getElementById('next');
+let finishButton = document.getElementById('finish');
+let resultElement = document.getElementById('result');
+let timerElement = document.getElementById('timer');
+
+let questions = [
+{ q: 'Қай криптографиялық әдіс кілттерді қолданбайды?', options: ['Симметриялық', 'Асимметриялық', 'Кілтсіз', 'Ағынды'], correct: 2 },
+    { q: 'Ашық мәтінді криптограммаға айналдыру процесі қалай аталады?', options: ['Дешифрлау', 'Шифрлау', 'Хештеу', 'Кодтау'], correct: 1 },
+    { q: 'Қай шифрлау алгоритмі бір кілтті пайдаланады?', options: ['Асимметриялық', 'Симметриялық', 'Хештеу', 'Цифрлық қолтаңба'], correct: 1 },
+    { q: 'AES қай симметриялық шифрлау алгоритмінің түріне жатады?', options: ['Ағындық', 'Блоктық', 'Гибридті', 'Кілтсіз'], correct: 1 },
+    { q: 'Кілт алмасу мәселесі қай шифрлау түрінің кемшілігі болып табылады?', options: ['Асимметриялық', 'Симметриялық', 'Хештеу', 'Цифрлық қолтаңба'], correct: 1 },
+    { q: 'Асимметриялық шифрлауда қолданылатын кілттер саны:', options: ['Бір', 'Екі', 'Үш', 'Шексіз'], correct: 1 },
+    { q: 'RSA алгоритмі қай шифрлау түріне жатады?', options: ['Симметриялық', 'Асимметриялық', 'Хештеу', 'Ағындық'], correct: 1 },
+    { q: 'Цифрлық қолтаңба не үшін қолданылады?', options: ['Деректерді шифрлау үшін', 'Деректерді дешифрлау үшін', 'Деректердің тұтастығы мен түпнұсқалығын тексеру үшін', 'Деректерді қысу үшін'], correct: 2 },
+    { q: 'Хеш-функцияның негізгі қасиеті:', options: ['Екі жақтылық', 'Көп жақтылық', 'Бір жақтылық', 'Симметриялық'], correct: 2 },
+    { q: 'Хештеу көбінесе қай салада қолданылады?', options: ['Блокчейн технологиясы', 'Деректерді сығу', 'Суреттерді өңдеу', 'Бейнелерді монтаждау'], correct: 0 },
+    { q: 'Құпия сөздерді тексеру үшін серверде не сақталады?', options: ['Құпия сөздің өзі', 'Құпия сөздің ұзындығы', 'Құпия сөздің хеші', 'Құпия сөздің түсі'], correct: 2 },
+    { q: 'Қай криптографиялық әдіс кванттық компьютерлердің шабуылына төзімді?', options: ['Асимметриялық', 'Симметриялық', 'Хештеу', 'Цифрлық қолтаңба'], correct: 1 },
+    { q: 'Деректерді шифрлау үшін де, цифрлық қолтаңбаларды жасау үшін де қолданылатын алгоритм:', options: ['AES', 'DES', 'RSA', 'SHA-256'], correct: 2 },
+    { q: 'Шифрланған хабарламаны қайтадан ашық мәтінге айналдыру процесі қалай аталады?', options: ['Шифрлау', 'Дешифрлау', 'Хештеу', 'Кодтау'], correct: 1 },
+    { q: 'Қай симметриялық шифрлау алгоритмі ағындық шифрлауға жатады?', options: ['AES', 'ГОСТ 28147-89', 'RC4', 'Blowfish'], correct: 2 }
+];
+
+let currentQuestion = 0;
+let userAnswers = new Array(questions.length).fill(null); // Массив для хранения ответов
+let score = 0;
+
+function updateNavButtons() {
+    document.querySelectorAll(".nav-btn").forEach((btn, index) => {
+        btn.classList.toggle("selected", userAnswers[index] !== null);
+    });
+}
+
+function startCountdown() {
+    let time = 3;
+    let countdownInterval = setInterval(() => {
+        countdownElement.textContent = time;
+        time--;
+        if (time < 0) {
+            clearInterval(countdownInterval);
+            startScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            startTimer();
+            loadQuestion();
+        }
+    }, 1000);
+}
+
+function startTimer() {
+    let time = 7 * 60;
+    let timerInterval = setInterval(() => {
+        let minutes = Math.floor(time / 60);
+        let seconds = time % 60;
+        timerElement.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        if (time === 0) {
+            clearInterval(timerInterval);
+            showResult();
+        }
+        time--;
+    }, 1000);
+}
+
+function loadQuestion() {
+    let q = questions[currentQuestion];
+    questionElement.textContent = `${currentQuestion + 1} . ${q.q}`;
+    answersElement.innerHTML = '';
+
+    q.options.forEach((opt, i) => {
+        let btn = document.createElement('button');
+        btn.textContent = opt;
+        btn.className = 'answer';
+
+        if (userAnswers[currentQuestion] === i) {
+            btn.classList.add('selected');
+        }
+
+        btn.onclick = () => {
+            userAnswers[currentQuestion] = i;
+            document.querySelectorAll('.answer').forEach(el => el.classList.remove('selected'));
+            btn.classList.add('selected');
+            updateNavButtons(); // Обновляем цвет кнопок навигации
+        };
+
+        answersElement.appendChild(btn);
+    });
+
+    prevButton.classList.toggle('hidden', currentQuestion === 0);
+    nextButton.classList.toggle('hidden', currentQuestion === questions.length - 1);
+    finishButton.classList.toggle('hidden', currentQuestion !== questions.length - 1);
+    
+    updateNavButtons(); // Обновляем навигацию при загрузке вопроса
+}
+function goToQuestion(index) {
+    currentQuestion = index;
+    loadQuestion();
+}
+function reviewMistakes() {
+    let mistakes = questions
+        .map((q, i) => ({ ...q, userAnswer: userAnswers[i] }))
+        .filter(q => q.userAnswer !== q.correct); // Фильтруем только неверные ответы
+
+    if (mistakes.length === 0) {
+        alert("Барлық сұрақтарға дұрыс жауап бердіңіз!"); // Если ошибок нет
+        return;
+    }
+
+    // Создаем HTML-код страницы с ошибками
+    let pageContent = `
+        <html>
+        <head>
+            <title>Қатемен жұмыс</title>
+            <style>
+                body { font-family: Arial, sans-serif; padding: 20px; background-color: #f8f9fa; }
+                h2 { text-align: center; }
+                .question { font-size: 18px; font-weight: bold; margin-top: 15px; }
+                .correct { color: green; font-weight: bold; }
+                .wrong { color: red; font-weight: bold; }
+            </style>
+        </head>
+        <body>
+            <h2>Қате жауаптар</h2>
+    `;
+
+    mistakes.forEach((q, index) => {
+        pageContent += `<p class="question">${index + 1}. ${q.q}</p><ul>`;
+        q.options.forEach((opt, i) => {
+            let isCorrect = i === q.correct ? `<span class="correct"> (✅ Дұрыс)</span>` : "";
+            let isUserWrong = i === q.userAnswer ? `<span class="wrong"> (❌ Сіздің жауабыңыз)</span>` : "";
+            pageContent += `<li>${opt} ${isCorrect} ${isUserWrong}</li>`;
+        });
+        pageContent += "</ul><hr>";
+    });
+
+    pageContent += "</body></html>";
+
+    // Открываем новую вкладку и пишем туда HTML-код
+    let newTab = window.open();
+    newTab.document.open();
+    newTab.document.write(pageContent);
+    newTab.document.close();
+}
+
+
+
+
+
+function showResult() {
+    score = userAnswers.filter((ans, i) => ans === questions[i].correct).length; // Подсчет правильных ответов
+    quizScreen.classList.add('hidden');
+    resultScreen.classList.remove('hidden');
+    resultElement.textContent = `НӘТИЖЕ: ${score}/${questions.length}`;
+}
+
+nextButton.onclick = () => {
+    if (currentQuestion < questions.length - 1) {
+        currentQuestion++;
+        loadQuestion();
+    }
+};
+
+prevButton.onclick = () => {
+    if (currentQuestion > 0) {
+        currentQuestion--;
+        loadQuestion();
+    }
+};
+
+finishButton.onclick = () => {
+    let unanswered = userAnswers.includes(null);
+    
+    if (unanswered) {
+        alert("Сіз барлық сұрақтарға жауап берген жоқсыз! Өтінеміз, барлық сұрақтарға жауап беріңіз.");
+    } else {
+        let confirmation = confirm("Тестілеуді аяқтағыңыз келе ма?");
+        if (confirmation) {
+            showResult();
+        }
+    }
+};
+
+startCountdown();
+
+    </script>
+</body>
+</html>
