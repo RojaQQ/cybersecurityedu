@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>4-сабақ</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: white;
+        }
+        .container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        img {
+            width: 70%;
+            margin: 20px 0;
+            display: block;
+        }
+        .download-btn {
+            position: absolute; 
+            background-color: #3498db;
+            color: white;
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            transition: background 0.3s;
+        }
+
+        .download-btn:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+    <img src="Слайд1.JPG">
+    <img src="Слайд2.JPG">
+    <img src="Слайд3.JPG">
+    <img src="Слайд4.JPG">
+    <img src="Слайд5.JPG">
+    <img src="Слайд6.JPG">
+    <img src="Слайд7.JPG">
+    <img src="Слайд8.JPG">
+    <img src="Слайд9.JPG">
+    <img src="Слайд10.JPG">
+    <img src="Слайд11.JPG">
+    <img src="Слайд12.JPG">
+    <img src="Слайд13.JPG">
+    <img src="Слайд14.JPG">
+    <img src="Слайд15.JPG">
+    <img src="Слайд16.JPG">
+    <img src="Слайд17.JPG">
+    <img src="Слайд18.JPG">
+    <img src="Слайд19.JPG">
+    <img src="Слайд20.JPG">
+    <img src="Слайд21.JPG">
+    <img src="Слайд22.JPG">
+    <img src="Слайд23.JPG">
+    </div>
+    <button class="download-btn" id="downloadButton">Жүктеп алу</button>
+    <script>
+        document.getElementById("downloadButton").addEventListener("click", function () {
+            // Создаём скрытую ссылку для скачивания
+            let link = document.createElement("a");
+            link.href = "2.3-сабақ.pptx";  // Укажите путь к вашему файлу
+            link.download = "Презентеция.pptx";  // Имя файла при скачивании
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+    </script>
+    
+</body>
+</html>
