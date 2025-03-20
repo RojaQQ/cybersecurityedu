@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Интернет және қауіпсіздік</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.4;
+            z-index: -1;
+        }
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .main-content h1 {
+            background: rgba(235, 232, 232, 0.6);
+            font-size: 60px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .main-content p {
+            font-size: 30px;
+            max-width: 800px;
+            line-height: 1.5;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border-radius: 10px;
+            color: white;
+        }
+
+        /* Верхнее меню */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #e90909;
+            color: white;
+            padding: 15px 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .navbar .title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-menu li {
+            position: relative;
+            margin: 0 15px;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .nav-menu li:hover, .nav-menu li.active {
+            background-color: white;
+            color: #e90909;
+            border-radius: 5px;
+        }
+
+        /* Выпадающее меню */
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            color: black;
+            min-width: 200px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            z-index: 1000; /* Поверх всех элементов */
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: black;
+        }
+
+        .dropdown a:hover {
+            background-color: #e90909;
+            color: white;
+        }
+
+        .nav-menu li:hover .dropdown {
+            display: block;
+        }
+
+        /* Видео */
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            height: 300px;
+            margin: 20px auto;
+            border-radius: 20px;
+            border: 2px solid #e90909;
+            overflow: hidden;
+        }
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.8;
+        }
+
+        /* Вкладки */
+        .tabs {
+            display: flex;
+            justify-content: space-around;
+            background-color: #e90909;
+            padding: 10px;
+            border-radius: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            border-right: 1px solid white;
+        }
+
+        .tab:last-child {
+            border-right: none;
+        }
+
+        .tab.active {
+            background-color: white;
+            color: #e90909;
+            font-weight: bold;
+        }
+
+        /* Контент */
+        .content {
+            display: none;
+            width: 100%;
+            height: 100vh;
+            padding: 20px;
+            border: 2px solid #e90909;
+            border-radius: 25px;
+        }
+
+        .content.active {
+            display: block;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Галерея */
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            padding: 20px;
+        }
+
+        .gallery img {
+            width: 200px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.1);
+        }
+        a {
+            color: white; /* Белый цвет текста */
+            text-decoration: none; /* Убирает подчеркивание */
+        }
+        a:hover {
+        color: red; /* Красный цвет при наведении */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Верхнее меню -->
+    <div class="navbar">
+        <div class="title">ИНТЕРНЕТ ЖӘНЕ ҚАУІПСІЗДІК</div>
+        <ul class="nav-menu">
+            <li class="active">Басты бет</li>
+            <li >
+                Сабақтар
+                <div class="dropdown">
+                    <a href="1-тарау.html">1-Интернеттегі қауіпсіздік негіздері</a>
+                    <a href="2-тарау.html">2-Әлеуметтік инженерия және фишинг</a>
+                    <a href="3-тарау.html">3-Криптография</a>
+                    <a href="4-тарау.html">4-Жеке деректерді қорғау және құпиялылық</a>
+                </div>
+            </li>
+            <li><a href="Практикалық сабақтар.html">Практикалық тапсырмалар</a></li>
+            <li>Контактілер</li>
+            <li>Қосымша</li>
+        </ul>
+    </div>
+
+    <!-- Видео -->
+    <!-- Фоновое видео -->
+    <video autoplay loop muted class="background-video">
+        <source src="Видео/videoback.mp4" type="video/mp4">
+        Ваш браузер не поддерживает видео.
+    </video>
+
+    <!-- Основной контент -->
+    <div class="main-content">
+        <h1>СӘЛЕМЕТСІЗ БЕ! <br> ҚОШ КЕЛДІҢІЗ!</h1>
+        <p>"Интернет және қауіпсіздік" курсы бойынша цифрлық білім беру ресурсы деректерді қорғаудың 
+            және желідегі қауіпсіз мінез-құлықтың негізгі аспектілерін зерттеуге арналған. 
+            Ол интернеттегі қауіп-қатер, қорғаныс әдістері, әлеуметтік инженерия және фишинг, 
+            криптография және жеке деректерді қорғау тақырыптарын қамтиды.</p>
+    </div>
+
+    
+
+    
+
+    
+
+
+    
+
+</body>
+</html>

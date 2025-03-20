@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python-да орындауға арналған тапсырмалар</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding-top: 60px; /* Панель навигации */
+        }
+        .background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.4;
+            z-index: -1;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #e90909;
+            color: white;
+            padding: 15px 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .navbar .title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-left: 60px; /* Отступ слева для заголовка */
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+        }
+
+        .nav-menu li {
+            position: relative;
+            margin: 0 15px;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .nav-menu li:hover, .nav-menu li.active {
+            background-color: white;
+            color: #e90909;
+            border-radius: 5px;
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            min-width: 200px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            z-index: 1000;
+        }
+        .dropdown a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: black;
+        }
+        .dropdown a:hover {
+            background-color: #e90909;
+            color: white;
+        }
+        .nav-menu li:hover .dropdown {
+            display: block;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .back-button {
+           position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: white;
+            color: red;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .back-button:hover {
+            background-color: #eee;
+            transform: scale(1.1);
+        }
+
+        .container {
+            width: 90%;
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: space-between; /* Равномерное распределение */
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+           background-color: #ddd;
+            padding: 10px; /* Уменьшил padding */
+            cursor: pointer;
+            border: 1px solid #ccc;
+            border-radius: 5px 5px 0 0;
+            flex: 1; /* Равномерное распределение */
+            text-align: center;
+            /* Добавляем минимальную ширину для каждой вкладки */
+            min-width: calc(100% / 6); /* 100% / количество вкладок */
+        }
+
+        .tab.active {
+            background-color: #e90909;
+            color: white;
+        }
+
+        .presentation-container {
+            width: 80%;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .presentation-container.active {
+            display: flex;
+        }
+
+         .presentation-iframe {
+            width: 100%;
+            height: 600px; /* Увеличена высота */
+            border: none;
+        }
+
+        .presentation-controls {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 10px;
+        }
+        .presentation-controls button{
+          padding: 5px 10px;
+            cursor: pointer;
+            background-color: #e90909;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+
+        .download-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .download-button:hover{
+          background-color: #367c39;
+        }
+    </style>
+</head>
+<body>
+    <video autoplay loop muted class="background-video">
+        <source src="Видео/videoback.mp4" type="video/mp4">
+        Ваш браузер не поддерживает видео.
+    </video>
+
+    <div class="navbar">
+        <!--<a href="Практикалық сабақтар.html" class="back-button">←</a> -->
+        <div class="title">Python-да орындауға арналған тапсырмалар</div>
+        <ul class="nav-menu">
+            <li><a href="Криптография тапсырмалар.html">Теориялық материалдар</a></li>
+            <li class="active">
+                <a href="#">Практикалық тапсырмалар</a>
+                <div class="dropdown">
+                    <a href="Тапсырмалар.html">Тапсырмалар</a>
+                    <a href="Python тапсырмалар.html">Python</a>
+                    <a href="Cryptool 2 тапсырмалар.html">Cryptool 2</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <div class="tabs">
+            <div class="tab active" onclick="showPresentation(0)">Цезарь шифрі</div>
+            <div class="tab" onclick="showPresentation(1)">Виженер шифрі</div>
+            <div class="tab" onclick="showPresentation(2)">XOR</div>
+            <div class="tab" onclick="showPresentation(3)">RSA алгоритмі</div>
+            <div class="tab" onclick="showPresentation(4)">Диффи-Хелман алгоримі</div>
+        </div>
+
+        <div class="presentation-container active">
+            <object data="Практикалық сабақтар/Python тапсырмалар/Цезарь шифрі.htm"  class="presentation-iframe">
+                
+            </object>
+            
+        
+        </div>
+
+        <div class="presentation-container">
+            <object data="Практикалық сабақтар/Python тапсырмалар/Виженер  шифры.htm"  class="presentation-iframe">
+                
+            
+            
+            </object>
+            
+            
+        </div>
+
+        <div class="presentation-container">
+           <object data="Практикалық сабақтар/Python тапсырмалар/xor.htm"  class="presentation-iframe">
+              
+            </object>
+            
+             
+        </div>
+
+        <div class="presentation-container">
+             <object data="Практикалық сабақтар/Python тапсырмалар/RSA.htm"  class="presentation-iframe">
+              
+            </object>
+
+        </div>
+
+        <div class="presentation-container">
+           <object data="Практикалық сабақтар/Python тапсырмалар/Диффи-хелман.htm"  class="presentation-iframe">
+               
+            </object>
+            
+              </div>
+
+        
+    </div>
+
+    <script>
+      let currentPresentations = [0, 0, 0, 0, 0, 0];
+
+        function showPresentation(index) {
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            const containers = document.querySelectorAll('.presentation-container');
+            containers.forEach(container => container.classList.remove('active'));
+
+            tabs[index].classList.add('active');
+            containers[index].classList.add('active');
+
+        }
+
+        function nextSlide(presentationIndex) {
+          currentPresentations[presentationIndex]++;
+          updateIframe(presentationIndex);
+        }
+
+        function prevSlide(presentationIndex){
+            currentPresentations[presentationIndex]--;
+            if (currentPresentations[presentationIndex] < 0) {
+                currentPresentations[presentationIndex] = 0;
+            }
+              updateIframe(presentationIndex);
+        }
+      function updateIframe(index){
+         //Метод для измение слайдов
+      }
+    </script>
+</body>
+</html>

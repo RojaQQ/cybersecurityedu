@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Практикалық тапсырмалар</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding-top: 60px; /* Смещение вниз */
+}
+        .background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.4;
+            z-index: -1;
+        }
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .main-content h1 {
+            background: rgba(235, 232, 232, 0.6);
+            font-size: 60px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .main-content p {
+            font-size: 30px;
+            max-width: 800px;
+            line-height: 1.5;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border-radius: 10px;
+            color: white;
+        }
+.navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #e90909;
+            color: white;
+            padding: 15px 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .navbar .title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-menu li {
+            position: relative;
+            margin: 0 15px;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .nav-menu li:hover, .nav-menu li.active {
+            background-color: white;
+            color: #e90909;
+            border-radius: 5px;
+        }
+.dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            color: black;
+            min-width: 200px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            z-index: 1000; /* Поверх всех элементов */
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: black;
+        }
+
+        .dropdown a:hover {
+            background-color: #e90909;
+            color: white;
+        }
+
+        .nav-menu li:hover .dropdown {
+            display: block;
+        }
+
+
+.container {
+    display: flex;
+    gap: 30px;
+    padding: 30px;
+    background-color: rgba(235, 232, 232, 0.6);
+    border-radius: 30px;
+    align-items: center;
+    justify-content: center; /* Центрирование по горизонтали */
+}
+
+.block {
+    background: white;
+    border: 2px solid #000000;
+    padding: 30px;
+    border-radius: 22px;
+    text-align: center;
+    width: 375px;
+    height: 550px;
+    box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.title-2 {
+    border: 3px solid #004466;
+    padding: 8px 15px;
+    border-radius: 30px;
+    display: inline-block;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.image-box {
+    width: 100%;  /* Ширина на весь блок */
+    height: 100%; /* Высота на весь блок */
+    border-radius: 10px;
+    margin: 15px 0;
+    overflow: hidden; /* Обрезка лишних частей */
+}
+
+.image-box a {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Заполняет весь блок */
+    border-radius: 10px;
+}
+
+.button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 30px;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: darkred;
+}
+a {
+            color: white; /* Белый цвет текста */
+            text-decoration: none; /* Убирает подчеркивание */
+        }
+        a:hover {
+        color: red; /* Красный цвет при наведении */
+        }
+
+
+
+    </style>
+</head>
+
+<body>
+    <!-- Верхнее меню -->
+    <div class="navbar">
+        <div class="title">ПРАКТИКАЛЫҚ ТАПСЫРМАЛАР</div>
+        <ul class="nav-menu">
+            <li><a href="index.html">Басты бет</a></li> 
+            <li >
+                Сабақтар
+                <div class="dropdown">
+                    <a href="1-тарау.html">1-Интернеттегі қауіпсіздік негіздері</a>
+                    <a href="2-тарау.html">2-Әлеуметтік инженерия және фишинг</a>
+                    <a href="3-тарау.html">3-Криптография</a>
+                    <a href="4-тарау.html">4-Жеке деректерді қорғау және құпиялылық</a>
+                </div>
+            </li>
+            <li class="active" >Практикалық тапсырмалар</li>
+            <li>Контактілер</li>
+            <li>Қосымша</li>
+        </ul>
+    </div>
+
+    
+        <div class="container">
+            <div class="block">
+                <div class="title-2">ТЕСТТЕР</div>
+                <div class="image-box">
+                        <img src="Суреттер/тест.jfif" alt="Описание изображения">
+                </div>
+                <a href="Тест тапсырмалары.html" button class="button" target="_blank" rel="noopener noreferrer">БАСТАУ</button></a>
+            </div>
+            <div class="block">
+                <div class="title-2">КЕЙСТЕР</div>
+                <div class="image-box">
+                    <img src="Суреттер/кейс.jfif" alt="Описание изображения">
+                </div>
+                <a href="Кейс тапсырмалар.html" button class="button" target="_blank" rel="noopener noreferrer">БАСТАУ</button></a>
+            </div>
+            <div class="block">
+                <div class="title-2">КРИПТОГРАФИЯ</div>
+                <div class="image-box"><img src="Суреттер/Криптография.jfif" alt="Описание изображения"></div>
+                <a href="Криптография тапсырмалар.html" button class="button" target="_blank" rel="noopener noreferrer">БАСТАУ</button></a>
+                
+
+            </div>
+        </div>
+        <video autoplay loop muted class="background-video">
+            <source src="Видео/videoback.mp4" type="video/mp4">
+            Ваш браузер не поддерживает видео.
+        </video>
+        
+
+    </body>
+</html>

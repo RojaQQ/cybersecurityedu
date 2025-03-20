@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест тапсырмалары</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        padding-top: 60px; /* Смещение вниз */
+}
+        .background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.4;
+            z-index: -1;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #e90909;
+            color: white;
+            padding: 15px 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .navbar .title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-menu li {
+            position: relative;
+            margin: 0 15px;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .nav-menu li:hover, .nav-menu li.active {
+            background-color: white;
+            color: #e90909;
+            border-radius: 5px;
+        }
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            color: black;
+            min-width: 200px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            z-index: 1000; /* Поверх всех элементов */
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: black;
+        }
+
+        .dropdown a:hover {
+            background-color: #e90909;
+            color: white;
+        }
+
+        .nav-menu li:hover .dropdown {
+            display: block;
+        }
+        a {
+            color: white; /* Белый цвет текста */
+            text-decoration: none; /* Убирает подчеркивание */
+        }
+        a:hover {
+        color: red; /* Красный цвет при наведении */
+        }
+        .container {
+            position: relative; /* Это позволит кнопке позиционироваться относительно контейнера */
+    width: 65%;
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(235, 232, 232, 0.6);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    padding: 20px;
+        }
+        .button-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            width: 80%;
+        }
+        .test-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            background: linear-gradient(to bottom, #ff0000, #990000);
+            color: white;
+            text-decoration: none;
+            font-size: 22px;
+            font-weight: bold;
+            border-radius: 10px;
+            transition: 0.3s;
+            width: 100%;
+        }
+        .test-button:hover {
+            background: linear-gradient(to bottom, #cc0000, #660000);
+        }
+        .back-btn {
+            position: absolute; /* Кнопка теперь внутри контейнера */
+    top: 20px; /* Отступ сверху */
+    left: 20px; /* Отступ слева */
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.back-btn:hover {
+    background-color: darkred;
+    transform: scale(1.1);
+}
+
+
+
+    </style>
+</head>
+
+<body>
+    
+    <!-- Верхнее меню -->
+    <div class="navbar">
+        <div class="title">ТЕСТ ТАПСЫРМАЛАРЫ</div>
+        <ul class="nav-menu">
+            <li><a href="index.html">Басты бет</a></li> 
+            <li>
+                Сабақтар
+                <div class="dropdown">
+                    <a href="1-тарау.html">1-Интернеттегі қауіпсіздік негіздері</a>
+                    <a href="2-тарау.html">2-Әлеуметтік инженерия және фишинг</a>
+                    <a href="3-тарау.html">3-Криптография</a>
+                    <a href="4-тарау.html">4-Жеке деректерді қорғау және құпиялылық</a>
+                </div>
+            </li>
+            <li class="active">Практикалық тапсырмалар</li>
+            <li>Контактілер</li>
+            <li>Қосымша</li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <button class="back-btn" onclick="goBack()">←</button> <!-- Кнопка теперь сразу после body -->
+        <div class="button-container">
+            <a href="Практикалық сабақтар/Тест тапсырмалары/1-тарау бойынша.html" class="test-button">1-ТАРАУ БОЙЫНША ТЕСТ</a>
+            <a href="Практикалық сабақтар/Тест тапсырмалары/2-тарау бойынша.html" class="test-button">2-ТАРАУ БОЙЫНША ТЕСТ</a>
+            <a href="Практикалық сабақтар/Тест тапсырмалары/3-тарау бойынша.html" class="test-button">3-ТАРАУ БОЙЫНША ТЕСТ</a>
+            <a href="Практикалық сабақтар/Тест тапсырмалары/4-тарау бойынша.html" class="test-button">4-ТАРАУ БОЙЫНША ТЕСТ</a>
+        </div>
+    </div>
+
+    <video autoplay loop muted class="background-video">
+        <source src="Видео/videoback.mp4" type="video/mp4">
+        Ваш браузер не поддерживает видео.
+    </video>
+
+    
+</body>
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+</html>
