@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diffi-Helman</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center; /* Центрирование по горизонтали */
+            margin: 0;
+            background-color: #f4f4f4;
+            min-height: 100vh; /* Обеспечивает, что body занимает всю высоту */
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 75%; /* Увеличиваем ширину */
+            /* max-width: 1200px; /* Можно добавить максимальную ширину, если нужно ограничить */
+            text-align: justify;
+            box-sizing: border-box;
+        }
+
+        /* Для улучшения выравнивания последней строки (необязательно) */
+        .container::after {
+            content: "";
+            display: inline-block;
+            width: 100%;
+            height: 0;
+        }
+        p{ font-size: 22px;
+            font-family: "Times New Roman", serif;
+        }
+        h1,h2,h3{
+            font-family: "Times New Roman", serif;
+        }
+        li{font-size: 22px;
+            font-family: "Times New Roman", serif;}
+        /* Стили для контента, чтобы он не прилипал к верху и низу */
+        .content-wrapper {
+            flex-grow: 1; /* Позволяет контенту занимать доступное вертикальное пространство */
+            padding: 20px 0; /* Добавляем вертикальные отступы для контента */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content-wrapper">
+            <h1>ДИФФИ-ХЕЛМАН АЛГОРИТМІ</h1>
+        
+            <p>Диффи-Хеллман алгоритмі ашық кілт алмасу әдісі болып табылады. Ол екі тараптың ортақ құпия кілтті ашық байланыс арқылы қауіпсіз түрде бөлісуіне мүмкіндік береді.</p>
+            <img src="images/dif.png" alt="Алфавит" width="850" style="display: block; margin: 0 auto;">
+
+            <h2>Бұл алгоритм төмендегі қадамдардан тұрады:</h2>
+            <ul>
+                <li>   p – үлкен жай сан және g – оның түбірі таңдалады.</li>
+            </ul>
+
+            <p><strong>Алиса мен Боб өздеріне жабық кілттер (a және b) таңдайды.</strong></p>
+            <p>Жария кілттер есептеледі:</p>
+            <p>Алиса: A = g<sup>a</sup> mod p</p>
+<p>Боб: B = g<sup>b</sup> mod p</p>
+<p><strong>Алиса мен Боб ортақ құпия кілтті есептейді:</strong></p>
+<p>K = B<sup>a</sup> mod p , K= A<sup>b</sup> mod p</p>
+<hr style="border: none; border-top: 2px solid #000; margin: 20px 0;">
+<h2><strong>ПРАКТИКАЛЫҚ ТАПСЫРМА</strong></h2>
+<p>Алиса мен Боб келесі параметрлерді пайдаланады:</p>
+<ul>
+    <li><strong>p = 23</strong></li>
+    <li><strong>g = 5</strong></li>
+</ul>
+<p>Алиса жабық кілт ретінде <strong>a = 6</strong>, ал Боб <strong>b = 15</strong> таңдайды.</p>
+<p><strong>A, B, K</strong> мәндерін табыңыз. Осы мәндерді табатын Python-да бағдарлама құрыңыз.</p>
+
+        </div>
+    </div>
+</body>
+</html>

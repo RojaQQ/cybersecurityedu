@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XOR</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center; /* Центрирование по горизонтали */
+            margin: 0;
+            background-color: #f4f4f4;
+            min-height: 100vh; /* Обеспечивает, что body занимает всю высоту */
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 75%; /* Увеличиваем ширину */
+            /* max-width: 1200px; /* Можно добавить максимальную ширину, если нужно ограничить */
+            text-align: justify;
+            box-sizing: border-box;
+        }
+
+        /* Для улучшения выравнивания последней строки (необязательно) */
+        .container::after {
+            content: "";
+            display: inline-block;
+            width: 100%;
+            height: 0;
+        }
+        p{ font-size: 22px;
+            font-family: "Times New Roman", serif;
+        }
+        h1,h2,h3{
+            font-family: "Times New Roman", serif;
+        }
+        li{font-size: 22px;
+            font-family: "Times New Roman", serif;}
+        /* Стили для контента, чтобы он не прилипал к верху и низу */
+        .content-wrapper {
+            flex-grow: 1; /* Позволяет контенту занимать доступное вертикальное пространство */
+            padding: 20px 0; /* Добавляем вертикальные отступы для контента */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content-wrapper">
+            <h1>ГАММАЛАУ АРҚЫЛЫ ШИФРЛАУ (ЕКІЛІК МОДУЛЬ, UTF-8)</h1>
+            <p><strong>Гаммалау әдісі </strong>– симметриялық шифрлау әдістерінің бірі, онда ашық мәтін кілт (гамма) көмегімен XOR (екілік модуль бойынша қосу) операциясы арқылы шифрланады. Бұл әдістің басты ерекшелігі – бастапқы мәтінді қалпына келтіру үшін дәл сол гамманы пайдалану керек.</p>
+    <p>Бұл жерде біз <strong>Kazakhstan</strong>  сөзін <strong>Astana</strong>  гаммасымен UTF-8 кодтауында шифрлаймыз..</p>
+    <h2>1. Ашық мәтінді және гамманы дайындау</h2>
+   
+    <ul>
+        <li>Бұл жерде <strong>Kazakhstan</strong>  және <strong>Astana</strong>  сөздерін UTF-8 кодтауында байттарға айналдырдық.</li>
+    </ul>
+    <img src="images/xor.png" alt="Алфавит" width="750" >
+    <h2>2. Гаммалау әдісімен шифрлау</h2>
+    <img src="images/xor1.png" alt="Алфавит" width="750" >
+    <h2>Түсініктеме:</h2>
+    <ul>
+        <li> Әрбір байтты гаммадағы сәйкес байтпен XOR (^) операциясы арқылы шифрлаймыз.</li>
+        <li>Егер гамманың ұзындығы мәтіннен қысқа болса, оны қайталаймыз (i % len(gamma_bytes) арқылы).</li>
+        <li>Шифрланған нәтижені cipher_bytes массивінде сақтаймыз.</li>
+    </ul>
+
+    <h2>3. Шифрланған мәтінді шығару</h2>
+    <img src="images/xor2.png" alt="Алфавит" width="750" >
+
+    <p>Шифрлау нәтижесі: <strong>"0A 12 0E 00 05 09 32 07 15 0F"</strong>  .Бұл HEX түріндегі шифрланған мәлімет.</p>
+    <img src="images/xor3.png" alt="Алфавит" width="750" >
+    <h2>4. ҚОРЫТЫНДЫ</h2>
+    <ul>
+        <li>Бұл жерде біз Kazakhstan сөзін Astana гаммасымен XOR операциясы арқылы шифрладық.</li>
+        <li>UTF-8 кодтауы қолданылды, сондықтан кез келген символдарды шифрлауға болады.</li>
+        <li>Шифрланған нәтиже HEX форматында сақталды.</li>
+    </ul>
+    
+    <p><strong>Гаммалау әдісі</strong> – заманауи криптографияның негізі болып табылады, алайда кілттің кездейсоқ болуын және қайта қолданылмауын қамтамасыз ету маңызды.</p>
+    
+<hr style="border: none; border-top: 2px solid #000; margin: 20px 0;">
+<h2 style="text-transform: uppercase; ">Практикалық тапсырма</h2>
+
+<h2 >1-тапсырма: Шифрлау</h2>
+<p style="margin-bottom: 10px;">Өз есіміңізді XOR әдісін қолданып шифрлаңыз.</p>
+<ul style="margin-left: 20px; margin-bottom: 20px;">
+    <li style="margin-bottom: 5px;"><span style="font-weight: bold; text-transform: uppercase;">ГАММА</span> - Тегіңіз</li>
+</ul>
+
+<h2 >2-тапсырма: Дешифрлау</h2>
+<p style="margin-bottom: 20px;">Мысалдағы <span style="font-weight: bold; text-transform: uppercase;">"0A 12 0E 00 05 09 32 07 15 0F"</span> шифрланған мәтінін дешифрлайтын бағдарлама құрыңыз.</p>
+
+<h2 ">3-тапсырма: Шифрлау</h2>
+<p style="margin-bottom: 10px;"><span style="font-weight: bold; text-transform: uppercase;">"Криптография"</span> сөзін шифрлаңыз.</p>
+<ul style="margin-left: 20px;">
+    <li style="margin-bottom: 5px;"><span style="font-weight: bold; text-transform: uppercase;">ГАММА</span> – "АЛГОРИТМ"</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>

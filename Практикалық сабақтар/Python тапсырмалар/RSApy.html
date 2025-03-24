@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSA</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center; /* Центрирование по горизонтали */
+            margin: 0;
+            background-color: #f4f4f4;
+            min-height: 100vh; /* Обеспечивает, что body занимает всю высоту */
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 75%; /* Увеличиваем ширину */
+            /* max-width: 1200px; /* Можно добавить максимальную ширину, если нужно ограничить */
+            text-align: justify;
+            box-sizing: border-box;
+        }
+
+        /* Для улучшения выравнивания последней строки (необязательно) */
+        .container::after {
+            content: "";
+            display: inline-block;
+            width: 100%;
+            height: 0;
+        }
+        p{ font-size: 22px;
+            font-family: "Times New Roman", serif;
+        }
+        h1,h2,h3{
+            font-family: "Times New Roman", serif;
+        }
+        li{font-size: 22px;
+            font-family: "Times New Roman", serif;}
+        /* Стили для контента, чтобы он не прилипал к верху и низу */
+        .content-wrapper {
+            flex-grow: 1; /* Позволяет контенту занимать доступное вертикальное пространство */
+            padding: 20px 0; /* Добавляем вертикальные отступы для контента */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content-wrapper">
+            <h1>RSA АЛГОРИТМі</h1>
+            <h2>Кіріспе</h2>
+            <p><strong>RSA (Rivest-Shamir-Adleman)</strong>– – ашық кілтті криптографиялық алгоритм.</p>
+    <p>Ол 1977 жылы Рон Ривест, Ади Шамир және Леонард Адлеман тарапынан жасалды. RSA алгоритмі сандардың үлкен көбейткіштерге жіктелуінің күрделілігіне негізделген. Ол екі кілтті қолданады:</p>
+    
+    <ul>
+        <li><strong>Ашық кілт (public key)</strong>– шифрлау үшін қолданылады және оны барлығы біле алады.</li>
+        <li><strong>Жабық кілт (private key) </strong> – тек иесіне белгілі және шифрланған ақпаратты шешу үшін қолданылады.</li>
+    </ul>
+    <p>Бұл жерде біз RSA алгоритмінің жұмысын Python тілінде іске асырамыз. Берілген параметрлер:</p>
+    <ul>
+        <li>  p = 7</li>
+        <li>   q = 13</li>
+        <li>      e = 5</li>
+        <li>   M = 12</li>
+        <li>C = ?</li>
+    </ul>
+    <h2>1.Бастапқы параметрлерді орнату</h2>
+    <img src="images/rsa.png" alt="Алфавит" width="750" >
+    <ul>
+        <li> Бұл жерде M – шифрланатын сан, ал p және q – екі үлкен жай сан.</li>
+    </ul>
+    <h2>2. p және q сандарының жай екенін тексеру</h2>
+    <img src="images/rsa1.png" alt="Алфавит" width="750" >
+    <ul>
+        <li>Мұнда жай санды тексеру үшін p және q сандарының 1-ден үлкен екенін және басқа сандарға бөлінбейтінін анықтаймыз.</li>
+    </ul>
+
+    <h2>3. Егер p мен q жай сан болмаса, бағдарламаны тоқтату</h2>
+    <img src="images/rsa2.png" alt="Алфавит" width="750" >
+    <ul>
+        <li> Егер p немесе q жай сан болмаса, бағдарлама орындалмайды.</li>
+    </ul>
+
+    <h2>4. Егер жай сан болса ары қарай жалғастыру</h2>
+    <p><strong>Негізгі формулалар: n = p * q және φ(n) = (p-1) * (q-1) мәндерін есептейміз.</strong></p>
+    <img src="images/rsa3.png" alt="Алфавит" width="750" >
+    
+
+    <h2>5. e және φ(n) өзара жай сандар екенін тексеру</h2>
+    <img src="images/rsa4.png" alt="Алфавит" width="750" >
+    <ul>
+        <li> Бұл жерде Евклид алгоритмі арқылы e және φ(n) сандарының өзара жай екенін тексереміз.</li>
+    </ul>
+
+    <h2>6. Жабық кілтті (d) табу</h2>
+    <img src="images/rsa5.png" alt="Алфавит" width="750" >
+    <ul>
+        <li> d мәні (e × d) mod φ(n) = 1 шартын қанағаттандыратын ең кіші сан ретінде табылады.</li>
+    </ul>
+    <h2>7. Шифрлау процесі және нәтижені алу</h2>
+    <img src="images/rsa6.png" alt="Алфавит" width="750" >
+    <h2>НӘТИЖЕ:</h2>
+    <img src="images/rsa7.png" alt="Алфавит" width="750" >
+    <h2>5. ҚОРЫТЫНДЫ</h2>
+<p>RSA алгоритмі асимметриялық криптография әдістерінің бірі болып табылады. Бұл әдіс p және q жай сандарын пайдаланып, ашық және жабық кілттерді есептеуге негізделген. Шифрлау <strong>C = M<sup>e</sup> mod n</strong>  формуласымен, ал кері шифрлау <strong> M = C<sup>d</sup> mod n</strong> формуласы арқылы жүзеге асады.</p>
+<p>Бұл алгоритм кеңінен қолданылады және берілген кілттер ұзындығына байланысты қауіпсіздік деңгейі жоғары болып саналады.</p>
+
+
+    
+<hr style="border: none; border-top: 2px solid #000; margin: 20px 0;">
+<h2 style="text-transform: uppercase; ">Практикалық тапсырмалар</h2>
+<p><strong>1-тапсырма:</strong> Берілген параметр:</p>
+<ul>
+    <li>p = 11, q = 17</li>
+    <li>e = 7</li>
+    <li>Мәтін: M = 8</li>
+</ul>
+<p><strong>Шифрмәтінді (C) табыңыз.</strong></p>
+<p><strong>2-тапсырма:</strong> Дешифрлау</p>
+<p>Мысалдағы 38 шифрланған мәтінін дешифрлайтын бағдарлама құрыңыз.</p>
+<p><strong>3-тапсырма:</strong> Шифрлау</p>
+<p><strong>"CRYPTO"</strong> сөзін шифрлаңыз. (<strong>"CRYPTO"</strong> мәтінін ASCII кодыңа түрлендіріңіз)</p>
+<p><strong>Параметрлер:</strong></p>
+<ul>
+    <li>p = 17</li>
+    <li>q=19</li>
+    <li>e = 13</li>
+</ul>
+
+        </div>
+    </div>
+</body>
+</html>
