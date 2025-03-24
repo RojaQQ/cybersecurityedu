@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSA</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center; /* Центрирование по горизонтали */
+            margin: 0;
+            background-color: #f4f4f4;
+            min-height: 100vh; /* Обеспечивает, что body занимает всю высоту */
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 75%; /* Увеличиваем ширину */
+            /* max-width: 1200px; /* Можно добавить максимальную ширину, если нужно ограничить */
+            text-align: justify;
+            box-sizing: border-box;
+        }
+
+        /* Для улучшения выравнивания последней строки (необязательно) */
+        .container::after {
+            content: "";
+            display: inline-block;
+            width: 100%;
+            height: 0;
+        }
+        ul {
+            list-style-type: disc; /* Стиль маркера (черный кружок по умолчанию) */
+        }
+
+        
+        p{ font-size: 22px;
+            font-family: "Times New Roman", serif;
+        }
+        h1,h2,h3{
+            font-family: "Times New Roman", serif;
+        }
+        li{font-size: 22px;
+            font-family: "Times New Roman", serif;}
+        /* Стили для контента, чтобы он не прилипал к верху и низу */
+        .content-wrapper {
+            flex-grow: 1; /* Позволяет контенту занимать доступное вертикальное пространство */
+            padding: 20px 0; /* Добавляем вертикальные отступы для контента */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content-wrapper">
+            <h1>RSA АЛГОРИТМІ БОЙЫНША ТАПСЫРМАЛАРДЫ CRYPTOOL 2 БАҒДАРЛАМАСЫНДА ОРЫНДАУ</h1>
+            <p>
+                <strong>CrypTool 2</strong> — бұл криптографияны зерттеу мен оқытуға арналған ашық бастапқы кодты бағдарлама. Ол шифрлау, дешифрлау және криптоанализ алгоритмдерін визуалды түрде зерттеуге мүмкіндік береді. CrypTool 2 классикалық және заманауи криптография әдістерін, хэш-функцияларын, сондай-ақ ашық кілтті шифрлау алгоритмдерін қолданады. Бағдарлама оқу процесінде қолдануға өте ыңғайлы, себебі оның интерфейсі қарапайым, ал алгоритмдердің орындалуын блок-схема түрінде көруге болады. CrypTool 2 — криптографияның теориялық негіздерін тәжірибемен ұштастыру үшін таптырмас құрал.
+            </p>
+        
+           
+            <h2>Шифрлау: Берілген параметрлер: p = 17, q = 11, e = 13, M = 6.</h2>
+        
+            
+                <h2>1. CrypTool 2 бағдарламасын ашып, жаңа жоба ашу үшін «File» мәзірінен «New» опциясын таңдаңыз.</h2>
+                <h2>Қажетті блоктарды жобаға қосамыз:</h2>
+                    <ul>
+                        <li>Text Input</li>
+                        <li>Text Output</li>
+                        <li>String Encoder</li>
+                        <li>String Decoder</li>
+                        <li>RSA Key Generator</li>
+                        <li>RSA</li>
+                    </ul>
+                    <h2>CrypTool 2 блоктары</h2>
+                    <p><strong>Text Input (Мәтінді енгізу)</strong> – Бұл блок арқылы мәтінді енгізуге болады. Оны шифрлау, дешифрлау немесе басқа криптографиялық операциялар үшін бастапқы дерек ретінде қолданады.</p>
+                    <p><strong>Text Output (Мәтінді шығару)</strong> – Бұл блок операция нәтижесін (шифрланған мәтін, дешифрланған мәтін және т.б.) көрсету үшін қолданылады.</p>
+                    <p><strong>String Encoder (Жолды кодтау)</strong> – Мәтінді белгілі бір кодтау форматына түрлендіреді (мысалы, ASCII, UTF-8 және т.б.). Бұл блок криптографиялық операцияларды орындау үшін деректерді сандық форматқа ауыстырады.</p>
+                    <p><strong>String Decoder (Жолды декодтау)</strong> – Кодталған сандық деректерді бастапқы мәтінге қайта түрлендіреді. Дешифрланған мәліметтерді түсінікті мәтін ретінде көрсетуге мүмкіндік береді.</p>
+                    <p><strong>RSA Key Generator (RSA кілтін генерациялау)</strong> – RSA алгоритмі үшін ашық және жабық кілттерді (e, d, n) автоматты түрде есептеп береді. Бұл блокта бастапқы параметрлерді (p, q, e) орнатуға болады.</p>
+                    <p><strong>RSA</strong> – RSA алгоритмін іске асыратын негізгі блок. Ол ашық кілтпен мәтінді шифрлау (<em>C = M<sup>e</sup> mod n</em>) және жабық кілтпен дешифрлау (<em>M = C<sup>d</sup> mod n</em>) операцияларын орындайды.</p>
+                    <h2>2. Блоктарды бір-бірімен байланыстырамыз.</h2>
+                    <img src="images/rsa.png" alt="Алфавит" width="750" style="display: block; margin: 0 auto;">
+                    <h2>3. Блоктарды баптау</h2>
+                    <ul>
+                        <li> <strong>RSA Key Generator</strong>  блогында қажетті RSA параметрлерін жазамыз:</li>
+                    </ul>
+                    <img src="images/rsa1.png" alt="Алфавит" width="550" style="display: block; margin: 0 auto;">
+                    <ul>
+                        <li> String Encoder және String Decoder,RSA блоктарының баптауын келесідей өзгертеміз:</li>
+                    </ul>
+                    <img src="images/rsa2.png" alt="Алфавит" width="550" style="display: block; margin: 0 auto;">
+                    <p style="text-align: center;"><strong >String Decoder</strong></p>
+                    <img src="images/rsa3.png" alt="Алфавит" width="550" style="display: block; margin: 0 auto;">
+                    <p style="text-align: center;"><strong >String Encoder</strong></p>
+                    <img src="images/rsa4.png" alt="Алфавит" width="550" style="display: block; margin: 0 auto;">
+                    <p style="text-align: center;"><strong >RSA</strong></p>
+                    <h2> String Decoder</h2>
+                    <p><strong>Мақсаты:</strong>Кодталған сандық немесе басқа форматтағы деректерді бастапқы жол түріне қайта түрлендіреді.</p> 
+                    <p><strong>Конфигурация:</strong></p>
+                    <p><strong>Input format (Кіріс форматы):</strong></p>
+                    <ul>
+                        <li>Бұл опция кодталған деректердің форматын (мысалы, Decimal – ондық, Hexadecimal – он алтылық) анықтайды.</li>
+                    </ul>
+                    <p><strong>Use separators for grouping (Топтастыру үшін бөлгіштерді қолдану):</strong></p>
+                    <ul>
+                        <li>Егер деректер бірнеше бөлікке бөлінсе (мысалы, үтір немесе бос орын арқылы), бұл параметрді қосуға болады.</li>
+                    </ul>
+                    <p><strong>Set of separators (Бөлгіштердің жиынтығы):</strong></p>
+                    <ul>
+                        <li> Бұл өріске деректердегі бөліктерді ажырататын таңбаларды енгізуге болады (мысалы, үтір, бос орын).</li>
+                    </ul>
+
+                    <h2> String Encoder</h2>
+                    <p><strong>Мақсаты:</strong>Бастапқы мәтінді белгілі бір форматта (мысалы, сандық немесе символдық код) кодтайды.</p> 
+                    <p><strong>Конфигурация:</strong></p>
+                    <p><strong>Presentation format (Шығыс форматы):</strong></p>
+                    <ul>
+                        <li>Кодталған деректердің қандай форматта ұсынылатынын анықтайды (мысалы, Decimal – ондық, Binary – екілік, Hexadecimal – он алтылық).</li>
+                    </ul>
+                    <p><strong>Maximum length (Максималды ұзындық):</strong></p>
+                    <ul>
+                        <li>Егер деректер бірнеше бөлікке бөлінсе (мысалы, үтір немесе бос орын арқылы), бұл параметрді қосуға болады.</li>
+                    </ul>
+                    
+
+                    <h2>RSA</h2>
+    <p><strong>Конфигурация сипаттамасы:</strong></p>
+    
+    <ol>
+        <li>
+            <strong>Action (Әрекет):</strong>
+            <ul>
+                <li>Бұл параметр арқылы блоктың негізгі функциясын таңдай аласыз:</li>
+                <li><strong>Decryption (Дешифрлау):</strong> Шифрланған деректерді бастапқы деректерге қайта түрлендіру.</li>
+                <li>Егер шифрлау қажет болса, <strong>"Encryption"</strong> параметрі таңдалуы мүмкін.</li>
+            </ul>
+        </li>
+        <li>
+            <strong>Cores used (Қолданылатын ядролар):</strong>
+            <ul>
+                <li>Бағдарлама көп ядролы процессорларды қолдана алады.</li>
+                <li>Тек бір процессор ядросын пайдалану. Көп ядролы режимде жылдамдықты арттыру үшін мәнін өзгертуге болады (мысалы, 2, 4 және т.б.).</li>
+            </ul>
+        </li>
+    </ol>
+
+    <p><strong>Block sizes (Блок өлшемдері):</strong></p>
+    <ol>
+        <li>
+            <strong>Override implicit block sizes (Әдепкі блок өлшемдерін өзгерту):</strong>
+            <ul>
+                <li>Бұл параметр қосулы болса, пайдаланушы енгізу және шығу блоктарының өлшемдерін қолмен өзгерте алады.</li>
+            </ul>
+        </li>
+        <li>
+            <strong>Input block size (Кіріс блогының өлшемі):</strong>
+            <ul>
+                <li>Кіріс деректерін өңдеу үшін қолданылатын деректер блогының өлшемі.</li>
+                <li>Бұл мәнді криптографиялық алгоритмге сәйкес реттеуге болады (мысалы, 8 байт = 64 бит).</li>
+            </ul>
+        </li>
+        <li>
+            <strong>Output block size (Шығыс блогының өлшемі):</strong>
+            <ul>
+                <li>Шығарылатын деректердің блогы үшін өлшем.</li>
+                <li>Ол кіріс өлшеміне сәйкес болуы мүмкін немесе алгоритмге байланысты өзгеруі мүмкін.</li>
+            </ul>
+        </li>
+    </ol>
+
+    <p>
+        <strong>Text Input (Мәтінді енгізу):</strong>
+        Мәтіндік мәнін жазып жобаны орындауға жібереміз. Орындауға жіберу үшін Play батырмасын басып 
+        <strong>Text Output (Мәтінді шығару)</strong> блогында С-дің мәнін көреміз.
+    </p>
+
+    <img src="images/rsa5.png" alt="Алфавит" width="750" style="display: block; margin: 0 auto;">
+    <p> <strong>Жауабы:</strong> С = 95</p>
+
+    <hr style="border: none; border-top: 2px solid #000; margin: 20px 0;">
+<h2 style="text-transform: uppercase; ">Практикалық тапсырма</h2>
+
+<h2 >1-тапсырма: Шифрлау</h2>
+<p style="margin-bottom: 10px;">p = 11, q = 17 ,e = 7</p>
+<p>Мәтін: M = 8</p>
+<p><strong>Шифрмәтінді (C) табыңыз.</strong></p>
+
+
+<h2 >2-тапсырма: Дешифрлау</h2>
+<p>Мысалдағы 95 шифрланған мәтінін  дешифрлайтын бағдарлама құрыңыз.</p>
+
+<h2>3-тапсырма: Шифрлау</h2>
+<p><strong>"CRYPTO"</strong> сөзін шифрлаңыз.( <strong>"CRYPTO"</strong> мәтінін ASCII кодына түрлендіріңіз)</p>
+<h2>Параметрлер:</h2>
+<p>p=17, q=19, e = 13</p>
+        </div>
+    </div>
+</body>
+</html>
