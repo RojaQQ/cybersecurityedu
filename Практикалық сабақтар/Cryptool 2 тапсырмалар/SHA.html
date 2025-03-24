@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHA</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center; /* Центрирование по горизонтали */
+            margin: 0;
+            background-color: #f4f4f4;
+            min-height: 100vh; /* Обеспечивает, что body занимает всю высоту */
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 75%; /* Увеличиваем ширину */
+            /* max-width: 1200px; /* Можно добавить максимальную ширину, если нужно ограничить */
+            text-align: justify;
+            box-sizing: border-box;
+        }
+
+        /* Для улучшения выравнивания последней строки (необязательно) */
+        .container::after {
+            content: "";
+            display: inline-block;
+            width: 100%;
+            height: 0;
+        }
+        ul {
+            list-style-type: disc; /* Стиль маркера (черный кружок по умолчанию) */
+        }
+
+        
+        p{ font-size: 22px;
+            font-family: "Times New Roman", serif;
+        }
+        h1,h2,h3{
+            font-family: "Times New Roman", serif;
+        }
+        li{font-size: 22px;
+            font-family: "Times New Roman", serif;}
+        /* Стили для контента, чтобы он не прилипал к верху и низу */
+        .content-wrapper {
+            flex-grow: 1; /* Позволяет контенту занимать доступное вертикальное пространство */
+            padding: 20px 0; /* Добавляем вертикальные отступы для контента */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content-wrapper">
+            <h1>SHA-256 ХЭШ-ФУНКЦИЯСЫ </h1>
+            <p>
+                <strong>SHA-256 (Secure Hash Algorithm 256-bit) </strong> – криптографиялық хэш-функция, 256 биттік (32 байт) хэш мәнін жасайды. Бұл алгоритм қайтымсыз және деректердің өзгермегенін тексеру үшін қолданылады.</p>
+                <h2>1. Жаңа жобаны бастау</h2>
+                <p><strong>Home → Жаңа (New)</strong> таңдаңыз. Жаңа жұмыс кеңістігі (Workspace) ашылады.</p>
+                <p>Қажетті блоктарды жобаға қосамыз:</p>
+                <ul>
+                    <li>Text Input(Мәтінді енгізу)</li>
+                    <li>Text Output(Хэш мәтінді алу)</li>
+                    <li>SHA (Хэштеу блогы)</li>
+                    
+                </ul>
+
+                <h2>Text Input (Мәтін енгізу)</h2>
+                <p><strong>Мақсаты:</strong> </p>
+                <ul>
+                    <li>Бұл блок арқылы хэштеу қажет мәтінді енгіземіз.</li>
+                    <li>Кез келген мәтінді енгізуге болады (мысалы: "Hello, World!")</li>
+                </ul>
+                <h2>SHA (Хэштеу блогы)</h2>
+                <p><strong>Мақсаты:</strong> Бұл блок мәтінді хэшке түрлендіреді. Хэштеу – біржақты процесс, яғни бастапқы мәтінді қайта қалпына келтіру мүмкін емес.</p>
+                <p><strong>Параметрлері:</strong></p>
+                <ul>
+                    <li>  SHA Function (SHA-256)</li>
+                </ul>
+                
+                <h2>Text Output (Мәтін шығару)</h2>
+                <p><strong>Мақсаты:</strong> Бұл блок хэштелген нәтижені көрсету үшін қолданылады</p>
+                <h2>2. Блоктарды суреттегідей байланыстыру</h2>
+    <img src="images/sha.png" alt="Алфавит" width="750" style="display: block; margin: 0 auto;">
+    
+
+    <h2>3. Мәндерді енгізіп нәтижені көру</h2>
+    <p>"Play" (<span style="color: red;">▶</span>) түймесін басып, хэштеу нәтижесін қараңыз.</p>
+    <img src="images/sha1.png" alt="Алфавит" width="750" style="display: block; margin: 0 auto;">       
+    <p><strong>Нәтижесі:</strong>“HELLO WORLD” мәтінің   SHA-256 хэш-функциясын пайдалана отырып хэштеу операциясын жасадық.</p>   
+    
+    
+    
+    <h2>Қорытынды</h2>
+            <ul>
+                <li>SHA-256 – қайтымсыз хэш-функция, оны деректердің бүтіндігін тексеру үшін қолдануға болады.</li>
+                <li>  Cryptool 2-де SHA-256 алгоритмін оңай жүзеге асырып, нәтижесін HEX немесе Base64 форматында көруге болады.</li>
+                <li>Бұл әдіс құпиясөздерді, файлдарды немесе басқа деректерді хэштеу үшін пайдалы.</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
