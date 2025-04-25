@@ -215,6 +215,78 @@
         a:hover {
         color: red; /* Красный цвет при наведении */
         }
+        #ai-icon {
+    position: fixed; /* Фиксированное позиционирование */
+    bottom: 20px;    /* Отступ снизу */
+    right: 20px;     /* Отступ справа */
+    width: 50px;     /* Ширина */
+    height: 50px;    /* Высота */
+    background-color: #007bff; /* Синий цвет фона */
+    color: white;      /* Белый цвет текста/иконки */
+    border-radius: 50%; /* Круглая форма */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;   /* Размер иконки/текста */
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Тень */
+    z-index: 1000; /* Поверх других элементов */
+    transition: background-color 0.3s;
+}
+
+#ai-icon:hover {
+    background-color: #0056b3; /* Цвет при наведении */
+}
+
+/* Стили для панели ИИ */
+#ai-panel {
+    position: fixed;
+    top: 0;
+    right: 0; /* Появляется справа */
+    width: 50%; /* Ширина в половину экрана */
+    height: 100%; /* Высота на весь экран */
+    background-color: #f8f9fa; /* Светлый фон */
+    border-left: 1px solid #dee2e6; /* Разделительная линия */
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.15); /* Тень слева */
+    z-index: 1001; /* Поверх значка */
+    transform: translateX(100%); /* Изначально скрыта за правым краем */
+    transition: transform 0.4s ease-in-out; /* Плавная анимация появления */
+    display: flex;
+    flex-direction: column; /* Элементы внутри располагаются вертикально */
+}
+
+/* Класс для отображения панели */
+#ai-panel.visible {
+    transform: translateX(0); /* Сдвигаем панель в видимую область */
+}
+
+/* Кнопка закрытия */
+#close-panel-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 28px;
+    font-weight: bold;
+    color: #6c757d;
+    cursor: pointer;
+    padding: 0 5px;
+    line-height: 1;
+}
+
+#close-panel-btn:hover {
+    color: #343a40;
+}
+
+/* Iframe для контента */
+#ai-content-frame {
+    flex-grow: 1; /* Занимает все доступное пространство по высоте */
+    width: 100%;
+    height: 100%; /* Займет всю высоту flex-контейнера */
+    border: none; /* Убираем рамку iframe */
+    margin-top: 45px; /* Оставляем место для кнопки закрытия */
+}
     </style>
 </head>
 <body>
@@ -238,7 +310,13 @@
             <li><a href="Қосымша.html">Қосымша</a></li>
         </ul>
     </div>
+    <div id="ai-icon" title="Открыть панель ИИ">
+        🤖 </div>
 
+    <div id="ai-panel">
+        <button id="close-panel-btn" title="Закрыть панель">×</button>
+        <iframe id="ai-content-frame" src="" frameborder="0"></iframe>
+        </div>
     <!-- Видео -->
     <!-- Фоновое видео -->
     <video autoplay loop muted class="background-video">
@@ -255,7 +333,55 @@
             криптография және жеке деректерді қорғау тақырыптарын қамтиды.</p>
     </div>
 
-    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+    const aiIcon = document.getElementById('ai-icon');
+    const aiPanel = document.getElementById('ai-panel');
+    const closeButton = document.getElementById('close-panel-btn');
+    const aiFrame = document.getElementById('ai-content-frame');
+    const aiPageUrl = 'CyberAlaman.html'; // Имя файла для загрузки в iframe
+
+    let isPanelVisible = false; // Отслеживаем состояние панели
+
+    // Функция открытия панели
+    function openPanel() {
+        if (!isPanelVisible) {
+            // Устанавливаем источник iframe только при первом открытии
+            // или если он был очищен
+            if (aiFrame.src !== aiPageUrl) {
+                 aiFrame.src = aiPageUrl;
+            }
+            aiPanel.classList.add('visible');
+            isPanelVisible = true;
+        }
+    }
+
+    // Функция закрытия панели
+    function closePanel() {
+        if (isPanelVisible) {
+            aiPanel.classList.remove('visible');
+            // Опционально: очистить iframe при закрытии для остановки скриптов
+            // aiFrame.src = 'about:blank';
+            isPanelVisible = false;
+        }
+    }
+
+    // Открыть панель по клику на иконку
+    aiIcon.addEventListener('click', openPanel);
+
+    // Закрыть панель по клику на кнопку закрытия
+    closeButton.addEventListener('click', closePanel);
+
+    // Опционально: Закрывать панель при клике вне ее области
+    /*
+    document.addEventListener('click', function(event) {
+        if (isPanelVisible && !aiPanel.contains(event.target) && event.target !== aiIcon) {
+            closePanel();
+        }
+    });
+    */
+});
+    </script>
 
     
 
