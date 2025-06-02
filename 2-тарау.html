@@ -11,7 +11,6 @@
             padding: 0;
         }
 
-        /* Верхнее меню */
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -24,7 +23,6 @@
             left: 0;
             width: 100%;
             z-index: 1000;
-            
         }
 
         .navbar .title {
@@ -52,8 +50,6 @@
             border-radius: 5px;
         }
         
-
-        /* Выпадающее меню */
         .dropdown {
             display: none;
             position: absolute;
@@ -64,7 +60,7 @@
             min-width: 200px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             border-radius: 5px;
-            z-index: 99999; /* Поверх всех элементов */
+            z-index: 99999;
         }
 
         .dropdown a {
@@ -83,7 +79,6 @@
             display: block;
         }
 
-        /* Видео */
         .video-container {
             position: relative;
             width: 100%;
@@ -103,11 +98,9 @@
             height: 100%;
             object-fit: cover;
             opacity: 0.8;
-            pointer-events: none
-            
+            pointer-events: none;
         }
 
-        /* Вкладки */
         .tabs {
             display: flex;
             justify-content: space-around;
@@ -139,8 +132,7 @@
             color: #c59c13;
             font-weight: bold;
         }
-
-        /* Контент */
+      
         .content {
             display: none;
             width: 100%;
@@ -148,7 +140,6 @@
             padding: 20px;
             border: 2px solid #c59c13;
             border-radius: 25px;
-            
         }
 
         .content.active {
@@ -161,7 +152,6 @@
             border: none;
         }
 
-        /* Галерея */
         .gallery {
             display: flex;
             flex-wrap: wrap;
@@ -183,21 +173,131 @@
             transform: scale(1.1);
         }
         a {
-            color: white; /* Белый цвет текста */
-            text-decoration: none; /* Убирает подчеркивание */
+            color: white; 
+            text-decoration: none; 
         }
         a:hover {
-        color: red; /* Красный цвет при наведении */
+            color: red; 
         }
 
+        /* Burger menu icon */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 10px;
+            margin-right: 20px;
+        }
+
+        .menu-toggle .bar {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 4px 0;
+            transition: 0.4s;
+        }
+
+        /* Responsive design for smaller screens */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: row;
+                justify-content: space-between;
+                padding: 10px 20px;
+            }
+
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background-color: #e90909;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                padding: 10px 0;
+                text-align: center;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-menu li {
+                margin: 5px 0;
+                width: 100%;
+            }
+
+            .dropdown {
+                position: static;
+                width: 100%;
+                box-shadow: none;
+                border-radius: 0;
+                background-color: #e90909;
+            }
+
+            .dropdown a {
+                color: white;
+            }
+
+            .dropdown a:hover {
+                background-color: white;
+                color: #e90909;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .video-container {
+                height: 250px;
+                margin-top: 70px;
+            }
+
+            .tabs {
+                flex-direction: column;
+                top: auto;
+                position: static;
+            }
+
+            .tab {
+                border-right: none;
+                border-bottom: 1px solid white;
+            }
+
+            .tab:last-child {
+                border-bottom: none;
+            }
+
+            .content {
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar .title {
+                font-size: 18px;
+            }
+
+            .video-container {
+                height: 180px;
+                margin-top: 70px;
+            }
+
+            .tab {
+                font-size: 16px;
+                padding: 10px;
+            }
+        }
     </style>
 </head>
 <body>
-
-    <!-- Верхнее меню -->
     <div class="navbar">
         <div class="title">ӘЛЕУМЕТТІК ИНЖЕНЕРИЯ ЖӘНЕ ФИШИНГ </div>
-        <ul class="nav-menu">
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        <ul class="nav-menu" id="nav-menu">
             <li><a href="index.html">Басты бет</a></li>
             <li class="active">
                 Сабақтар
@@ -209,12 +309,10 @@
                 </div>
             </li>
             <li><a href="Практикалық сабақтар.html">Практикалық тапсырмалар</a></li>
-            <li><a href="Контактілер.html">Контактілер</a></li>
+            <li>Контактілер</li>
             <li><a href="Қосымша.html">Қосымша</a></li>
         </ul>
     </div>
-
-    <!-- Видео -->
     <div class="video-container">
         <video autoplay loop muted>
             <source src="Видео/video2.mp4"  type="video/mp4">
@@ -222,7 +320,6 @@
         </video>
     </div>
 
-    <!-- Вкладки -->
     <div class="tabs">
         <div class="tab active" onclick="openTab('lesson1', this)">1-сабақ</div>
         <div class="tab" onclick="openTab('lesson2', this)">2-сабақ</div>
@@ -230,7 +327,6 @@
         <div class="tab" onclick="openTab('lesson4', this)">4-сабақ</div>
     </div>
 
-    <!-- Контент -->
     <div id="lesson1" class="content active">
         <iframe src="Теориялық сабақтар/2-тарау/1-сабақ/1-сабақ.html"></iframe>
     </div>
@@ -243,10 +339,6 @@
     <div id="lesson4" class="content">
         <iframe src="Теориялық сабақтар/2-тарау/4-сабақ/4-сабақ.html"></iframe>
     </div>
-
-    
-
-    <!-- JavaScript -->
     <script>
         function openTab(tabId, element) {
             document.querySelectorAll('.content').forEach(tab => tab.classList.remove('active'));
@@ -255,7 +347,14 @@
             document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
             element.classList.add('active');
         }
-    </script>
 
+        // Mobile menu toggle
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navMenu = document.getElementById('nav-menu');
+
+        mobileMenu.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+    </script>
 </body>
 </html>
