@@ -8,10 +8,10 @@
         body {
             font-family: sans-serif;
             display: flex;
-            justify-content: center; /* Центрирование по горизонтали */
+            justify-content: center; 
             margin: 0;
             background-color: #f4f4f4;
-            min-height: 100vh; /* Обеспечивает, что body занимает всю высоту */
+            min-height: 100vh; 
         }
 
         .container {
@@ -19,13 +19,11 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            width: 75%; /* Увеличиваем ширину */
-            /* max-width: 1200px; /* Можно добавить максимальную ширину, если нужно ограничить */
+            width: 75%; 
             text-align: justify;
             box-sizing: border-box;
         }
 
-        /* Для улучшения выравнивания последней строки (необязательно) */
         .container::after {
             content: "";
             display: inline-block;
@@ -33,22 +31,76 @@
             height: 0;
         }
         ul {
-            list-style-type: disc; /* Стиль маркера (черный кружок по умолчанию) */
+            list-style-type: disc; 
         }
 
-        
-        p{ font-size: 22px;
+        p{ 
+            font-size: 22px;
             font-family: "Times New Roman", serif;
         }
         h1,h2,h3{
             font-family: "Times New Roman", serif;
         }
-        li{font-size: 22px;
-            font-family: "Times New Roman", serif;}
-        /* Стили для контента, чтобы он не прилипал к верху и низу */
+        li{
+            font-size: 22px;
+            font-family: "Times New Roman", serif;
+        }
+        
         .content-wrapper {
-            flex-grow: 1; /* Позволяет контенту занимать доступное вертикальное пространство */
-            padding: 20px 0; /* Добавляем вертикальные отступы для контента */
+            flex-grow: 1;
+            padding: 20px 0; 
+        }
+
+        /* Адаптивный дизайн */
+        @media (max-width: 768px) {
+            body {
+                min-height: auto; 
+                flex-direction: column; 
+                align-items: center; 
+            }
+
+            .container {
+                width: 95%; 
+                padding: 15px; 
+            }
+
+            h1 {
+                font-size: 28px; 
+            }
+
+            h2, h3 {
+                font-size: 24px; 
+            }
+
+            p, li {
+                font-size: 18px; 
+            }
+
+            .container img {
+                max-width: 100%; 
+                height: auto; 
+                display: block; 
+                margin: 10px auto; 
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                width: 98%; 
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            h2, h3 {
+                font-size: 20px;
+            }
+
+            p, li {
+                font-size: 16px;
+            }
         }
     </style>
 </head>
@@ -57,7 +109,7 @@
         <div class="content-wrapper">
             <h1>DES АЛГОРИТМЫ</h1>
             <p>
-                <strong>DES (Data Encryption Standard)</strong> – блоктық шифрлау алгоритмі, 64 биттік блоктарды 56 биттік кілт арқылы шифрлайды. Бұл алгоритм симметриялық болып табылады, яғни дешифрлау сол кілтті қолдану арқылы орындалады.Бұл жерде біз  DES алгоритмын пайдаланып, мәтінді шифрлау процесін қарастырамыз.</p>
+                <strong>DES (Data Encryption Standard)</strong> – блоктық шифрлау алгоритмі, 64 биттік блоктарды 56 биттік кілт арқылы шифрлайды. Бұл алгоритм симметриялық болып табылады, яғни дешифрлау сол кілтті қолдану арқылы орындалады. Бұл жерде біз DES алгоритмын пайдаланып, мәтінді шифрлау процесін қарастырамыз.</p>
                 <h2>1. Жаңа жобаны бастау</h2>
                 <p><strong>Home → Жаңа (New)</strong> таңдаңыз. Жаңа жұмыс кеңістігі (Workspace) ашылады.</p>
                 <p>Қажетті блоктарды жобаға қосамыз:</p>
@@ -86,7 +138,7 @@
                 <p><strong>Мақсаты:</strong></p>
                 <ul>
                     <li>Бұл блок DES шифрланған немесе дешифрланған мәтінді көрсетеді.</li>
-                    <li>Егер шифрланған мәтін бинарлы түрінде  болса, онда алдымен String Encoder қолданылады.</li>
+                    <li>Егер шифрланған мәтін бинарлы түрінде болса, онда алдымен String Encoder қолданылады.</li>
                 </ul>
                 
                 <h2>2. Блоктарды суреттегідей байланыстыру</h2>
@@ -104,7 +156,7 @@
     <h2>3. Мәндерді енгізіп нәтижені көру</h2>
     <p>"Play" (<span style="color: red;">▶</span>) түймесін басып, шифрлау нәтижесін қараңыз.</p>
     <img src="images/des3.png" alt="Алфавит" width="750" style="display: block; margin: 0 auto;">       
-    <p>01 A2 B3 C4 D5 E6 07 F8 мәтінің   13 34 57 79 9B BC DF F1 кілті арқылы шифрлап, <strong>"84 3F DE E6 9F 64 1B 07"</strong>   шифрланған мәтінін алдық. Бұл HEX түріндегі шифрланған мәлімет.</p>
+    <p>01 A2 B3 C4 D5 E6 07 F8 мәтінің 13 34 57 79 9B BC DF F1 кілті арқылы шифрлап, <strong>"84 3F DE E6 9F 64 1B 07"</strong> шифрланған мәтінін алдық. Бұл HEX түріндегі шифрланған мәлімет.</p>
     
     
     
@@ -121,7 +173,7 @@
             <h2 >1-тапсырма: Шифрлау</h2>
             <p>Теориялық бөлімде талданған мысалдың дұрыс екендігіне көз жеткізіңіз.</p>
             <h2 >2-тапсырма: Дешифрлау</h2>
-           <p>Мысалдағы <strong>"84 3F DE E6 9F 64 1B 07"</strong> шифрланған мәтінін  дефирлаңыз(Ол үшін DES блогын қолданыңыз).</p>
+           <p>Мысалдағы <strong>"84 3F DE E6 9F 64 1B 07"</strong> шифрланған мәтінін дефирлаңыз(Ол үшін DES блогын қолданыңыз).</p>
         </div>
     </div>
 </body>
