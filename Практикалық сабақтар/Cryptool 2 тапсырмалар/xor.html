@@ -8,10 +8,10 @@
         body {
             font-family: sans-serif;
             display: flex;
-            justify-content: center; /* Центрирование по горизонтали */
+            justify-content: center; 
             margin: 0;
             background-color: #f4f4f4;
-            min-height: 100vh; /* Обеспечивает, что body занимает всю высоту */
+            min-height: 100vh; 
         }
 
         .container {
@@ -19,31 +19,84 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            width: 75%; /* Увеличиваем ширину */
-            /* max-width: 1200px; /* Можно добавить максимальную ширину, если нужно ограничить */
+            width: 75%; 
             text-align: justify;
             box-sizing: border-box;
         }
 
-        /* Для улучшения выравнивания последней строки (необязательно) */
         .container::after {
             content: "";
             display: inline-block;
             width: 100%;
             height: 0;
         }
-        p{ font-size: 22px;
+        p{ 
+            font-size: 22px;
             font-family: "Times New Roman", serif;
         }
         h1,h2,h3{
             font-family: "Times New Roman", serif;
         }
-        li{font-size: 22px;
-            font-family: "Times New Roman", serif;}
-        /* Стили для контента, чтобы он не прилипал к верху и низу */
+        li{
+            font-size: 22px;
+            font-family: "Times New Roman", serif;
+        }
+        
         .content-wrapper {
-            flex-grow: 1; /* Позволяет контенту занимать доступное вертикальное пространство */
-            padding: 20px 0; /* Добавляем вертикальные отступы для контента */
+            flex-grow: 1; 
+            padding: 20px 0; 
+        }
+
+        /* Адаптивный дизайн */
+        @media (max-width: 768px) {
+            body {
+                min-height: auto; 
+                flex-direction: column; 
+                align-items: center; 
+            }
+
+            .container {
+                width: 95%; 
+                padding: 15px; 
+            }
+
+            h1 {
+                font-size: 28px; 
+            }
+
+            h2, h3 {
+                font-size: 24px; 
+            }
+
+            p, li {
+                font-size: 18px; 
+            }
+
+            .container img {
+                max-width: 100%; 
+                height: auto; 
+                display: block; 
+                margin: 10px auto; 
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                width: 98%; 
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            h2, h3 {
+                font-size: 20px;
+            }
+
+            p, li {
+                font-size: 16px;
+            }
         }
     </style>
 </head>
@@ -51,88 +104,89 @@
     <div class="container">
         <div class="content-wrapper">
             <h1>ГАММАЛАУ АРҚЫЛЫ ШИФРЛАУ (ЕКІЛІК МОДУЛЬ, UTF-8)</h1>
-            <p><strong>Cryptool 2 (CT2)</strong> — криптографиялық әдістерді зерттеу мен оқытуға арналған бағдарламалық орта.</p>
-    <p><strong>XOR</strong> (қосылу немесе: eXclusive OR) – симметриялық шифрлау әдістерінің бірі. Бұл әдіс ашық мәтін мен кілттің биттерін XOR операциясы арқылы біріктіріп, шифрланған мәтінді алу үшін қолданылады.</p>
-    <p>Бұл жерде біз XOR операциясын пайдаланып, мәтінді шифрлау процесін қарастырамыз.</p>
-    <h2>1. Жаңа жобаны бастау</h2>
-    <p><strong>Home → Жаңа (New)</strong> таңдаңыз. Жаңа жұмыс кеңістігі (Workspace) ашылады.</p>
-    <p>Қажетті блоктарды жобаға қосамыз:</p>
-    <ul>
-        <li>Text Input (2 дана, біреуі шифрланатын мәтін, екіншісі кілт (гамма))</li>
-        <li>Text Output (Шифрланған мәтінді алу)</li>
-        <li>XOR (XOR блогы)</li>
-        <li>String Encoder (Жолды кодтау)</li>
-    </ul>
-    <h2>Text Input (Мәтін енгізу)</h2>
-    <p><strong>Мақсаты:</strong> Қолданушы енгізетін ашық мәтінді немесе кілт (гамма) сақтау.</p>
-    <p><strong>Сипаттамасы:</strong></p>
-    <ul>
-        <li>Бірінші "Text Input" блогы – шифрланатын ашық мәтінді енгізу үшін қолданылады.</li>
-        <li>Екінші "Text Input" блогы – XOR операциясы үшін кілт (гамма) мәнін енгізуге арналған.</li>
-        <li>Егер кілт ұзындығы мәтіннен қысқа болса, ол автоматты түрде қайталанып қолданылады.</li>
-    </ul>
-    <h2>XOR (XOR блогы)</h2>
-    <p><strong>Мақсаты:</strong> XOR операциясы арқылы шифрлау немесе дешифрлау.</p>
-    <p><strong>Сипаттамасы:</strong></p>
-    <ul>
-        <li>XOR операциясы бит деңгейінде орындалады, яғни ашық мәтін мен кілттің әрбір биті XOR (^) логикалық операциясы арқылы біріктіріледі.</li>
-        <li>Егер дәл сол кілтпен шифрланған мәтінге қайтадан XOR қолданылса, бастапқы мәтін қалпына келеді.</li>
-        <li>Бұл әдіс гаммалық шифрлауда және кейбір қарапайым криптографиялық алгоритмдерде қолданылады.</li>
-    </ul>
-    <h2>String Encoder (Жолды кодтау)</h2>
-    <p><strong>Мақсаты:</strong> Мәтінді басқа кодтау форматына айналдыру (мысалы, біздің тапсырмамызда 16-форматқа).</p>
-    <p><strong>Сипаттамасы:</strong></p>
-    <ul>
-        <li>XOR операциясы жиі биттік деңгейде жұмыс істейтіндіктен, нәтижені оқылатын форматқа айналдыру қажет.</li>
-        <li>String Encoder блогы XOR шифрланған мәтінді адам оқи алатын кодтарға (мысалы, Base64 немесе HEX) түрлендіреді.</li>
-        <li>Бұл процесс шифрланған деректерді сақтау немесе тасымалдау кезінде ыңғайлы.</li>
-    </ul>
-    <h2>Text Output (Мәтін шығару)</h2>
-    <p><strong>Мақсаты:</strong> Шифрланған немесе дешифрланған мәтінді көрсету.</p>
-    <p><strong>Сипаттамасы:</strong></p>
-    <ul>
-        <li>Бұл блок XOR блогынан шыққан нәтижені немесе кодталған жолды көрсету үшін қолданылады.</li>
-        <li>Қолданушы нәтижені көшіріп, басқа жерге енгізе алады.</li>
-    </ul>
-    <p style="color: red;
-            font-weight: bold;">ЕСКЕРТУ</p>
-    <p style="font-style: italic;">
-        ЕГЕР XOR ШИФРЛАУЫНДА САНДАР (BIN НЕМЕСЕ HEX) ҚОЛДАНЫЛСА, STRING DECODER (ЖОЛДЫ ДЕКОДТАУ) БЛОГЫ ҚАЖЕТ БОЛУЫ МҮМКІН. 
-        СЕБЕБІ, TEXT INPUT (МӘТІН ЕНГІЗУ) БЛОГЫ ТЕК МӘТІНДІК ФОРМАТТАҒЫ ДЕРЕКТЕРДІ ЕНГІЗУГЕ АРНАЛҒАН.
-    </p>
-    <h2>2. Блоктарды суреттегідей байланыстыру</h2>
-    <img src="images/xor.png" alt="Алфавит" width="750" style="display: block; margin: 0 auto;">
-    <h2>3. Мәндерді енгізіп нәтижені көру</h2>
+            <p><strong>Cryptool 2 (CT2)</strong> — криптографиялық әдістерді зерттеу мен оқытуға арналған бағдарламалық орта.
+            </p>
+            <p><strong>XOR</strong> (қосылу немесе: eXclusive OR) – симметриялық шифрлау әдістерінің бірі. Бұл әдіс ашық мәтін мен кілттің биттерін XOR операциясы арқылы біріктіріп, шифрланған мәтінді алу үшін қолданылады.</p>
+            <p>Бұл жерде біз XOR операциясын пайдаланып, мәтінді шифрлау процесін қарастырамыз.</p>
+            <h2>1. Жаңа жобаны бастау</h2>
+            <p><strong>Home → Жаңа (New)</strong> таңдаңыз. Жаңа жұмыс кеңістігі (Workspace) ашылады.</p>
+            <p>Қажетті блоктарды жобаға қосамыз:</p>
+            <ul>
+                <li>Text Input (2 дана, біреуі шифрланатын мәтін, екіншісі кілт (гамма))</li>
+                <li>Text Output (Шифрланған мәтінді алу)</li>
+                <li>XOR (XOR блогы)</li>
+                <li>String Encoder (Жолды кодтау)</li>
+            </ul>
+            <h2>Text Input (Мәтін енгізу)</h2>
+            <p><strong>Мақсаты:</strong> Қолданушы енгізетін ашық мәтінді немесе кілт (гамма) сақтау.</p>
+            <p><strong>Сипаттамасы:</strong></p>
+            <ul>
+                <li>Бірінші "Text Input" блогы – шифрланатын ашық мәтінді енгізу үшін қолданылады.</li>
+                <li>Екінші "Text Input" блогы – XOR операциясы үшін кілт (гамма) мәнін енгізуге арналған.</li>
+                <li>Егер кілт ұзындығы мәтіннен қысқа болса, ол автоматты түрде қайталанып қолданылады.</li>
+            </ul>
+            <h2>XOR (XOR блогы)</h2>
+            <p><strong>Мақсаты:</strong> XOR операциясы арқылы шифрлау немесе дешифрлау.</p>
+            <p><strong>Сипаттамасы:</strong></p>
+            <ul>
+                <li>XOR операциясы бит деңгейінде орындалады, яғни ашық мәтін мен кілттің әрбір биті XOR (^) логикалық операциясы арқылы біріктіріледі.</li>
+                <li>Егер дәл сол кілтпен шифрланған мәтінге қайтадан XOR қолданылса, бастапқы мәтін қалпына келеді.</li>
+                <li>Бұл әдіс гаммалық шифрлауда және кейбір қарапайым криптографиялық алгоритмдерде қолданылады.</li>
+            </ul>
+            <h2>String Encoder (Жолды кодтау)</h2>
+            <p><strong>Мақсаты:</strong> Мәтінді басқа кодтау форматына айналдыру (мысалы, біздің тапсырмамызда 16-форматқа).</p>
+            <p><strong>Сипаттамасы:</strong></p>
+            <ul>
+                <li>XOR операциясы жиі биттік деңгейде жұмыс істейтіндіктен, нәтижені оқылатын форматқа айналдыру қажет.</li>
+                <li>String Encoder блогы XOR шифрланған мәтінді адам оқи алатын кодтарға (мысалы, Base64 немесе HEX) түрлендіреді.</li>
+                <li>Бұл процесс шифрланған деректерді сақтау немесе тасымалдау кезінде ыңғайлы.</li>
+            </ul>
+            <h2>Text Output (Мәтін шығару)</h2>
+            <p><strong>Мақсаты:</strong> Шифрланған немесе дешифрланған мәтінді көрсету.</p>
+            <p><strong>Сипаттамасы:</strong></p>
+            <ul>
+                <li>Бұл блок XOR блогынан шыққан нәтижені немесе кодталған жолды көрсету үшін қолданылады.</li>
+                <li>Қолданушы нәтижені көшіріп, басқа жерге енгізе алады.</li>
+            </ul>
+            <p style="color: red;
+                    font-weight: bold;">ЕСКЕРТУ</p>
+            <p style="font-style: italic;">
+                ЕГЕР XOR ШИФРЛАУЫНДА САНДАР (BIN НЕМЕСЕ HEX) ҚОЛДАНЫЛСА, STRING DECODER (ЖОЛДЫ ДЕКОДТАУ) БЛОГЫ ҚАЖЕТ БОЛУЫ МҮМКІН.
+                СЕБЕБІ, TEXT INPUT (МӘТІН ЕНГІЗУ) БЛОГЫ ТЕК МӘТІНДІК ФОРМАТТАҒЫ ДЕРЕКТЕРДІ ЕНГІЗУГЕ АРНАЛҒАН.
+            </p>
+            <h2>2. Блоктарды суреттегідей байланыстыру</h2>
+            <img src="images/xor.png" alt="Алфавит" width="750" style="display: block; margin: 0 auto;">
+            <h2>3. Мәндерді енгізіп нәтижені көру</h2>
 
-<p>"Play" (<span style="color: red;">▶</span>) түймесін басып, шифрлау нәтижесін қараңыз.</p>
-<img src="images/xor1.png" alt="Алфавит" width="750" style="display: block; margin: 0 auto;">
-<p>
-    "Kazakhstan" сөзін "Astana" гаммасымен шифрлап, 
-    <span style="font-weight: bold;">"0A 12 0E 00 05 09 32 07 15 0F"</span> 
-    шифрланған мәтінін алдық. Бұл HEX түріндегі шифрланған мәлімет.
-</p>
-<h2>Қорытынды</h2>
-<ul>
-    <li>XOR – жылдам және жеңіл шифрлау әдісі.</li>
-    <li>Cryptool 2-де бұл әдісті оңай қолданып, шифрлау және дешифрлау процесін көрнекі түрде тексеруге болады.</li>
-</ul>
-<hr style="border: none; border-top: 2px solid #000; margin: 20px 0;">
-<h2 style="text-transform: uppercase; ">Практикалық тапсырма</h2>
+        <p>"Play" (<span style="color: red;">▶</span>) түймесін басып, шифрлау нәтижесін қараңыз.</p>
+        <img src="images/xor1.png" alt="Алфавит" width="750" style="display: block; margin: 0 auto;">
+        <p>
+            "Kazakhstan" сөзін "Astana" гаммасымен шифрлап, 
+            <span style="font-weight: bold;">"0A 12 0E 00 05 09 32 07 15 0F"</span> 
+            шифрланған мәтінін алдық. Бұл HEX түріндегі шифрланған мәлімет.
+        </p>
+        <h2>Қорытынды</h2>
+        <ul>
+            <li>XOR – жылдам және жеңіл шифрлау әдісі.</li>
+            <li>Cryptool 2-де бұл әдісті оңай қолданып, шифрлау және дешифрлау процесін көрнекі түрде тексеруге болады.</li>
+        </ul>
+        <hr style="border: none; border-top: 2px solid #000; margin: 20px 0;">
+        <h2 style="text-transform: uppercase; ">Практикалық тапсырма</h2>
 
-<h2 >1-тапсырма: Шифрлау</h2>
-<p style="margin-bottom: 10px;">Өз есіміңізді XOR әдісін қолданып шифрлаңыз.</p>
-<ul style="margin-left: 20px; margin-bottom: 20px;">
-    <li style="margin-bottom: 5px;"><span style="font-weight: bold; text-transform: uppercase;">ГАММА</span> - Тегіңіз</li>
-</ul>
+        <h2 >1-тапсырма: Шифрлау</h2>
+        <p style="margin-bottom: 10px;">Өз есіміңізді XOR әдісін қолданып шифрлаңыз.</p>
+        <ul style="margin-left: 20px; margin-bottom: 20px;">
+            <li style="margin-bottom: 5px;"><span style="font-weight: bold; text-transform: uppercase;">ГАММА</span> - Тегіңіз</li>
+        </ul>
 
-<h2 >2-тапсырма: Дешифрлау</h2>
-<p style="margin-bottom: 20px;">Мысалдағы <span style="font-weight: bold; text-transform: uppercase;">"0A 12 0E 00 05 09 32 07 15 0F"</span> шифрланған мәтінін дешифрлайтын бағдарлама құрыңыз.</p>
+        <h2 >2-тапсырма: Дешифрлау</h2>
+        <p style="margin-bottom: 20px;">Мысалдағы <span style="font-weight: bold; text-transform: uppercase;">"0A 12 0E 00 05 09 32 07 15 0F"</span> шифрланған мәтінін дешифрлайтын бағдарлама құрыңыз.</p>
 
-<h2 ">3-тапсырма: Шифрлау</h2>
-<p style="margin-bottom: 10px;"><span style="font-weight: bold; text-transform: uppercase;">"Криптография"</span> сөзін шифрлаңыз.</p>
-<ul style="margin-left: 20px;">
-    <li style="margin-bottom: 5px;"><span style="font-weight: bold; text-transform: uppercase;">ГАММА</span> – “Алгоритм”</li>
-</ul>
+        <h2 ">3-тапсырма: Шифрлау</h2>
+        <p style="margin-bottom: 10px;"><span style="font-weight: bold; text-transform: uppercase;">"Криптография"</span> сөзін шифрлаңыз.</p>
+        <ul style="margin-left: 20px;">
+            <li style="margin-bottom: 5px;"><span style="font-weight: bold; text-transform: uppercase;">ГАММА</span> – “Алгоритм”</li>
+        </ul>
         </div>
     </div>
 </body>
