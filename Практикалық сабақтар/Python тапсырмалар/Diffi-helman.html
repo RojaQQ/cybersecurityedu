@@ -8,10 +8,10 @@
         body {
             font-family: sans-serif;
             display: flex;
-            justify-content: center; /* Центрирование по горизонтали */
+            justify-content: center; 
             margin: 0;
             background-color: #f4f4f4;
-            min-height: 100vh; /* Обеспечивает, что body занимает всю высоту */
+            min-height: 100vh; 
         }
 
         .container {
@@ -19,31 +19,84 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            width: 75%; /* Увеличиваем ширину */
-            /* max-width: 1200px; /* Можно добавить максимальную ширину, если нужно ограничить */
+            width: 75%; 
             text-align: justify;
             box-sizing: border-box;
         }
 
-        /* Для улучшения выравнивания последней строки (необязательно) */
         .container::after {
             content: "";
             display: inline-block;
             width: 100%;
             height: 0;
         }
-        p{ font-size: 22px;
+        p{ 
+            font-size: 22px;
             font-family: "Times New Roman", serif;
         }
         h1,h2,h3{
             font-family: "Times New Roman", serif;
         }
-        li{font-size: 22px;
-            font-family: "Times New Roman", serif;}
-        /* Стили для контента, чтобы он не прилипал к верху и низу */
+        li {
+            font-size: 22px;
+            font-family: "Times New Roman", serif;
+        }
+            
         .content-wrapper {
-            flex-grow: 1; /* Позволяет контенту занимать доступное вертикальное пространство */
-            padding: 20px 0; /* Добавляем вертикальные отступы для контента */
+            flex-grow: 1; 
+            padding: 20px 0; 
+        }
+        
+        /* Адаптивный дизайн */
+        @media (max-width: 768px) {
+            body {
+                min-height: auto; /* Позволяем контенту прокручиваться */
+                flex-direction: column; /* Элементы располагаются по вертикали */
+                align-items: center; /* Центрируем по горизонтали */
+            }
+
+            .container {
+                width: 95%; /* Расширяем контейнер для мобильных */
+                padding: 15px; /* Уменьшаем отступы */
+            }
+
+            h1 {
+                font-size: 28px; /* Уменьшаем размер заголовка */
+            }
+
+            h2, h3 {
+                font-size: 24px; /* Уменьшаем размер подзаголовков */
+            }
+
+            p, li {
+                font-size: 18px; /* Уменьшаем размер текста */
+            }
+
+            .container img {
+                max-width: 100%; /* Изображения не выходят за границы */
+                height: auto; /* Сохраняем пропорции */
+                display: block; /* Убираем инлайн-свойство */
+                margin: 10px auto; /* Центрируем изображение */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                width: 98%; /* Ещё больше расширяем для очень маленьких экранов */
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            h2, h3 {
+                font-size: 20px;
+            }
+
+            p, li {
+                font-size: 16px;
+            }
         }
     </style>
 </head>
@@ -63,19 +116,18 @@
             <p><strong>Алиса мен Боб өздеріне жабық кілттер (a және b) таңдайды.</strong></p>
             <p>Жария кілттер есептеледі:</p>
             <p>Алиса: A = g<sup>a</sup> mod p</p>
-<p>Боб: B = g<sup>b</sup> mod p</p>
-<p><strong>Алиса мен Боб ортақ құпия кілтті есептейді:</strong></p>
-<p>K = B<sup>a</sup> mod p , K= A<sup>b</sup> mod p</p>
-<hr style="border: none; border-top: 2px solid #000; margin: 20px 0;">
-<h2><strong>ПРАКТИКАЛЫҚ ТАПСЫРМА</strong></h2>
-<p>Алиса мен Боб келесі параметрлерді пайдаланады:</p>
-<ul>
-    <li><strong>p = 23</strong></li>
-    <li><strong>g = 5</strong></li>
-</ul>
-<p>Алиса жабық кілт ретінде <strong>a = 6</strong>, ал Боб <strong>b = 15</strong> таңдайды.</p>
-<p><strong>A, B, K</strong> мәндерін табыңыз. Осы мәндерді табатын Python-да бағдарлама құрыңыз.</p>
-
+            <p>Боб: B = g<sup>b</sup> mod p</p>
+            <p><strong>Алиса мен Боб ортақ құпия кілтті есептейді:</strong></p>
+            <p>K = B<sup>a</sup> mod p , K= A<sup>b</sup> mod p</p>
+            <hr style="border: none; border-top: 2px solid #000; margin: 20px 0;">
+            <h2><strong>ПРАКТИКАЛЫҚ ТАПСЫРМА</strong></h2>
+            <p>Алиса мен Боб келесі параметрлерді пайдаланады:</p>
+            <ul>
+                <li><strong>p = 23</strong></li>
+                <li><strong>g = 5</strong></li>
+            </ul>
+            <p>Алиса жабық кілт ретінде <strong>a = 6</strong>, ал Боб <strong>b = 15</strong> таңдайды.</p>
+            <p><strong>A, B, K</strong> мәндерін табыңыз. Осы мәндерді табатын Python-да бағдарлама құрыңыз.</p>
         </div>
     </div>
 </body>
