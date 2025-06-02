@@ -6,15 +6,16 @@
     <title>Практикалық тапсырмалар</title>
     <style>
         body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    padding-top: 60px; /* Смещение вниз */
-}
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding-top: 60px; 
+            /* Уберем это для мобильных в медиа-запросе, чтобы контент мог прокручиваться */
+        }
         .background-video {
             position: fixed;
             top: 0;
@@ -25,7 +26,7 @@
             opacity: 0.4;
             z-index: -1;
         }
-        .main-content {
+        .main-content { /* Этот класс не используется в вашем HTML, но если бы он был, он был бы здесь */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -51,7 +52,7 @@
             border-radius: 10px;
             color: white;
         }
-.navbar {
+        .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -89,7 +90,7 @@
             color: #e90909;
             border-radius: 5px;
         }
-.dropdown {
+        .dropdown {
             display: none;
             position: absolute;
             top: 100%;
@@ -99,7 +100,7 @@
             min-width: 200px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             border-radius: 5px;
-            z-index: 1000; /* Поверх всех элементов */
+            z-index: 1000; 
         }
 
         .dropdown a {
@@ -118,96 +119,244 @@
             display: block;
         }
 
+        /* Кнопка гамбургер-меню */
+        .menu-toggle {
+            display: none; /* Скрываем по умолчанию для больших экранов */
+            flex-direction: column;
+            cursor: pointer;
+            padding: 10px;
+            background: none;
+            border: none;
+        }
 
-.container {
-    display: flex;
-    gap: 30px;
-    padding: 30px;
-    background-color: rgba(235, 232, 232, 0.6);
-    border-radius: 30px;
-    align-items: center;
-    justify-content: center; /* Центрирование по горизонтали */
-}
+        .menu-toggle span {
+            height: 3px;
+            width: 25px;
+            background-color: white;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
 
-.block {
-    background: white;
-    border: 2px solid #000000;
-    padding: 30px;
-    border-radius: 22px;
-    text-align: center;
-    width: 375px;
-    height: 550px;
-    box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-}
+        .container {
+            display: flex;
+            gap: 30px;
+            padding: 30px;
+            background-color: rgba(235, 232, 232, 0.6);
+            border-radius: 30px;
+            align-items: center;
+            justify-content: center; 
+            flex-wrap: wrap; /* Позволяем элементам переноситься на новую строку */
+        }
 
-.title-2 {
-    border: 3px solid #004466;
-    padding: 8px 15px;
-    border-radius: 30px;
-    display: inline-block;
-    font-weight: bold;
-    font-size: 1.5rem;
-}
+        .block {
+            background: white;
+            border: 2px solid #000000;
+            padding: 30px;
+            border-radius: 22px;
+            text-align: center;
+            width: 375px;
+            height: 550px;
+            box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+        }
 
-.image-box {
-    width: 100%;  /* Ширина на весь блок */
-    height: 100%; /* Высота на весь блок */
-    border-radius: 10px;
-    margin: 15px 0;
-    overflow: hidden; /* Обрезка лишних частей */
-}
+        .title-2 {
+            border: 3px solid #004466;
+            padding: 8px 15px;
+            border-radius: 30px;
+            display: inline-block;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
 
-.image-box a {
-    display: block;
-    width: 100%;
-    height: 100%;
-}
+        .image-box {
+            width: 100%;  
+            height: 100%; 
+            border-radius: 10px;
+            margin: 15px 0;
+            overflow: hidden; 
+        }
 
-.image-box img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Заполняет весь блок */
-    border-radius: 10px;
-}
+        .image-box a {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
 
-.button {
-    background-color: red;
-    color: white;
-    border: none;
-    padding: 15px 30px;
-    border-radius: 30px;
-    font-size: 1.5rem;
-    cursor: pointer;
-}
+        .image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            border-radius: 10px;
+        }
 
-.button:hover {
-    background-color: darkred;
-}
-a {
-            color: white; /* Белый цвет текста */
-            text-decoration: none; /* Убирает подчеркивание */
+        .button {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: darkred;
+        }
+        a {
+            color: white; 
+            text-decoration: none; 
         }
         a:hover {
-        color: red; /* Красный цвет при наведении */
+            color: red; 
         }
 
+        /* --- Медиа-запросы для адаптивного дизайна --- */
 
+        /* Для экранов шириной до 768px (планшеты и смартфоны) */
+        @media (max-width: 768px) {
+            body {
+                height: auto; /* Позволяем контенту прокручиваться */
+                padding-top: 0; /* Убираем отступ, так как навигация изменится */
+                flex-direction: column; /* Изменяем направление flex, чтобы контент не центрировался по высоте */
+                justify-content: flex-start; /* Выравниваем по верху */
+                align-items: center; /* Центрируем по горизонтали */
+            }
 
+            .navbar {
+                flex-direction: column; /* Элементы навигации будут располагаться друг под другом */
+                align-items: flex-start; /* Выравнивание элементов по левому краю */
+                padding: 10px 20px;
+            }
+
+            .menu-toggle {
+                display: flex; /* Показываем кнопку гамбургер-меню */
+                position: absolute;
+                right: 20px;
+                top: 20px;
+            }
+
+            .nav-menu {
+                display: none; /* Скрываем меню по умолчанию */
+                flex-direction: column; /* Элементы меню друг под другом */
+                width: 100%;
+                text-align: center;
+                margin-top: 10px;
+            }
+
+            .nav-menu.active { /* Класс для отображения меню */
+                display: flex;
+            }
+
+            .nav-menu li {
+                margin: 10px 0;
+                width: 100%;
+                padding: 5px 0;
+            }
+
+            .nav-menu li:hover, .nav-menu li.active {
+                background-color: transparent; /* Убираем фон при наведении */
+                color: white; /* Цвет текста остается белым */
+            }
+
+            .dropdown {
+                position: static; /* Выпадающее меню будет в потоке документа */
+                display: none; /* Скрываем по умолчанию */
+                width: 100%;
+                background-color: #f0f0f0; /* Более светлый фон для выпадающего меню */
+                box-shadow: none;
+                border-radius: 0;
+            }
+
+            .nav-menu li.show-dropdown .dropdown { /* Класс для показа выпадающего меню */
+                display: block;
+            }
+
+            .dropdown a {
+                padding: 8px 15px;
+                color: #333; /* Темный текст для выпадающего меню */
+            }
+
+            .dropdown a:hover {
+                background-color: #ddd;
+                color: #e90909;
+            }
+
+            .container {
+                flex-direction: column; /* Блоки будут располагаться вертикально */
+                padding: 15px;
+                gap: 20px;
+                width: 90%; /* Адаптируем ширину контейнера */
+                margin-top: 80px; /* Отступ сверху, чтобы не перекрываться навбаром */
+            }
+
+            .block {
+                width: 90%; /* Блоки займут почти всю ширину экрана */
+                height: auto; /* Высота будет зависеть от содержимого */
+                padding: 20px;
+            }
+
+            .title-2 {
+                font-size: 1.2rem;
+            }
+
+            .image-box {
+                height: 250px; /* Фиксированная высота для изображений на мобильных */
+            }
+
+            .main-content h1 {
+                font-size: 36px; /* Уменьшаем размер заголовка */
+            }
+
+            .main-content p {
+                font-size: 18px; /* Уменьшаем размер параграфа */
+                padding: 15px;
+            }
+        }
+
+        /* Для очень маленьких экранов (смартфоны в портретной ориентации) */
+        @media (max-width: 480px) {
+            .navbar .title {
+                font-size: 20px;
+            }
+
+            .container {
+                padding: 10px;
+                gap: 15px;
+            }
+
+            .block {
+                padding: 15px;
+            }
+
+            .title-2 {
+                font-size: 1rem;
+            }
+
+            .button {
+                padding: 10px 20px;
+                font-size: 1.2rem;
+            }
+        }
     </style>
 </head>
 
 <body>
-    <!-- Верхнее меню -->
+    
     <div class="navbar">
         <div class="title">ПРАКТИКАЛЫҚ ТАПСЫРМАЛАР</div>
+        <button class="menu-toggle" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
         <ul class="nav-menu">
             <li><a href="index.html">Басты бет</a></li> 
-            <li >
-                Сабақтар
+            <li class="has-dropdown"> Сабақтар
                 <div class="dropdown">
                     <a href="1-тарау.html">1-Интернеттегі қауіпсіздік негіздері</a>
                     <a href="2-тарау.html">2-Әлеуметтік инженерия және фишинг</a>
@@ -215,41 +364,76 @@ a {
                     <a href="4-тарау.html">4-Жеке деректерді қорғау және құпиялылық</a>
                 </div>
             </li>
-            <li class="active" >Практикалық тапсырмалар</li>
-            <li><a href="Контактілер.html">Контактілер</a></li>
-            <li><a href="Қосымша.html">Қосымша</a></li>
+            <li class="active">Практикалық тапсырмалар</li>
+            <li><a href="#">Контактілер</a></li> <li><a href="Қосымша.html">Қосымша</a></li>
         </ul>
     </div>
 
-    
-        <div class="container">
-            <div class="block">
-                <div class="title-2">ТЕСТТЕР</div>
-                <div class="image-box">
-                        <img src="Суреттер/тест.jfif" alt="Описание изображения">
-                </div>
-                <a href="Тест тапсырмалары.html" button class="button" target="_blank" rel="noopener noreferrer">БАСТАУ</button></a>
+    <div class="container">
+        <div class="block">
+            <div class="title-2">ТЕСТТЕР</div>
+            <div class="image-box">
+                <img src="Суреттер/тест.jfif" alt="Описание изображения">
             </div>
-            <div class="block">
-                <div class="title-2">КЕЙСТЕР</div>
-                <div class="image-box">
-                    <img src="Суреттер/кейс.jfif" alt="Описание изображения">
-                </div>
-                <a href="Кейс тапсырмалар.html" button class="button" target="_blank" rel="noopener noreferrer">БАСТАУ</button></a>
-            </div>
-            <div class="block">
-                <div class="title-2">КРИПТОГРАФИЯ</div>
-                <div class="image-box"><img src="Суреттер/Криптография.jfif" alt="Описание изображения"></div>
-                <a href="Криптография тапсырмалар.html" button class="button" target="_blank" rel="noopener noreferrer">БАСТАУ</button></a>
-                
-
-            </div>
+            <a href="Тест тапсырмалары.html" class="button" target="_blank" rel="noopener noreferrer">БАСТАУ</a>
         </div>
-        <video autoplay loop muted class="background-video">
-            <source src="Видео/videoback.mp4" type="video/mp4">
-            Ваш браузер не поддерживает видео.
-        </video>
-        
+        <div class="block">
+            <div class="title-2">КЕЙСТЕР</div>
+            <div class="image-box">
+                <img src="Суреттер/кейс.jfif" alt="Описание изображения">
+            </div>
+            <a href="Кейс тапсырмалар.html" class="button" target="_blank" rel="noopener noreferrer">БАСТАУ</a>
+        </div>
+        <div class="block">
+            <div class="title-2">КРИПТОГРАФИЯ</div>
+            <div class="image-box"><img src="Суреттер/Криптография.jfif" alt="Описание изображения"></div>
+            <a href="Криптография тапсырмалар.html" class="button" target="_blank" rel="noopener noreferrer">БАСТАУ</a>
+        </div>
+    </div>
+    
+    <video autoplay loop muted class="background-video">
+        <source src="Видео/videoback.mp4" type="video/mp4">
+        Ваш браузер не поддерживает видео.
+    </video>
 
-    </body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            const dropdownParent = document.querySelector('.has-dropdown'); // Родитель элемента с выпадающим меню
+
+            // Переключение меню для мобильных устройств
+            menuToggle.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+                // Скрываем выпадающее меню, если оно было открыто
+                if (dropdownParent) {
+                    dropdownParent.classList.remove('show-dropdown');
+                }
+            });
+
+            // Для выпадающего меню на мобильных
+            if (dropdownParent) {
+                dropdownParent.addEventListener('click', function(event) {
+                    // Предотвращаем закрытие меню, если клик был по ссылке внутри выпадающего меню
+                    if (event.target.tagName === 'A' && event.target.closest('.dropdown')) {
+                        return;
+                    }
+                    // Переключаем видимость выпадающего меню только если это родительский пункт
+                    dropdownParent.classList.toggle('show-dropdown');
+                    event.stopPropagation(); // Предотвращаем всплытие события, чтобы меню не закрывалось сразу
+                });
+            }
+
+            // Закрываем меню и выпадающее меню при клике вне их
+            document.addEventListener('click', function(event) {
+                if (!navMenu.contains(event.target) && !menuToggle.contains(event.target)) {
+                    navMenu.classList.remove('active');
+                    if (dropdownParent) {
+                        dropdownParent.classList.remove('show-dropdown');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
 </html>
