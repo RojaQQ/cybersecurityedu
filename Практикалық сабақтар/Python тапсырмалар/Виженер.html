@@ -8,10 +8,10 @@
         body {
             font-family: sans-serif;
             display: flex;
-            justify-content: center; /* Центрирование по горизонтали */
+            justify-content: center; 
             margin: 0;
             background-color: #f4f4f4;
-            min-height: 100vh; /* Обеспечивает, что body занимает всю высоту */
+            min-height: 100vh; 
         }
 
         .container {
@@ -19,13 +19,11 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            width: 75%; /* Увеличиваем ширину */
-            /* max-width: 1200px; /* Можно добавить максимальную ширину, если нужно ограничить */
+            width: 75%; 
             text-align: justify;
             box-sizing: border-box;
         }
 
-        /* Для улучшения выравнивания последней строки (необязательно) */
         .container::after {
             content: "";
             display: inline-block;
@@ -33,74 +31,124 @@
             height: 0;
         }
         h1,h2,h3 {
-        font-family: "Times New Roman", serif; 
+            font-family: "Times New Roman", serif; 
         }
-        p{ font-size: 22px;
-          font-family: "Times New Roman", serif;
+        p{ 
+            font-size: 22px;
+            font-family: "Times New Roman", serif;
         }
-        li{font-size: 22px;
-          font-family: "Times New Roman", serif;}
-        /* Стили для контента, чтобы он не прилипал к верху и низу */
+        li{
+            font-size: 22px;
+            font-family: "Times New Roman", serif;
+        }
         .content-wrapper {
-            flex-grow: 1; /* Позволяет контенту занимать доступное вертикальное пространство */
-            padding: 20px 0; /* Добавляем вертикальные отступы для контента */
+            flex-grow: 1; 
+            padding: 20px 0; 
+        }
+
+        /* Адаптивный дизайн */
+        @media (max-width: 768px) {
+            body {
+                min-height: auto; 
+                flex-direction: column; 
+                align-items: center; 
+            }
+
+            .container {
+                width: 95%; 
+                padding: 15px; 
+            }
+
+            h1 {
+                font-size: 28px; 
+            }
+
+            h2, h3 {
+                font-size: 24px; 
+            }
+
+            p, li {
+                font-size: 18px; 
+            }
+
+            .container img {
+                max-width: 100%; 
+                height: auto; 
+                display: block; 
+                margin: 10px auto; 
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                width: 98%; 
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            h2, h3 {
+                font-size: 20px;
+            }
+
+            p, li {
+                font-size: 16px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="content-wrapper">
-            <h1 style="font-family: "Times New Roman", serif;">ВИЖЕНЕР ШИФРІ</h1>
+            <h1 style="font-family:Times New Roman", serif;">ВИЖЕНЕР ШИФРІ</h1>
             <p><strong>Кіріспе</strong></p>
             <p><strong>Виженер шифрі</strong> – бұл көпалфавитті шифрлау әдісі, онда әрбір әріп белгілі бір ұзындықтағы кілт сөзінің сәйкес әрпімен шифрланады. Бұл әдіс Цезарь шифрінің жетілдірілген нұсқасы болып саналады.</p>
-    <p>Бұл жерде біз Nauryz сөзін 6 таңбалы кілтпен ("Mereke") шифрлап, Виженер шифрін Python тілінде жүзеге асырамыз.</p>
+            <p>Бұл жерде біз Nauryz сөзін 6 таңбалы кілтпен ("Mereke") шифрлап, Виженер шифрін Python тілінде жүзеге асырамыз.</p>
 
-    <p><strong>1. Алфавитті анықтау</strong></p>
-    <p>Виженер шифрі тек әріптерді шифрлайды, сондықтан алдымен ағылшын алфавитін енгіземіз:</p>
-    <img src="images/vig.png" alt="Алфавит">
+            <p><strong>1. Алфавитті анықтау</strong></p>
+            <p>Виженер шифрі тек әріптерді шифрлайды, сондықтан алдымен ағылшын алфавитін енгіземіз:</p>
+            <img src="images/vig.png" alt="Алфавит">
 
-    <p><strong>2. Ашық мәтін мен кілтті дайындау</strong></p>
-    <ul>
-        <li>Ашық мәтініміз: "Nauryz"</li>
-        <li>Кілт: "Mereke"</li>
-    </ul>
-    <img src="images/vig1.png" alt="Мәтін және кілт">
-    <p><strong>3. Әр әріпті шифрлау</strong></p>
-    <img src="images/vig2.png" alt="Шифрлау коды">
+            <p><strong>2. Ашық мәтін мен кілтті дайындау</strong></p>
+            <ul>
+                <li>Ашық мәтініміз: "Nauryz"</li>
+                <li>Кілт: "Mereke"</li>
+            </ul>
+            <img src="images/vig1.png" alt="Мәтін және кілт">
+            <p><strong>3. Әр әріпті шифрлау</strong></p>
+            <img src="images/vig2.png" alt="Шифрлау коды">
 
-    <p><strong>4. Шифрланған мәтін</strong></p>
-    <img src="images/vig3.png" alt="Шифрланған мәтін коды">
-    <p>Шифрлау нәтижесі: "NAURYZ" → "ZELVID"</p>
-    <img src="images/vig4.png" alt="Шифрланған мәтін коды">
+            <p><strong>4. Шифрланған мәтін</strong></p>
+            <img src="images/vig3.png" alt="Шифрланған мәтін коды">
+            <p>Шифрлау нәтижесі: "NAURYZ" → "ZELVID"</p>
+            <img src="images/vig4.png" alt="Шифрланған мәтін коды">
 
-    <p><strong>5. ҚОРЫТЫНДЫ</strong></p>
-    <ul>
-        <li>Біз Python-да Виженер шифрін орындадық.</li>
-        <li><strong>Nauryz</strong> сөзін <strong>"Mereke"</strong> кілтімен шифрлап, <strong>"ZELVID"</strong> шифрланған мәтінін алдық.</li>
-    </ul>
+            <p><strong>5. ҚОРЫТЫНДЫ</strong></p>
+            <ul>
+                <li>Біз Python-да Виженер шифрін орындадық.</li>
+                <li><strong>Nauryz</strong> сөзін <strong>"Mereke"</strong> кілтімен шифрлап, <strong>"ZELVID"</strong> шифрланған мәтінін алдық.</li>
+            </ul>
 
-    <p>Виженер шифрі Цезарь шифрінен әлдеқайда қауіпсіз, себебі онда бір кілт орнына бірнеше әріп қолданылады. Бірақ қазіргі криптографияда одан да күрделі әдістер қолданылады.</p>
+            <p>Виженер шифрі Цезарь шифрінен әлдеқайда қауіпсіз, себебі онда бір кілт орнына бірнеше әріп қолданылады. Бірақ қазіргі криптографияда одан да күрделі әдістер қолданылады.</p>
 
-<p><strong>ПРАКТИКАЛЫҚ ТАПСЫРМАЛАР</strong></p>
+            <p><strong>ПРАКТИКАЛЫҚ ТАПСЫРМАЛАР</strong></p>
 
-<p><strong>1-тапсырма: Шифрлау</strong></p>
-<p>Өз есіміңізді Виженер шифрын қолданып шифрлаңыз.</p>
-<ul>
-    <li><strong>КІЛТ</strong> - Тегіңіз</li>
-</ul>
+            <p><strong>1-тапсырма: Шифрлау</strong></p>
+            <p>Өз есіміңізді Виженер шифрын қолданып шифрлаңыз.</p>
+            <ul>
+                <li><strong>КІЛТ</strong> - Тегіңіз</li>
+            </ul>
 
-<p><strong>2-тапсырма: Дешифрлау</strong></p>
-<p>Мысалдағы <strong>"ZELVID"</strong> шифрланған мәтінін дешифрлайтын бағдарлама құрыңыз.</p>
+            <p><strong>2-тапсырма: Дешифрлау</strong></p>
+            <p>Мысалдағы <strong>"ZELVID"</strong> шифрланған мәтінін дешифрлайтын бағдарлама құрыңыз.</p>
 
-<p><strong>3-тапсырма: Шифрлау</strong></p>
-<p>Қазақша алфавит құрып, "<strong>КРИПТОГРАФИЯ</strong>" сөзін шифрлаңыз.</p>
-<ul>
-    <li><strong>КІЛТ</strong> - Алгоритм</li>
-</ul>
-
-            
-    
-            
+            <p><strong>3-тапсырма: Шифрлау</strong></p>
+            <p>Қазақша алфавит құрып, "<strong>КРИПТОГРАФИЯ</strong>" сөзін шифрлаңыз.</p>
+            <ul>
+                <li><strong>КІЛТ</strong> - Алгоритм</li>
+            </ul>
         </div>
     </div>
 </body>
