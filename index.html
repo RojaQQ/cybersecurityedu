@@ -247,13 +247,166 @@
         .nav-arrow.right {
             right: 20px;
         }
+
+        /* Burger menu icon */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 10px;
+            margin-right: 20px;
+        }
+
+        .menu-toggle .bar {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 4px 0;
+            transition: 0.4s;
+        }
+
+        /* Responsive design for smaller screens */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: row;
+                justify-content: space-between;
+                padding: 10px 20px;
+            }
+
+            .navbar .title {
+                font-size: 20px;
+            }
+
+            .nav-menu {
+                display: none; /* Hide menu by default */
+                flex-direction: column;
+                width: 100%;
+                background-color: #e90909;
+                position: absolute;
+                top: 60px; /* Below navbar */
+                left: 0;
+                padding: 10px 0;
+                text-align: center;
+            }
+
+            .nav-menu.active {
+                display: flex; /* Show menu when active */
+            }
+
+            .nav-menu li {
+                margin: 5px 0;
+                width: 100%;
+            }
+
+            .dropdown {
+                position: static;
+                width: 100%;
+                box-shadow: none;
+                border-radius: 0;
+                background-color: #e90909; /* Match navbar background */
+            }
+
+            .dropdown a {
+                color: white;
+            }
+
+            .dropdown a:hover {
+                background-color: white;
+                color: #e90909;
+            }
+
+            .menu-toggle {
+                display: flex; /* Show burger icon */
+            }
+
+            .page-content {
+                padding: 10px;
+            }
+
+            .page-one-content h1 {
+                font-size: 40px;
+                padding: 5px 10px;
+            }
+
+            .page-one-content p {
+                font-size: 20px;
+                padding: 15px;
+            }
+
+            .page-two-content {
+                max-width: 95%;
+                padding: 20px;
+                margin-top: 70px; /* Adjust for fixed navbar height */
+            }
+
+            .page-two-content img {
+                max-width: 200px;
+            }
+
+            .page-two-content h2 {
+                font-size: 28px;
+                margin-bottom: 20px;
+            }
+
+            .page-two-button {
+                padding: 10px 20px;
+                font-size: 20px;
+            }
+
+            .nav-arrow {
+                width: 45px;
+                height: 45px;
+                font-size: 30px;
+                padding: 10px 15px;
+            }
+            .nav-arrow.left {
+                left: 10px;
+            }
+            .nav-arrow.right {
+                right: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar .title {
+                font-size: 16px;
+            }
+
+            .page-one-content h1 {
+                font-size: 30px;
+            }
+
+            .page-one-content p {
+                font-size: 16px;
+            }
+
+            .page-two-content h2 {
+                font-size: 22px;
+            }
+
+            .page-two-button {
+                font-size: 18px;
+            }
+
+            .nav-arrow {
+                width: 35px;
+                height: 35px;
+                font-size: 24px;
+                padding: 5px 10px;
+            }
+        }
     </style>
 </head>
 <body>
 
     <div class="navbar">
         <div class="title">ИНТЕРНЕТ ЖӘНЕ ҚАУІПСІЗДІК</div>
-        <ul class="nav-menu">
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        <ul class="nav-menu" id="nav-menu">
             <li class="active">Басты бет</li>
             <li>
                 Сабақтар
@@ -265,7 +418,7 @@
                 </div>
             </li>
             <li><a href="Практикалық сабақтар.html">Практикалық тапсырмалар</a></li>
-            <li><a href="Контактілер.html">Контактілер</li>
+            <li><a href="Контактілер.html">Контактілер</a></li>
             <li><a href="Қосымша.html">Қосымша</a></li>
         </ul>
     </div>
@@ -292,8 +445,8 @@
     <div class="page-content page-two" id="pageTwo">
         <div class="page-two-content"> 
             <img src="Суреттер/интернет.png" alt="Қауіпсіздік суреті"> 
-            <h2>Интернет және қауіпсіздік бойынша біліміңізді тексеріңіз. </h2>
-            <a href="https://studio--cybersecedu-fh02r.us-central1.hosted.app/" class="page-two-button" target="_blank">ӨТУ</a>
+            <h2>Интернет және қауіпсіздік бойынша біліміңізді тексеріп, жеке оқу жоспарын алыңыз.</h2>
+            <a href="https://9000-firebase-studio-1748544694496.cluster-l6vkdperq5ebaqo3qy4ksvoqom.cloudworkstations.dev" class="page-two-button" target="_blank">ӨТУ</a>
         </div>
     </div>
 
@@ -304,12 +457,12 @@
         const pageOne = document.getElementById('pageOne');
         const pageTwo = document.getElementById('pageTwo');
         const backgroundVideoOne = document.getElementById('backgroundVideoOne');
-        const backgroundVideoTwo = document.getElementById('backgroundVideoTwo'); // Получаем второе видео
+        const backgroundVideoTwo = document.getElementById('backgroundVideoTwo'); 
         const arrowLeft = document.getElementById('arrowLeft');
         const arrowRight = document.getElementById('arrowRight');
 
-        let currentPage = 1; // Start on page 1
-        const totalPages = 2; // Define total number of pages
+        let currentPage = 1; 
+        const totalPages = 2; 
 
         function showPage(pageNumber, direction) {
             const currentPageElement = (currentPage === 1) ? pageOne : pageTwo;
@@ -324,29 +477,26 @@
             }
 
             setTimeout(() => {
-                // Сначала удаляем все активные классы и классы анимации
                 pageOne.classList.remove('active', 'slide-out-left', 'slide-out-right');
                 pageTwo.classList.remove('active', 'slide-out-left', 'slide-out-right');
                 
                 if (pageNumber === 1) {
-                    pageOne.classList.add('active'); // Активируем первую страницу
-                    backgroundVideoOne.style.opacity = 0.4; // Показываем первое видео
-                    backgroundVideoTwo.style.opacity = 0; // Скрываем второе видео
+                    pageOne.classList.add('active'); 
+                    backgroundVideoOne.style.opacity = 0.4; 
+                    backgroundVideoTwo.style.opacity = 0; 
                 } else if (pageNumber === 2) {
-                    pageTwo.classList.add('active'); // Активируем вторую страницу
-                    backgroundVideoOne.style.opacity = 0; // Скрываем первое видео
-                    backgroundVideoTwo.style.opacity = 0.4; // Показываем второе видео
+                    pageTwo.classList.add('active'); 
+                    backgroundVideoOne.style.opacity = 0; 
+                    backgroundVideoTwo.style.opacity = 0.4; 
                 }
                 currentPage = pageNumber;
 
-                // Обновляем видимость стрелок
                 arrowLeft.style.display = (currentPage === 1) ? 'none' : 'flex';
                 arrowRight.style.display = (currentPage === totalPages) ? 'none' : 'flex';
 
-            }, 500); // Задержка должна соответствовать длительности CSS перехода
+            }, 500); 
         }
 
-        // Event listeners for arrows
         arrowRight.addEventListener('click', () => {
             if (currentPage < totalPages) {
                 showPage(currentPage + 1, 'next');
@@ -359,9 +509,16 @@
             }
         });
 
-        // Initialize to page 1 on DOMContentLoaded
         document.addEventListener('DOMContentLoaded', () => {
             showPage(1);
+        });
+
+        // Mobile menu toggle for index.html
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navMenu = document.getElementById('nav-menu');
+
+        mobileMenu.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
         });
     </script>
 </body>
