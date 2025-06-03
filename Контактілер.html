@@ -9,6 +9,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            background-color: #f0f0f0; /* Добавил цвет фона для всей страницы */
         }
         .background-video {
             position: fixed;
@@ -25,18 +26,20 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh; /* Используем min-height вместо height для прокрутки */
             text-align: center;
             padding: 20px;
+            padding-top: 80px; /* Отступ для фиксированной шапки (примерно высота шапки + небольшой запас) */
+            box-sizing: border-box; /* Чтобы padding не увеличивал общую высоту */
         }
 
         .contact-card {
-            background: rgba(0, 0, 0, 0.6); /* Semi-transparent black */
+            background: rgba(0, 0, 0, 0.7); /* Немного темнее для лучшего контраста */
             padding: 30px;
             border-radius: 10px;
             color: white;
             max-width: 500px;
-            width: 90%; /* Responsive width */
+            width: 90%; 
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             display: flex;
             flex-direction: column;
@@ -44,9 +47,9 @@
         }
 
         .passport-photo-placeholder {
-            width: 120px; /* Approximately 3x4 ratio in px */
-            height: 160px; /* Approximately 3x4 ratio in px */
-            background-color: #ddd; /* Light grey placeholder */
+            width: 120px; 
+            height: 160px; 
+            background-color: #ddd; 
             border: 2px solid #fff;
             border-radius: 5px;
             margin-bottom: 20px;
@@ -56,13 +59,13 @@
             font-size: 14px;
             color: #555;
             text-align: center;
-            overflow: hidden; /* Ensure image fits if it's placed here */
+            overflow: hidden; 
         }
 
         .passport-photo-placeholder img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Ensures the image covers the area without distortion */
+            object-fit: cover; 
         }
 
         .contact-info p {
@@ -72,7 +75,7 @@
         }
 
         .contact-info a {
-            color: #e90909; /* Red color for links */
+            color: #ffc107; /* Яркий цвет для ссылок, хорошо контрастирует с темным фоном */
             text-decoration: none;
             font-weight: bold;
         }
@@ -94,6 +97,7 @@
             left: 0;
             width: 100%;
             z-index: 1000;
+            box-sizing: border-box;
         }
 
         .navbar .title {
@@ -103,7 +107,7 @@
 
         .nav-menu {
             list-style: none;
-            display: flex;
+            display: flex; /* Для десктопа */
             padding: 0;
             margin: 0;
         }
@@ -111,15 +115,32 @@
         .nav-menu li {
             position: relative;
             margin: 0 15px;
-            cursor: pointer;
-            padding: 10px;
+            /* cursor: pointer; Убрано, т.к. кликабельны ссылки/span внутри */
+            padding: 10px; /* Паддинг для области li */
+        }
+        /* Стили для ссылок и span внутри пунктов меню */
+        .nav-menu li a, .nav-menu li > span { /* > span для прямого потомка span */
+            color: inherit; 
+            text-decoration: none;
+            display: block;
+            margin: -10px; /* Компенсация padding у li */
+            padding: 10px; /* Восстановление padding для самой ссылки/span */
+            cursor: pointer; /* Курсор для всего кликабельного элемента */
         }
 
-        .nav-menu li:hover, .nav-menu li.active {
+
+        .nav-menu li:hover, 
+        .nav-menu li.active {
             background-color: white;
             color: #e90909;
             border-radius: 5px;
         }
+         /* Цвет текста для ссылок/span внутри hovered/active li */
+        .nav-menu li:hover a, .nav-menu li:hover > span,
+        .nav-menu li.active a, .nav-menu li.active > span {
+            color: #e90909; 
+        }
+
 
         /* Выпадающее меню */
         .dropdown {
@@ -128,46 +149,203 @@
             top: 100%;
             left: 0;
             background-color: white;
-            color: black;
+            /* color: black; Убрано, т.к. ссылки имеют свой цвет */
             min-width: 200px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             border-radius: 5px;
-            z-index: 1000; /* Поверх всех элементов */
+            z-index: 1000; 
         }
 
         .dropdown a {
             display: block;
             padding: 10px;
             text-decoration: none;
-            color: black;
+            color: black !important; /* Явный цвет для ссылок в dropdown */
         }
 
         .dropdown a:hover {
             background-color: #e90909;
-            color: white;
+            color: white !important; /* Явный цвет при наведении */
         }
 
-        .nav-menu li:hover .dropdown {
+        .nav-menu li:hover .dropdown { /* Для десктопа */
             display: block;
         }
+        
+        /* Hamburger Menu Icon */
+        .hamburger-menu {
+            display: none; 
+            font-size: 30px;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 0 10px; /* Чтобы было легче нажать */
+        }
 
+        /* Общие стили для ссылок на странице (не в меню) могут быть здесь, если нужны */
+        /* Пример:
         a {
-            color: white; /* Белый цвет текста */
-            text-decoration: none; /* Убирает подчеркивание */
+            color: blue;
         }
-        a:hover {
-            color: red; /* Красный цвет при наведении */
+        */
+
+        /* ---- Адаптивные стили ---- */
+        @media (max-width: 768px) {
+            .main-content {
+                padding-top: 70px; /* Высота шапки */
+                justify-content: flex-start; /* Начинаем контент сверху на мобильных, если он длинный */
+                padding-bottom: 20px; /* Отступ снизу */
+            }
+            .navbar .title {
+                font-size: 18px; 
+                margin-left: 0; 
+                flex-grow: 1; 
+                text-align: center; 
+                margin-right: 40px; /* Место для гамбургера */
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .hamburger-menu {
+                display: block; 
+                order: 3; /* Располагаем гамбургер справа */
+            }
+             .navbar .title { /* Позиционирование заголовка */
+                order: 2;
+                margin-left: 10px; 
+            }
+
+
+            .nav-menu {
+                display: none; 
+                flex-direction: column;
+                position: absolute;
+                top: 100%; /* Под шапкой */
+                left: 0;
+                width: 100%;
+                background-color: #e90909;
+                padding: 0;
+                margin:0;
+                z-index: 1100; /* Выше другого контента */
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            }
+
+            .nav-menu.mobile-nav-active { /* Класс для показа мобильного меню */
+                display: flex;
+            }
+
+            .nav-menu li {
+                margin: 0;
+                width: 100%;
+                text-align: center;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            }
+             .nav-menu li > a, .nav-menu li > span { 
+                padding: 15px 0;
+                display: block;
+                color: white;
+                width: 100%;
+            }
+
+            .nav-menu li:last-child {
+                border-bottom: none;
+            }
+            
+            .nav-menu li:not(.active):hover { 
+                background-color: rgba(255,255,255,0.1);
+            }
+             .nav-menu li:not(.active):hover a, .nav-menu li:not(.active):hover > span {
+                color: white;
+            }
+            
+            .nav-menu li.active {
+                background-color: white;
+            }
+            .nav-menu li.active a, .nav-menu li.active > span {
+                color: #e90909;
+            }
+             .nav-menu li.active:hover { 
+                background-color: white;
+            }
+             .nav-menu li.active:hover a, .nav-menu li.active:hover > span {
+                color: #e90909;
+            }
+
+            /* Выпадающий список в мобильном меню */
+            .nav-menu li .dropdown {
+                position: static; /* Встраивается в поток */
+                background-color: rgba(0,0,0,0.15); /* Фон для подменю */
+                box-shadow: none;
+                min-width: 100%;
+                border-top: 1px solid rgba(255, 255, 255, 0.2);
+                padding-left: 0; 
+            }
+             /* Скрываем выпадающий список по умолчанию */
+            .nav-menu li.has-dropdown > .dropdown { 
+                display: none;
+            }
+            /* Показываем при активном классе */
+            .nav-menu li.has-dropdown.dropdown-open > .dropdown {
+                display: block;
+            }
+
+            .nav-menu .dropdown a {
+                padding: 12px 20px;
+                color: white !important; 
+                text-align: center;
+            }
+            .nav-menu .dropdown a:hover {
+                background-color: rgba(255,255,255,0.2);
+            }
+            
+            /* Адаптация карточки контакта */
+            .contact-card {
+                padding: 20px;
+                width: 95%;
+            }
+            .passport-photo-placeholder {
+                width: 100px;
+                height: 133px; /* Сохраняем пропорции */
+                margin-bottom: 15px;
+            }
+            .contact-info p {
+                font-size: 16px; /* Уменьшаем шрифт */
+                margin: 8px 0;
+            }
+            .contact-info a {
+                font-size: 16px; /* Убедимся, что ссылки тоже адаптированы */
+            }
         }
+        @media (max-width: 480px) {
+            .navbar .title {
+                font-size: 16px;
+                margin-right: 35px; /* Место для гамбургера */
+            }
+            .contact-info p, .contact-info a {
+                font-size: 14px;
+            }
+            .passport-photo-placeholder {
+                width: 80px;
+                height: 106px;
+            }
+            .contact-card {
+                padding: 15px;
+            }
+        }
+
     </style>
 </head>
 <body>
 
     <div class="navbar">
         <div class="title">ИНТЕРНЕТ ЖӘНЕ ҚАУІПСІЗДІК</div>
-        <ul class="nav-menu">
+        <button class="hamburger-menu" id="hamburgerIconKontakter">&#9776;</button>
+        <ul class="nav-menu" id="mainNavMenuKontakter">
             <li><a href="index.html">Басты бет</a></li>
-            <li>
-                Сабақтар
+            <li class="has-dropdown" id="sabaktarItemKontakter">
+                <span>Сабақтар</span> 
                 <div class="dropdown">
                     <a href="1-тарау.html">1-Интернеттегі қауіпсіздік негіздері</a>
                     <a href="2-тарау.html">2-Әлеуметтік инженерия және фишинг</a>
@@ -176,7 +354,7 @@
                 </div>
             </li>
             <li><a href="Практикалық сабақтар.html">Практикалық тапсырмалар</a></li>
-            <li class="active">Контактілер</li>
+            <li class="active"><span>Контактілер</span></li> {/* Обернули в span, так как это не ссылка */}
             <li><a href="Қосымша.html">Қосымша</a></li>
         </ul>
     </div>
@@ -202,5 +380,73 @@
         </div>
     </div>
 
+    <script>
+        // --- JavaScript для меню ---
+        const hamburgerIconKontakter = document.getElementById('hamburgerIconKontakter');
+        const mainNavMenuKontakter = document.getElementById('mainNavMenuKontakter');
+        const sabaktarItemKontakter = document.getElementById('sabaktarItemKontakter'); 
+
+        if (hamburgerIconKontakter && mainNavMenuKontakter) {
+            hamburgerIconKontakter.addEventListener('click', () => {
+                mainNavMenuKontakter.classList.toggle('mobile-nav-active');
+                // Если основное меню закрывается, также убедимся, что выпадающий список "Сабақтар" закрыт
+                if (!mainNavMenuKontakter.classList.contains('mobile-nav-active') && sabaktarItemKontakter) {
+                    sabaktarItemKontakter.classList.remove('dropdown-open');
+                }
+            });
+        }
+
+        // Общий обработчик для ВСЕХ ссылок <a> И SPAN (если они триггеры) внутри мобильного меню
+        if (mainNavMenuKontakter) {
+            mainNavMenuKontakter.querySelectorAll('a, li.has-dropdown > span').forEach(item => {
+                item.addEventListener('click', function(event) { 
+                    const isSubLink = this.closest('.dropdown') && this.tagName === 'A';
+                    const isDropdownToggler = this.tagName === 'SPAN' && this.parentElement.classList.contains('has-dropdown');
+
+                    if (mainNavMenuKontakter.classList.contains('mobile-nav-active')) {
+                        if (isSubLink) { // Если это ссылка внутри выпадающего списка
+                            mainNavMenuKontakter.classList.remove('mobile-nav-active');
+                            if (sabaktarItemKontakter && sabaktarItemKontakter.classList.contains('dropdown-open')) {
+                                sabaktarItemKontakter.classList.remove('dropdown-open');
+                            }
+                            // Навигация произойдет автоматически для <a>
+                        } else if (!isDropdownToggler) { // Если это обычная ссылка (не триггер дропдауна)
+                             mainNavMenuKontakter.classList.remove('mobile-nav-active');
+                             if (sabaktarItemKontakter && sabaktarItemKontakter.classList.contains('dropdown-open')) {
+                                sabaktarItemKontakter.classList.remove('dropdown-open');
+                            }
+                        }
+                        // Если это isDropdownToggler, то его обработчик ниже сам разберется с stopPropagation
+                    }
+                });
+            });
+        }
+        
+        // Специальный обработчик для пункта <li> "Сабақтар"
+        if (sabaktarItemKontakter) {
+            // Триггером может быть сам <span> или вся область <li>, если нет ссылки
+            const sabaktarToggler = sabaktarItemKontakter.querySelector('span'); 
+
+            (sabaktarToggler || sabaktarItemKontakter).addEventListener('click', function(event) {
+                if (!mainNavMenuKontakter.classList.contains('mobile-nav-active')) {
+                    return;
+                }
+                    
+                const clickedOnSubLink = event.target.closest('.dropdown a');
+                
+                if (clickedOnSubLink && sabaktarItemKontakter.querySelector('.dropdown').contains(clickedOnSubLink)) {
+                    // Клик по ссылке в подменю. Общий обработчик 'a' закроет меню.
+                    return;
+                }
+
+                sabaktarItemKontakter.classList.toggle('dropdown-open');
+                
+                // Если кликнули именно по элементу, который должен только переключать дропдаун (span)
+                if (event.target === sabaktarToggler) { 
+                    event.stopPropagation(); // Остановить всплытие, чтобы общий обработчик не закрыл меню
+                }
+            });
+        }
+    </script>
 </body>
 </html>
