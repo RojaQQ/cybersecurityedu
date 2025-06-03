@@ -17,7 +17,7 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            padding-top: 60px; /* Панель навигации */
+            padding-top: 70px; /* Отступ для фиксированной шапки */
         }
         .background-video {
             position: fixed;
@@ -42,17 +42,20 @@
             left: 0;
             width: 100%;
             z-index: 1000;
+            box-sizing: border-box;
         }
 
         .navbar .title {
             font-size: 24px;
             font-weight: bold;
-            margin-left: 60px; /* Отступ слева для заголовка */
+            /* margin-left: 60px;  Убираем если нет кнопки назад или она будет в другом месте */
         }
 
         .nav-menu {
             list-style: none;
-            display: flex;
+            display: flex; /* По умолчанию для десктопа */
+            padding: 0;
+            margin: 0;
         }
 
         .nav-menu li {
@@ -61,12 +64,25 @@
             cursor: pointer;
             padding: 10px;
         }
+        .nav-menu li a {
+            color: inherit;
+            text-decoration: none;
+            display: block;
+            margin: -10px; /* Компенсация padding у li */
+            padding: 10px; /* Восстановление padding для ссылки */
+        }
 
-        .nav-menu li:hover, .nav-menu li.active {
+        .nav-menu li:hover, 
+        .nav-menu li.active {
             background-color: white;
             color: #e90909;
             border-radius: 5px;
         }
+        .nav-menu li:hover a, 
+        .nav-menu li.active a {
+            color: #e90909;
+        }
+
 
         .dropdown {
             display: none;
@@ -83,48 +99,32 @@
             display: block;
             padding: 10px;
             text-decoration: none;
-            color: black;
+            color: black !important;
         }
         .dropdown a:hover {
             background-color: #e90909;
-            color: white;
+            color: white !important;
         }
-        .nav-menu li:hover .dropdown {
+        .nav-menu li:hover .dropdown { /* Для десктопа */
             display: block;
         }
-
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        .back-button {
-           position: absolute;
-            top: 15px;
-            left: 15px;
-            background-color: white;
-            color: red;
+        
+        /* Hamburger Menu Icon */
+        .hamburger-menu {
+            display: none; 
+            font-size: 30px;
+            background: none;
             border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            font-size: 20px;
-            font-weight: bold;
-            text-align: center;
+            color: white;
             cursor: pointer;
-            transition: background 0.3s, transform 0.2s;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .back-button:hover {
-            background-color: #eee;
-            transform: scale(1.1);
+            padding: 0 10px;
         }
 
         .container {
             width: 90%;
+            max-width: 1200px;
             margin-top: 30px;
+            margin-bottom: 30px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -132,21 +132,23 @@
 
         .tabs {
             display: flex;
-            justify-content: space-between; /* Равномерное распределение */
+            justify-content: space-between; 
             width: 100%;
             margin-bottom: 20px;
+            flex-wrap: wrap; /* Для переноса на мобильных, если нужно */
         }
 
         .tab {
            background-color: #ddd;
-            padding: 10px; /* Уменьшил padding */
+            padding: 10px; 
             cursor: pointer;
             border: 1px solid #ccc;
             border-radius: 5px 5px 0 0;
-            flex: 1; /* Равномерное распределение */
+            flex: 1; 
             text-align: center;
-            /* Добавляем минимальную ширину для каждой вкладки */
-            min-width: calc(100% / 6); /* 100% / количество вкладок */
+            min-width: 150px; /* Минимальная ширина для читаемости */
+            margin: 5px; /* Отступы для обертывания */
+            transition: background-color 0.3s, color 0.3s;
         }
 
         .tab.active {
@@ -159,34 +161,20 @@
             background-color: white;
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            display: none;
+            display: none; /* Управляется JS */
             flex-direction: column;
             align-items: center;
+            margin-bottom: 20px;
         }
 
         .presentation-container.active {
-            display: flex;
+            display: flex; /* Управляется JS */
         }
 
-         .presentation-iframe {
+         .presentation-iframe { /* Класс для <object> */
             width: 100%;
-            height: 600px; /* Увеличена высота */
+            height: 600px; 
             border: none;
-        }
-
-        .presentation-controls {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            margin-top: 10px;
-        }
-        .presentation-controls button{
-          padding: 5px 10px;
-            cursor: pointer;
-            background-color: #e90909;
-            color: white;
-            border: none;
-            border-radius: 4px;
         }
 
         .download-button {
@@ -198,10 +186,170 @@
             border-radius: 5px;
             cursor: pointer;
             text-decoration: none;
+            display: inline-block;
         }
         .download-button:hover{
           background-color: #367c39;
         }
+
+        /* ---- Адаптивные стили ---- */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 60px; 
+            }
+            .navbar .title {
+                font-size: 18px; 
+                margin-left: 0; 
+                flex-grow: 1; 
+                text-align: center; 
+                margin-right: 40px; 
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .hamburger-menu {
+                display: block; 
+                order: 3; 
+            }
+             .navbar .title { /* Позиционирование заголовка относительно гамбургера */
+                order: 2;
+                margin-left: 10px; 
+            }
+
+            .nav-menu {
+                display: none; 
+                flex-direction: column;
+                position: absolute;
+                top: 100%; 
+                left: 0;
+                width: 100%;
+                background-color: #e90909;
+                padding: 0;
+                margin:0;
+                z-index: 1100;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            }
+
+            .nav-menu.mobile-nav-active { 
+                display: flex;
+            }
+
+            .nav-menu li {
+                margin: 0;
+                width: 100%;
+                text-align: center;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+                cursor: default;
+            }
+             .nav-menu li > a { 
+                padding: 15px 0;
+                display: block;
+                color: white;
+                width: 100%;
+            }
+            .nav-menu li > span { /* Если текст пункта не ссылка, а span */
+                 padding: 15px 0;
+                display: block;
+                color: white;
+                width: 100%;
+            }
+
+
+            .nav-menu li:last-child {
+                border-bottom: none;
+            }
+            
+            .nav-menu li:not(.active):hover { 
+                background-color: rgba(255,255,255,0.1);
+            }
+            .nav-menu li:not(.active):hover a,
+            .nav-menu li:not(.active):hover span {
+                color: white;
+            }
+            
+            .nav-menu li.active {
+                background-color: white;
+            }
+            .nav-menu li.active a,
+            .nav-menu li.active span {
+                color: #e90909;
+            }
+             .nav-menu li.active:hover { 
+                background-color: white;
+            }
+             .nav-menu li.active:hover a,
+             .nav-menu li.active:hover span {
+                color: #e90909;
+            }
+
+            .nav-menu li .dropdown {
+                position: static; 
+                background-color: rgba(0,0,0,0.15);
+                box-shadow: none;
+                min-width: 100%;
+                border-top: 1px solid rgba(255, 255, 255, 0.2);
+                padding-left: 0; 
+            }
+            .nav-menu li.has-dropdown > .dropdown { 
+                display: none;
+            }
+            .nav-menu li.has-dropdown.dropdown-open > .dropdown {
+                display: block;
+            }
+
+            .nav-menu .dropdown a {
+                padding: 12px 20px;
+                color: white !important; 
+                text-align: center;
+            }
+            .nav-menu .dropdown a:hover {
+                background-color: rgba(255,255,255,0.2);
+            }
+
+            /* Адаптация вкладок */
+            .tabs {
+                flex-direction: column; 
+                align-items: stretch; 
+            }
+            .tab {
+                margin-bottom: 5px;
+                border-radius: 5px; 
+                min-width: auto; 
+                padding: 12px 10px;
+                font-size: 0.9em;
+                margin-left: 0; /* Убираем боковые отступы при вертикальном расположении */
+                margin-right: 0;
+            }
+            .tab:last-child {
+                margin-bottom: 0;
+            }
+
+            .presentation-container {
+                width: 100%; 
+                padding: 10px;
+            }
+            .presentation-iframe { 
+                height: 450px; 
+            }
+            .download-button {
+                padding: 10px 15px;
+                font-size: 0.9em;
+            }
+        }
+        @media (max-width: 480px) {
+             .navbar .title {
+                font-size: 16px;
+                margin-right: 35px;
+            }
+            .tab {
+                font-size: 0.85em;
+            }
+            .presentation-iframe {
+                height: 380px;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -212,11 +360,10 @@
 
     <div class="navbar">
         <div class="title">ИНТЕРНЕТ ЖӘНЕ ҚАУІПСІЗДІК</div>
-        <ul class="nav-menu">
+        <button class="hamburger-menu" id="hamburgerIconQosimsha">&#9776;</button>
+        <ul class="nav-menu" id="mainNavMenuQosimsha">
             <li><a href="index.html">Басты бет</a></li>
-            <li >
-                Сабақтар
-                <div class="dropdown">
+            <li class="has-dropdown" id="sabaktarItemQosimsha"> <span>Сабақтар</span> <div class="dropdown">
                     <a href="1-тарау.html">1-Интернеттегі қауіпсіздік негіздері</a>
                     <a href="2-тарау.html">2-Әлеуметтік инженерия және фишинг</a>
                     <a href="3-тарау.html">3-Криптография</a>
@@ -224,9 +371,7 @@
                 </div>
             </li>
             <li><a href="Практикалық сабақтар.html">Практикалық тапсырмалар</a></li>
-            <li><a href="Контактілер.html">Контактілер</a></li>
-            <li  class="active">Қосымша</li>
-        </ul>
+            <li><a href="Контактілер.html">Контактілер</a></li> <li class="active"><a href="Қосымша.html">Қосымша</a></li> </ul>
     </div>
 
     <div class="container">
@@ -234,54 +379,114 @@
             <div class="tab active" onclick="showPresentation(0)">Жасанды интеллект қызметтерін пайдаланудағы қауіпсіздік</div>
             <div class="tab" onclick="showPresentation(1)">Заңнамалық нормалар</div>
             <div class="tab" onclick="showPresentation(2)">Глосарий</div>
-            
-            
         </div>
 
         <div class="presentation-container active">
             <object data="Теориялық сабақтар/Қосымша/ЖИ қауіпсіздік.html"  class="presentation-iframe">
-                
             </object>
-            
-             <a class="download-button" href="Теориялық сабақтар/Қосымша/ЖИ Қауіпсіздік.docx" download>Жүктеу</a>
+            <a class="download-button" href="Теориялық сабақтар/Қосымша/ЖИ Қауіпсіздік.docx" download>Жүктеу</a>
         </div>
-
-        
-
         <div class="presentation-container">
            <object data="Теориялық сабақтар/Қосымша/Заңнама.html"  class="presentation-iframe">
-              
             </object>
-            
-             <a class="download-button" href="Теориялық сабақтар/Қосымша/Қазақстан_ Интернет Қауіпсіздігі Заңдары_.docx" download>Жүктеу</a>
+            <a class="download-button" href="Теориялық сабақтар/Қосымша/Қазақстан_ Интернет Қауіпсіздігі Заңдары_.docx" download>Жүктеу</a>
         </div>
         <div class="presentation-container">
             <object data="Теориялық сабақтар/Қосымша/Глосарий.html"  class="presentation-iframe">
-                
-            
-            
             </object>
-            
             <a class="download-button" href="Теориялық сабақтар/Қосымша/Глосарий.docx" download>Жүктеу</a>
         </div>
-
-        
     </div>
 
     <script>
+        // --- JavaScript для меню ---
+        const hamburgerIconQosimsha = document.getElementById('hamburgerIconQosimsha');
+        const mainNavMenuQosimsha = document.getElementById('mainNavMenuQosimsha');
+        const sabaktarItemQosimsha = document.getElementById('sabaktarItemQosimsha'); 
+
+        if (hamburgerIconQosimsha && mainNavMenuQosimsha) {
+            hamburgerIconQosimsha.addEventListener('click', () => {
+                mainNavMenuQosimsha.classList.toggle('mobile-nav-active');
+                if (!mainNavMenuQosimsha.classList.contains('mobile-nav-active') && sabaktarItemQosimsha) {
+                    sabaktarItemQosimsha.classList.remove('dropdown-open');
+                }
+            });
+        }
+
+        if (mainNavMenuQosimsha) {
+            mainNavMenuQosimsha.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', function(event) { 
+                    if (mainNavMenuQosimsha.classList.contains('mobile-nav-active')) {
+                        // Если это основная ссылка элемента с дропдауном (например, sabaktarItemQosimsha),
+                        // и этот элемент НЕ является ссылкой (а просто текстом, обернутым в span),
+                        // то не закрываем меню, так как клик по нему должен только открыть/закрыть дропдаун.
+                        const parentLi = this.closest('li.has-dropdown');
+                        if (parentLi && this === parentLi.querySelector('span')) { // Если клик по span-триггеру
+                             // Логика для span-триггера ниже в sabaktarItemQosimsha
+                            return;
+                        }
+                        
+                        mainNavMenuQosimsha.classList.remove('mobile-nav-active');
+                        if (sabaktarItemQosimsha && sabaktarItemQosimsha.classList.contains('dropdown-open')) {
+                            sabaktarItemQosimsha.classList.remove('dropdown-open');
+                        }
+                    }
+                });
+            });
+        }
+        
+        if (sabaktarItemQosimsha) {
+            // Клик по элементу "Сабақтар" для открытия/скрытия его dropdown
+            // Вешаем на li, так как текст "Сабақтар" обернут в span
+             const sabaktarToggler = sabaktarItemQosimsha.querySelector('span'); // Предполагаем, что текст "Сабақтар" в span
+
+            (sabaktarToggler || sabaktarItemQosimsha).addEventListener('click', function(event) {
+                if (mainNavMenuQosimsha.classList.contains('mobile-nav-active')) {
+                    
+                    const clickedOnSubLink = event.target.closest('.dropdown a');
+                    
+                    if (clickedOnSubLink && sabaktarItemQosimsha.querySelector('.dropdown').contains(clickedOnSubLink)) {
+                        // Клик по ссылке в подменю. Общий обработчик 'a' закроет меню.
+                        return;
+                    }
+
+                    sabaktarItemQosimsha.classList.toggle('dropdown-open');
+                    
+                    // Если клик был по самому элементу, который должен только открывать (span или сам li, если не ссылка)
+                    // и не является ссылкой, которая должна куда-то вести.
+                     if (event.target === sabaktarToggler) { // Если кликнули по SPAN
+                        event.stopPropagation(); // Останавливаем всплытие, чтобы общий обработчик не закрыл меню
+                    }
+                }
+            });
+        }
+
+      // --- Существующий JavaScript для вкладок ---
+      // (оставлен без изменений, так как он управляет функциональностью вкладок, а не адаптивностью)
       let currentPresentations = [0, 0, 0, 0, 0, 0];
 
         function showPresentation(index) {
             const tabs = document.querySelectorAll('.tab');
-            tabs.forEach(tab => tab.classList.remove('active'));
             const containers = document.querySelectorAll('.presentation-container');
-            containers.forEach(container => container.classList.remove('active'));
+            
+            tabs.forEach(tab => { if(tab) tab.classList.remove('active'); });
+            containers.forEach(container => { if(container) container.classList.remove('active'); });
 
-            tabs[index].classList.add('active');
-            containers[index].classList.add('active');
-
+            if (tabs[index]) {
+                tabs[index].classList.add('active');
+            }
+            if (containers[index]) {
+                containers[index].classList.add('active');
+            }
         }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+          if (document.querySelectorAll('.tab').length > 0) { // Проверяем, есть ли вкладки на странице
+            showPresentation(0);
+          }
+        });
 
+        // Функции nextSlide, prevSlide, updateIframe оставлены, если они где-то используются
         function nextSlide(presentationIndex) {
           currentPresentations[presentationIndex]++;
           updateIframe(presentationIndex);
@@ -295,7 +500,7 @@
               updateIframe(presentationIndex);
         }
       function updateIframe(index){
-         //Метод для измение слайдов
+         // Логика обновления <object>
       }
     </script>
 </body>
