@@ -17,7 +17,7 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            padding-top: 60px; /* Панель навигации */
+            padding-top: 70px; /* Немного увеличено для адаптивной шапки */
         }
         .background-video {
             position: fixed;
@@ -47,12 +47,14 @@
         .navbar .title {
             font-size: 24px;
             font-weight: bold;
-            margin-left: 60px; /* Отступ слева для заголовка */
+            margin-left: 60px; 
         }
 
         .nav-menu {
             list-style: none;
-            display: flex;
+            display: flex; /* Скрывается на мобильных, управляется JS */
+            padding: 0;
+            margin: 0;
         }
 
         .nav-menu li {
@@ -62,11 +64,24 @@
             padding: 10px;
         }
 
-        .nav-menu li:hover, .nav-menu li.active {
+        .nav-menu li:hover, 
+        .nav-menu li.active { /* :not(.mobile-menu-active) убран для общности, конкретика в медиа-запросе */
             background-color: white;
             color: #e90909;
             border-radius: 5px;
         }
+        .nav-menu li a { /* Добавлено для корректного отображения ссылок в li */
+            color: inherit;
+            text-decoration: none;
+            display: block; /* чтобы вся область была кликабельна */
+            margin: -10px; /* Компенсация padding у li */
+            padding: 10px; /* Восстановление padding для ссылки */
+        }
+         .nav-menu li:hover a, 
+         .nav-menu li.active a {
+            color: #e90909;
+        }
+
 
         .dropdown {
             display: none;
@@ -83,22 +98,39 @@
             display: block;
             padding: 10px;
             text-decoration: none;
-            color: black;
+            color: black !important; /* Важно для цвета текста в dropdown */
         }
         .dropdown a:hover {
             background-color: #e90909;
-            color: white;
+            color: white !important; /* Важно для цвета текста в dropdown при наведении */
         }
-        .nav-menu li:hover .dropdown {
+        .nav-menu li:hover .dropdown { /* Для десктопа */
             display: block;
         }
 
-        a {
+        /* Скрываем текст "Тапсырмалар" и другие подобные из li, если внутри только ссылка */
+        .nav-menu li > a + .dropdown { /* Если есть и ссылка и дропдаун в одном li */
+             /* стили могут понадобиться для корректного позиционирования */
+        }
+
+
+        /* Hamburger Menu Icon */
+        .hamburger-menu {
+            display: none; /* Скрыт по умолчанию, показывается на мобильных */
+            font-size: 30px;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 0 10px;
+        }
+
+        a { /* Общие стили для ссылок, если нужны */
             color: inherit;
             text-decoration: none;
         }
 
-        .back-button {
+        .back-button { /* Если будет использоваться */
            position: absolute;
             top: 15px;
             left: 15px;
@@ -132,21 +164,21 @@
 
         .tabs {
             display: flex;
-            justify-content: space-between; /* Равномерное распределение */
+            justify-content: space-between; 
             width: 100%;
             margin-bottom: 20px;
         }
 
         .tab {
            background-color: #ddd;
-            padding: 10px; /* Уменьшил padding */
+            padding: 10px; 
             cursor: pointer;
             border: 1px solid #ccc;
             border-radius: 5px 5px 0 0;
-            flex: 1; /* Равномерное распределение */
+            flex: 1; 
             text-align: center;
-            /* Добавляем минимальную ширину для каждой вкладки */
-            min-width: calc(100% / 6); /* 100% / количество вкладок */
+            min-width: calc(100% / 6); 
+            transition: background-color 0.3s, color 0.3s;
         }
 
         .tab.active {
@@ -159,21 +191,22 @@
             background-color: white;
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            display: none;
+            display: none; /* Управляется JS */
             flex-direction: column;
             align-items: center;
         }
 
         .presentation-container.active {
-            display: flex;
+            display: flex; /* Управляется JS */
         }
 
-         .presentation-iframe {
+         .presentation-iframe { /* Класс для <object> */
             width: 100%;
-            height: 600px; /* Увеличена высота */
+            height: 600px; 
             border: none;
         }
 
+        /* Стили для контролов и кнопки скачать, если они будут добавлены в HTML */
         .presentation-controls {
             display: flex;
             justify-content: space-between;
@@ -202,6 +235,160 @@
         .download-button:hover{
           background-color: #367c39;
         }
+
+        /* ---- Адаптивные стили ---- */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 60px; /* Уменьшаем отступ для мобильных, т.к. шапка может быть ниже */
+            }
+            .navbar .title {
+                font-size: 18px; /* Уменьшаем шрифт заголовка */
+                margin-left: 0; /* Убираем отступ слева, если кнопка "назад" не используется или иначе позиционируется */
+                flex-grow: 1; /* Позволяем заголовку занимать доступное место */
+                text-align: center; /* Центрируем заголовок если гамбургер справа */
+                margin-right: 40px; /* Даем место для гамбургера */
+            }
+
+            .hamburger-menu {
+                display: block; /* Показываем гамбургер */
+                order: 3; /* Помещаем гамбургер в конец, если нужно */
+            }
+            
+            .navbar .title { /* Переопределение для мобильных, чтобы заголовок был до гамбургера */
+                order: 2;
+                margin-left: 10px; /* Небольшой отступ, если нет кнопки "назад" */
+                /* Если кнопка "назад" активна, она будет order:1 */
+            }
+
+
+            .nav-menu {
+                display: none; /* Скрываем обычное меню */
+                flex-direction: column;
+                position: absolute;
+                top: 100%; /* Под шапкой */
+                left: 0;
+                width: 100%;
+                background-color: #e90909;
+                padding: 0;
+                margin:0;
+                z-index: 1100;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            }
+
+            .nav-menu.mobile-nav-active { /* Класс для показа мобильного меню */
+                display: flex;
+            }
+
+            .nav-menu li {
+                margin: 0;
+                width: 100%;
+                text-align: center;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+                cursor: default; /* Убираем курсор с li, если кликабельна только ссылка */
+            }
+             .nav-menu li > a { /* Стили для ссылок в мобильном меню */
+                padding: 15px 0;
+                display: block;
+                color: white; /* Цвет текста ссылок */
+                width: 100%;
+            }
+
+            .nav-menu li:last-child {
+                border-bottom: none;
+            }
+            
+            /* Активный пункт и ховер в мобильном меню */
+            .nav-menu li:not(.active):hover { 
+                background-color: rgba(255,255,255,0.1);
+            }
+            .nav-menu li:not(.active):hover a {
+                color: white;
+            }
+            
+            .nav-menu li.active {
+                background-color: white;
+            }
+            .nav-menu li.active a {
+                color: #e90909;
+            }
+            .nav-menu li.active:hover { /* Сохраняем активный стиль при наведении */
+                background-color: white;
+            }
+             .nav-menu li.active:hover a{
+                color: #e90909;
+            }
+
+
+            /* Выпадающий список в мобильном меню */
+            .nav-menu li .dropdown {
+                position: static; /* Встраивается в поток */
+                background-color: rgba(0,0,0,0.15);
+                box-shadow: none;
+                min-width: 100%;
+                border-top: 1px solid rgba(255, 255, 255, 0.2);
+                padding-left: 0; /* Убираем доп. отступ если ссылки центрированы */
+            }
+             /* Скрываем выпадающий список по умолчанию */
+            .nav-menu li.has-dropdown > .dropdown { /* Используем has-dropdown для JS */
+                display: none;
+            }
+            /* Показываем при активном классе */
+            .nav-menu li.has-dropdown.dropdown-open > .dropdown {
+                display: block;
+            }
+
+            .nav-menu .dropdown a {
+                padding: 12px 20px;
+                color: white !important; /* Важно для цвета текста */
+                text-align: center;
+            }
+            .nav-menu .dropdown a:hover {
+                background-color: rgba(255,255,255,0.2);
+            }
+
+            /* Адаптация вкладок */
+            .tabs {
+                flex-direction: column; /* Вкладки друг под другом */
+                align-items: stretch; /* Растягиваем вкладки на всю ширину */
+            }
+            .tab {
+                margin-bottom: 5px;
+                border-radius: 5px; /* Скругляем все углы */
+                min-width: auto; /* Убираем мин. ширину */
+                padding: 12px 10px; /* Увеличиваем паддинг для удобства нажатия */
+                font-size: 0.9em;
+            }
+            .tab:last-child {
+                margin-bottom: 0;
+            }
+
+            /* Адаптация контейнера презентации */
+            .presentation-container {
+                width: 100%; /* На всю ширину */
+                padding: 10px;
+            }
+            .presentation-iframe { /* <object> */
+                height: 400px; /* Уменьшаем высоту, можно подобрать оптимальное значение */
+            }
+
+            /* Адаптация контролов и кнопки, если будут */
+            .presentation-controls {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px; /* Расстояние между кнопками */
+            }
+            .presentation-controls button {
+                width: 100%;
+                max-width: 200px; /* Ограничиваем макс. ширину кнопок */
+                padding: 8px 15px;
+            }
+            .download-button {
+                width: 100%;
+                max-width: 250px;
+                text-align: center;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -211,12 +398,11 @@
     </video>
 
     <div class="navbar">
-        <!--<a href="Практикалық сабақтар.html" class="back-button">←</a> -->
         <div class="title">Тапсырмалар</div>
-        <ul class="nav-menu">
+        <button class="hamburger-menu" id="hamburgerIconTapsirmalar">&#9776;</button>
+        <ul class="nav-menu" id="mainNavMenuTapsirmalar">
             <li><a href="Криптография тапсырмалар.html">Теориялық материалдар</a></li>
-            <li class="active">
-                <a href="Тапсырмалар.html">Практикалық тапсырмалар</a>
+            <li class="active has-dropdown" id="praktikaItemTapsirmalar"> <a href="Тапсырмалар.html">Практикалық тапсырмалар</a>
                 <div class="dropdown">
                     <a href="Тапсырмалар.html">Тапсырмалар</a>
                     <a href="Python тапсырмалар.html">Python</a>
@@ -231,40 +417,87 @@
             <div class="tab active" onclick="showPresentation(0)">1-тапсырмалар</div>
             <div class="tab" onclick="showPresentation(1)">2-тапсырмалар</div>
             <div class="tab" onclick="showPresentation(2)">3-тапсырмалар</div>
-            
         </div>
 
         <div class="presentation-container active">
             <object data="Практикалық сабақтар/Тапсырмалар криптография/Цезарь же Виженер.html"  class="presentation-iframe">
-                
             </object>
-            
-             
         </div>
 
         <div class="presentation-container">
             <object data="Практикалық сабақтар/Тапсырмалар криптография/Симметриялық шифр.html"  class="presentation-iframe">
-                
-            
-            
             </object>
-            
-            
         </div>
 
         <div class="presentation-container">
            <object data="Практикалық сабақтар/Тапсырмалар криптография/RSA.html"  class="presentation-iframe">
-              
             </object>
-            
-             
         </div>
-
-       
     </div>
 
     <script>
-      let currentPresentations = [0, 0, 0, 0, 0, 0];
+        // --- JavaScript для меню (аналогично index.html) ---
+        const hamburgerIconTapsirmalar = document.getElementById('hamburgerIconTapsirmalar');
+        const mainNavMenuTapsirmalar = document.getElementById('mainNavMenuTapsirmalar');
+        const praktikaItemTapsirmalar = document.getElementById('praktikaItemTapsirmalar');
+
+        if (hamburgerIconTapsirmalar && mainNavMenuTapsirmalar) {
+            hamburgerIconTapsirmalar.addEventListener('click', () => {
+                mainNavMenuTapsirmalar.classList.toggle('mobile-nav-active');
+                // Если меню закрывается, также скрыть выпадающий список
+                if (!mainNavMenuTapsirmalar.classList.contains('mobile-nav-active') && praktikaItemTapsirmalar) {
+                    praktikaItemTapsirmalar.classList.remove('dropdown-open');
+                }
+            });
+        }
+
+        if (mainNavMenuTapsirmalar) {
+            mainNavMenuTapsirmalar.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', (event) => {
+                    // Не закрывать меню, если клик был на ссылке, которая является частью li с dropdown
+                    // и этот li должен открывать/закрывать dropdown
+                    const parentLi = link.closest('li.has-dropdown');
+                    if (parentLi && event.target.parentNode === parentLi && parentLi.querySelector('.dropdown')) {
+                         // Если это главная ссылка элемента с выпадающим списком,
+                         // и мы хотим, чтобы клик по ней тоже открывал/закрывал список на мобильных,
+                         // то не закрываем главное меню сразу.
+                         // Это поведение нужно тщательно продумать.
+                         // Сейчас: любая ссылка закрывает все меню.
+                    }
+
+                    if (mainNavMenuTapsirmalar.classList.contains('mobile-nav-active')) {
+                        mainNavMenuTapsirmalar.classList.remove('mobile-nav-active');
+                        if (praktikaItemTapsirmalar) {
+                            praktikaItemTapsirmalar.classList.remove('dropdown-open');
+                        }
+                    }
+                });
+            });
+        }
+        
+        if (praktikaItemTapsirmalar) {
+            // Клик по элементу "Практикалық тапсырмалар" для открытия/скрытия его dropdown
+            // Мы вешаем на сам LI, так как ссылка внутри него должна вести на страницу
+            praktikaItemTapsirmalar.addEventListener('click', function(event) {
+                if (mainNavMenuTapsirmalar.classList.contains('mobile-nav-active')) {
+                    // Если кликнули не по ссылке внутри выпадающего списка
+                    if (!event.target.closest('.dropdown a')) {
+                         // И если кликнули не по основной ссылке самого li (которая должна навигировать)
+                        if (event.target !== this.querySelector('a:first-child')) {
+                            this.classList.toggle('dropdown-open');
+                        } else if (!this.querySelector('a:first-child').getAttribute('href') || this.querySelector('a:first-child').getAttribute('href') === '#') {
+                            // Если у основной ссылки нет href или он #, то тоже переключаем
+                             event.preventDefault(); // Предотвращаем переход по ссылке #
+                             this.classList.toggle('dropdown-open');
+                        }
+                    }
+                }
+            });
+        }
+
+
+        // --- Существующий JavaScript для вкладок ---
+        let currentPresentations = [0, 0, 0, 0, 0, 0]; // Размер массива можно скорректировать по кол-ву презентаций
 
         function showPresentation(index) {
             const tabs = document.querySelectorAll('.tab');
@@ -272,11 +505,15 @@
             const containers = document.querySelectorAll('.presentation-container');
             containers.forEach(container => container.classList.remove('active'));
 
-            tabs[index].classList.add('active');
-            containers[index].classList.add('active');
-
+            if (tabs[index] && containers[index]) { // Проверка существования элементов
+                tabs[index].classList.add('active');
+                containers[index].classList.add('active');
+            }
         }
 
+        // Функции nextSlide/prevSlide/updateIframe оставлены как есть,
+        // так как их логика зависит от содержимого ваших HTML файлов в <object>
+        // и не затрагивается напрямую адаптивностью основной страницы.
         function nextSlide(presentationIndex) {
           currentPresentations[presentationIndex]++;
           updateIframe(presentationIndex);
@@ -289,9 +526,21 @@
             }
               updateIframe(presentationIndex);
         }
-      function updateIframe(index){
-         //Метод для измение слайдов
+        function updateIframe(index){
+         // Здесь должна быть логика обновления содержимого <object> или iframe,
+         // если презентации являются многостраничными и управляются с этой страницы.
+         // Например:
+         // const containers = document.querySelectorAll('.presentation-container');
+         // const objectElement = containers[index].querySelector('object');
+         // if (objectElement) {
+         //    objectElement.setAttribute('data', `new_path_to_slide_${currentPresentations[index]}.html`);
+         // }
       }
+
+      // Показываем первую вкладку при загрузке
+      document.addEventListener('DOMContentLoaded', () => {
+          showPresentation(0);
+      });
     </script>
 </body>
 </html>
