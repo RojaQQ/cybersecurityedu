@@ -1,4 +1,486 @@
-<script>
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Криптография бойынша тапсырмалар</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding-top: 70px; 
+        }
+        .background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.4;
+            z-index: -1;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #e90909;
+            color: white;
+            padding: 15px 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .navbar .title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-left: 60px; 
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-menu li {
+            position: relative;
+            margin: 0 15px;
+            cursor: pointer; /* Для всего li, если он должен быть кликабельным (например, для открытия dropdown) */
+            padding: 10px;
+        }
+        /* Стили для ссылок внутри пунктов меню */
+        .nav-menu li a {
+            color: inherit; /* Наследует цвет от li (белый по умолчанию для .navbar) */
+            text-decoration: none;
+            display: block; /* Чтобы ссылка занимала всю область padding */
+            margin: -10px; /* Компенсируем padding родительского li */
+            padding: 10px; /* Возвращаем padding для самой ссылки */
+        }
+
+        .nav-menu li:hover, 
+        .nav-menu li.active {
+            background-color: white;
+            color: #e90909; /* Цвет текста для li */
+            border-radius: 5px;
+        }
+        /* Цвет текста для ссылок внутри hovered/active li */
+        .nav-menu li:hover a, 
+        .nav-menu li.active a {
+            color: #e90909; 
+        }
+
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            min-width: 200px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            z-index: 1000;
+        }
+        .dropdown a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: black !important; /* Явно задаем цвет для ссылок в dropdown */
+        }
+        .dropdown a:hover {
+            background-color: #e90909;
+            color: white !important; /* Явно задаем цвет для ссылок в dropdown при наведении */
+        }
+        .nav-menu li:hover .dropdown { /* Показ dropdown при наведении на li (для десктопа) */
+            display: block;
+        }
+        
+        /* Hamburger Menu Icon */
+        .hamburger-menu {
+            display: none; 
+            font-size: 30px;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 0 10px;
+        }
+
+        .back-button { /* Если будет использоваться */
+           position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: white;
+            color: red;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .back-button:hover {
+            background-color: #eee;
+            transform: scale(1.1);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px; /* Ограничиваем максимальную ширину для больших экранов */
+            margin-top: 30px;
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: space-between; 
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+           background-color: #ddd;
+            padding: 10px; 
+            cursor: pointer;
+            border: 1px solid #ccc;
+            border-radius: 5px 5px 0 0;
+            flex: 1; 
+            text-align: center;
+            min-width: calc(100% / 6); /* Для 6 вкладок */
+            transition: background-color 0.3s, color 0.3s;
+            margin-right: 2px; /* Небольшой отступ между вкладками */
+        }
+        .tab:last-child {
+            margin-right: 0;
+        }
+
+        .tab.active {
+            background-color: #e90909;
+            color: white;
+        }
+
+        .presentation-container {
+            width: 80%;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: none; /* Управляется JS */
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .presentation-container.active {
+            display: flex; /* Управляется JS */
+        }
+
+         .presentation-iframe { /* Класс для <object> */
+            width: 100%;
+            height: 600px; 
+            border: none;
+        }
+        
+        .download-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block; /* Для корректного применения margin/padding */
+        }
+        .download-button:hover{
+          background-color: #367c39;
+        }
+        
+        /* Стили для presentation-controls, если они будут добавлены в HTML */
+        .presentation-controls {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 10px;
+        }
+        .presentation-controls button{
+          padding: 5px 10px;
+            cursor: pointer;
+            background-color: #e90909;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+
+
+        /* ---- Адаптивные стили ---- */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 60px;
+            }
+            .navbar .title {
+                font-size: 16px; /* Еще немного уменьшим для длинных названий */
+                margin-left: 0; 
+                flex-grow: 1; 
+                text-align: center; 
+                margin-right: 35px; /* Место для гамбургера */
+                white-space: nowrap;      /* Предотвращаем перенос текста заголовка */
+                overflow: hidden;         /* Обрезаем текст, если он не помещается */
+                text-overflow: ellipsis;  /* Добавляем многоточие */
+            }
+
+            .hamburger-menu {
+                display: block; 
+                order: 3; 
+            }
+            
+            .navbar .title { 
+                order: 2;
+                margin-left: 10px; 
+            }
+            /* Если кнопка "назад" будет использоваться, раскомментируйте и настройте ее order */
+            /* .back-button { order: 1; margin-right: auto; } */
+            /* .navbar .title { order: 2; margin-left: 0; text-align: left;} */
+
+
+            .nav-menu {
+                display: none; 
+                flex-direction: column;
+                position: absolute;
+                top: 100%; 
+                left: 0;
+                width: 100%;
+                background-color: #e90909;
+                padding: 0;
+                margin:0;
+                z-index: 1100;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            }
+
+            .nav-menu.mobile-nav-active { 
+                display: flex;
+            }
+
+            .nav-menu li {
+                margin: 0;
+                width: 100%;
+                text-align: center;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+                cursor: default;
+            }
+             .nav-menu li > a { 
+                padding: 15px 0;
+                display: block;
+                color: white;
+                width: 100%;
+            }
+
+            .nav-menu li:last-child {
+                border-bottom: none;
+            }
+            
+            .nav-menu li:not(.active):hover { 
+                background-color: rgba(255,255,255,0.1);
+            }
+             .nav-menu li:not(.active):hover a {
+                color: white;
+            }
+            
+            .nav-menu li.active {
+                background-color: white;
+            }
+            .nav-menu li.active a {
+                color: #e90909;
+            }
+            .nav-menu li.active:hover { 
+                background-color: white;
+            }
+             .nav-menu li.active:hover a{
+                color: #e90909;
+            }
+
+            .nav-menu li .dropdown {
+                position: static; 
+                background-color: rgba(0,0,0,0.15);
+                box-shadow: none;
+                min-width: 100%;
+                border-top: 1px solid rgba(255, 255, 255, 0.2);
+                padding-left: 0; 
+            }
+            .nav-menu li.has-dropdown > .dropdown { 
+                display: none;
+            }
+            .nav-menu li.has-dropdown.dropdown-open > .dropdown {
+                display: block;
+            }
+
+            .nav-menu .dropdown a {
+                padding: 12px 20px;
+                color: white !important; 
+                text-align: center;
+            }
+            .nav-menu .dropdown a:hover {
+                background-color: rgba(255,255,255,0.2);
+            }
+
+            /* Адаптация вкладок - горизонтальная прокрутка */
+            .tabs {
+                justify-content: flex-start; /* Выравниваем вкладки по началу */
+                overflow-x: auto;       /* Включаем горизонтальную прокрутку */
+                white-space: nowrap;    /* Запрещаем перенос вкладок на новую строку */
+                -webkit-overflow-scrolling: touch; /* Плавная прокрутка на iOS */
+                padding-bottom: 10px; /* Место для полосы прокрутки, если она внешняя */
+                margin-left: -1px; /* Компенсация border-left первой вкладки */
+                margin-right: -1px; /* Компенсация border-right последней вкладки */
+            }
+            .tab {
+                display: inline-block; /* Для корректной работы white-space: nowrap */
+                flex: 0 0 auto;      /* Вкладки не растягиваются и не сжимаются, занимают ширину по контенту + padding */
+                min-width: 130px;     /* Минимальная ширина вкладки для читаемости, можно настроить */
+                margin-right: 8px;
+                border-radius: 5px;   /* Полное скругление */
+                font-size: 0.85em;    /* Уменьшаем шрифт для экономии места */
+                padding: 10px 8px;    /* Уменьшаем боковые паддинги */
+            }
+            .tab:last-child {
+                margin-right: 0;
+            }
+
+            .presentation-container {
+                width: 100%; 
+                padding: 10px;
+            }
+            .presentation-iframe { 
+                height: 400px; /* Уменьшаем высоту для мобильных */
+            }
+
+            .download-button {
+                padding: 10px 15px;
+                font-size: 0.9em;
+                width: auto; /* Автоматическая ширина по содержимому */
+                max-width: 90%; /* Ограничиваем максимальную ширину */
+                align-self: center; /* Центрируем кнопку, если она одна */
+            }
+
+            /* Адаптация presentation-controls, если они есть */
+            .presentation-controls {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px; 
+            }
+            .presentation-controls button {
+                width: 100%;
+                max-width: 200px; 
+                padding: 8px 15px;
+            }
+        }
+         @media (max-width: 480px) { /* Дополнительные настройки для очень маленьких экранов */
+            .navbar .title {
+                font-size: 14px;
+                margin-right: 30px; /* Еще меньше места для гамбургера */
+            }
+            .tab {
+                min-width: 110px; /* Еще меньше мин. ширина вкладки */
+                font-size: 0.8em;
+            }
+            .presentation-iframe {
+                height: 350px; 
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <video autoplay loop muted class="background-video">
+        <source src="Видео/videoback.mp4" type="video/mp4">
+        Ваш браузер не поддерживает видео.
+    </video>
+
+    <div class="navbar">
+        <div class="title">Криптография бойынша тапсырмалар</div>
+        <button class="hamburger-menu" id="hamburgerIconKripto">&#9776;</button>
+        <ul class="nav-menu" id="mainNavMenuKripto">
+            <li class="active"><a href="Криптография тапсырмалар.html">Теориялық материалдар</a></li>
+            <li class="has-dropdown" id="praktikaItemKripto">
+                <a href="#">Практикалық тапсырмалар</a>
+                <div class="dropdown">
+                    <a href="Тапсырмалар.html">Тапсырмалар</a>
+                    <a href="Python тапсырмалар.html">Python</a>
+                    <a href="Cryptool 2 тапсырмалар.html">Cryptool 2</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <div class="tabs">
+            <div class="tab active" onclick="showPresentation(0)">Цезарь және Виженер шифрі</div>
+            <div class="tab" onclick="showPresentation(1)">DES алгоритмі</div>
+            <div class="tab" onclick="showPresentation(2)">Гаммалау әдісі</div>
+            <div class="tab" onclick="showPresentation(3)">RSA алгоритмі</div>
+            <div class="tab" onclick="showPresentation(4)">Диффи-Хелман алгоримі</div>
+            <div class="tab" onclick="showPresentation(5)">Хэш-функция</div>
+        </div>
+
+        <div class="presentation-container active">
+            <object data="Практикалық сабақтар/Криптография теория/ЦЕЗАРЬ ЖӘНЕ ВИЖЕНЕР ШИФРЛЕРІ/Цезарь және Виженер.html"  class="presentation-iframe">
+            </object>
+            <a class="download-button" href="Практикалық сабақтар/Криптография теория/ЦЕЗАРЬ ЖӘНЕ ВИЖЕНЕР ШИФРЛЕРІ/ЦЕЗАРЬ ЖӘНЕ ВИЖЕНЕР ШИФРЛЕРІ.pptx" download>Жүктеу</a>
+        </div>
+
+        <div class="presentation-container">
+            <object data="Практикалық сабақтар/Криптография теория/DES шифрлау алгоритмі/DES.html"  class="presentation-iframe">
+            </object>
+            <a class="download-button" href="Практикалық сабақтар/Криптография теория/DES шифрлау алгоритмі/DES шифрлау алгоритмі.pptx" download>Жүктеу</a>
+        </div>
+
+        <div class="presentation-container">
+           <object data="Практикалық сабақтар/Криптография теория/Гаммалау/Гаммалау.html"  class="presentation-iframe">
+            </object>
+            <a class="download-button" href="Практикалық сабақтар/Криптография теория/Гаммалау/Гаммалау.pptx" download>Жүктеу</a>
+        </div>
+
+        <div class="presentation-container">
+             <object data="Практикалық сабақтар/Криптография теория/RSA алгоритмі/RSA алгоримы.html"  class="presentation-iframe">
+            </object>
+            <a class="download-button" href="Практикалық сабақтар/Криптография теория/RSA алгоритмі/RSA алгоритмі.pptx" download>Жүктеу</a>
+        </div>
+
+        <div class="presentation-container">
+           <object data="Практикалық сабақтар/Криптография теория/Диффи-Хелмань кілттер алмасу алгоритмі/Диффи-Хелман алгоримы.html"  class="presentation-iframe">
+            </object>
+            <a class="download-button" href="Практикалық сабақтар/Криптография теория/Диффи-Хелмань кілттер алмасу алгоритмі/Диффи-Хелмань кілттер алмасу алгоритмі.pptx" download>Жүктеу</a>
+        </div>
+
+        <div class="presentation-container">
+            <object data="Практикалық сабақтар/Криптография теория/Хэштеу/хэш.html"  class="presentation-iframe">
+            </object>
+            <a class="download-button" href="Практикалық сабақтар/Криптография теория/Хэштеу/Хэш-функция.pptx" download>Жүктеу</a>
+        </div>
+    </div>
+
+    <script>
         // --- JavaScript для меню ---
         const hamburgerIconKripto = document.getElementById('hamburgerIconKripto');
         const mainNavMenuKripto = document.getElementById('mainNavMenuKripto');
@@ -99,3 +581,5 @@
           showPresentation(0); 
         });
     </script>
+</body>
+</html>
