@@ -1,309 +1,84 @@
-<!DOCTYPE html>
-<html lang="kk">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Криптография бойынша тапсырмалар</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            padding-top: 60px; /* Панель навигации */
-        }
-        .background-video {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.4;
-            z-index: -1;
+<script>
+        // --- JavaScript для меню ---
+        const hamburgerIconKripto = document.getElementById('hamburgerIconKripto');
+        const mainNavMenuKripto = document.getElementById('mainNavMenuKripto');
+        const praktikaItemKripto = document.getElementById('praktikaItemKripto'); // li элемент для "Практикалық тапсырмалар"
+
+        // 1. Обработчик для кнопки-гамбургера
+        if (hamburgerIconKripto && mainNavMenuKripto) {
+            hamburgerIconKripto.addEventListener('click', () => {
+                mainNavMenuKripto.classList.toggle('mobile-nav-active');
+                if (!mainNavMenuKripto.classList.contains('mobile-nav-active') && praktikaItemKripto) {
+                    praktikaItemKripto.classList.remove('dropdown-open');
+                }
+            });
         }
 
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #e90909;
-            color: white;
-            padding: 15px 20px;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
+        // 2. Обработчик для элемента <li> "Практикалық тапсырмалар" (praktikaItemKripto)
+        // Этот обработчик будет отвечать ТОЛЬКО за открытие/закрытие выпадающего списка.
+        if (praktikaItemKripto) {
+            const mainPraktikaLink = praktikaItemKripto.querySelector('a:first-child'); // Основная ссылка <a href="#">
+
+            // Клик по основной ссылке <a href="#"> пункта "Практикалық тапсырмалар"
+            if (mainPraktikaLink) {
+                mainPraktikaLink.addEventListener('click', function(event) {
+                    if (mainNavMenuKripto.classList.contains('mobile-nav-active')) {
+                        event.preventDefault(); // Отменить переход по ссылке #
+                        event.stopPropagation(); // Остановить всплытие, чтобы не сработал общий обработчик закрытия меню по ссылке
+                        praktikaItemKripto.classList.toggle('dropdown-open');
+                    }
+                });
+            }
         }
 
-        .navbar .title {
-            font-size: 24px;
-            font-weight: bold;
-            margin-left: 60px; /* Отступ слева для заголовка */
+        // 3. Общий обработчик для ВСЕХ ссылок <a> внутри мобильного меню
+        // Его задача: при клике на любую ссылку закрыть все открытые меню и выполнить переход.
+        if (mainNavMenuKripto) {
+            mainNavMenuKripto.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', function(event) {
+                    // Проверяем, является ли кликнутая ссылка основной ссылкой элемента praktikaItemKripto
+                    const isMainPraktikaLink = praktikaItemKripto && praktikaItemKripto.querySelector('a:first-child') === this;
+
+                    if (isMainPraktikaLink && mainNavMenuKripto.classList.contains('mobile-nav-active')) {
+                        // Если это основная ссылка praktikaItemKripto, ее обработчик (выше) уже все сделал
+                        // (открыл/закрыл дропдаун и остановил всплытие).
+                        // Поэтому здесь для нее ничего делать не нужно, чтобы не закрыть меню сразу.
+                        return;
+                    }
+
+                    // Для всех остальных ссылок (включая ссылки внутри выпадающего списка):
+                    if (mainNavMenuKripto.classList.contains('mobile-nav-active')) {
+                        mainNavMenuKripto.classList.remove('mobile-nav-active');
+                        if (praktikaItemKripto && praktikaItemKripto.classList.contains('dropdown-open')) {
+                            praktikaItemKripto.classList.remove('dropdown-open');
+                        }
+                        // Важно: здесь НЕТ event.preventDefault(). Ссылка должна перейти по своему href.
+                        // Навигация произойдет после выполнения этого обработчика.
+                    }
+                });
+            });
         }
 
-        .nav-menu {
-            list-style: none;
-            display: flex;
-        }
-
-        .nav-menu li {
-            position: relative;
-            margin: 0 15px;
-            cursor: pointer;
-            padding: 10px;
-        }
-
-        .nav-menu li:hover, .nav-menu li.active {
-            background-color: white;
-            color: #e90909;
-            border-radius: 5px;
-        }
-
-        .dropdown {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background-color: white;
-            min-width: 200px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-            z-index: 1000;
-        }
-        .dropdown a {
-            display: block;
-            padding: 10px;
-            text-decoration: none;
-            color: black;
-        }
-        .dropdown a:hover {
-            background-color: #e90909;
-            color: white;
-        }
-        .nav-menu li:hover .dropdown {
-            display: block;
-        }
-
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        .back-button {
-           position: absolute;
-            top: 15px;
-            left: 15px;
-            background-color: white;
-            color: red;
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            font-size: 20px;
-            font-weight: bold;
-            text-align: center;
-            cursor: pointer;
-            transition: background 0.3s, transform 0.2s;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .back-button:hover {
-            background-color: #eee;
-            transform: scale(1.1);
-        }
-
-        .container {
-            width: 90%;
-            margin-top: 30px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .tabs {
-            display: flex;
-            justify-content: space-between; /* Равномерное распределение */
-            width: 100%;
-            margin-bottom: 20px;
-        }
-
-        .tab {
-           background-color: #ddd;
-            padding: 10px; /* Уменьшил padding */
-            cursor: pointer;
-            border: 1px solid #ccc;
-            border-radius: 5px 5px 0 0;
-            flex: 1; /* Равномерное распределение */
-            text-align: center;
-            /* Добавляем минимальную ширину для каждой вкладки */
-            min-width: calc(100% / 6); /* 100% / количество вкладок */
-        }
-
-        .tab.active {
-            background-color: #e90909;
-            color: white;
-        }
-
-        .presentation-container {
-            width: 80%;
-            background-color: white;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            display: none;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .presentation-container.active {
-            display: flex;
-        }
-
-         .presentation-iframe {
-            width: 100%;
-            height: 600px; /* Увеличена высота */
-            border: none;
-        }
-
-        .presentation-controls {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            margin-top: 10px;
-        }
-        .presentation-controls button{
-          padding: 5px 10px;
-            cursor: pointer;
-            background-color: #e90909;
-            color: white;
-            border: none;
-            border-radius: 4px;
-        }
-
-        .download-button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-        }
-        .download-button:hover{
-          background-color: #367c39;
-        }
-    </style>
-</head>
-<body>
-    <video autoplay loop muted class="background-video">
-        <source src="Видео/videoback.mp4" type="video/mp4">
-        Ваш браузер не поддерживает видео.
-    </video>
-
-    <div class="navbar">
-        <!--<a href="Практикалық сабақтар.html" class="back-button">←</a> -->
-        <div class="title">Криптография бойынша тапсырмалар</div>
-        <ul class="nav-menu">
-            <li class="active"><a href="Криптография тапсырмалар.html">Теориялық материалдар</a></li>
-            <li>
-                <a href="#">Практикалық тапсырмалар</a>
-                <div class="dropdown">
-                    <a href="Тапсырмалар.html">Тапсырмалар</a>
-                    <a href="Python тапсырмалар.html">Python</a>
-                    <a href="Cryptool 2 тапсырмалар.html">Cryptool 2</a>
-                </div>
-            </li>
-        </ul>
-    </div>
-
-    <div class="container">
-        <div class="tabs">
-            <div class="tab active" onclick="showPresentation(0)">Цезарь және Виженер шифрі</div>
-            <div class="tab" onclick="showPresentation(1)">DES алгоритмі</div>
-            <div class="tab" onclick="showPresentation(2)">Гаммалау әдісі</div>
-            <div class="tab" onclick="showPresentation(3)">RSA алгоритмі</div>
-            <div class="tab" onclick="showPresentation(4)">Диффи-Хелман алгоримі</div>
-            <div class="tab" onclick="showPresentation(5)">Хэш-функция</div>
-            
-        </div>
-
-        <div class="presentation-container active">
-            <object data="Практикалық сабақтар/Криптография теория/ЦЕЗАРЬ ЖӘНЕ ВИЖЕНЕР ШИФРЛЕРІ/Цезарь және Виженер.html"  class="presentation-iframe">
-                
-            </object>
-            
-             <a class="download-button" href="Практикалық сабақтар/Криптография теория/ЦЕЗАРЬ ЖӘНЕ ВИЖЕНЕР ШИФРЛЕРІ/ЦЕЗАРЬ ЖӘНЕ ВИЖЕНЕР ШИФРЛЕРІ.pptx" download>Жүктеу</a>
-        </div>
-
-        <div class="presentation-container">
-            <object data="Практикалық сабақтар/Криптография теория/DES шифрлау алгоритмі/DES.html"  class="presentation-iframe">
-                
-            
-            
-            </object>
-            
-            <a class="download-button" href="Практикалық сабақтар/Криптография теория/DES шифрлау алгоритмі/DES шифрлау алгоритмі.pptx" download>Жүктеу</a>
-        </div>
-
-        <div class="presentation-container">
-           <object data="Практикалық сабақтар/Криптография теория/Гаммалау/Гаммалау.html"  class="presentation-iframe">
-              
-            </object>
-            
-             <a class="download-button" href="Практикалық сабақтар/Криптография теория/Гаммалау/Гаммалау.pptx" download>Жүктеу</a>
-        </div>
-
-        <div class="presentation-container">
-             <object data="Практикалық сабақтар/Криптография теория/RSA алгоритмі/RSA алгоримы.html"  class="presentation-iframe">
-              
-            </object>
-            
-             <a class="download-button" href="Практикалық сабақтар/Криптография теория/RSA алгоритмі/RSA алгоритмі.pptx" download>Жүктеу</a>
-
-        </div>
-
-        <div class="presentation-container">
-           <object data="Практикалық сабақтар/Криптография теория/Диффи-Хелмань кілттер алмасу алгоритмі/Диффи-Хелман алгоримы.html"  class="presentation-iframe">
-               
-            </object>
-            
-             <a class="download-button" href="Практикалық сабақтар/Криптография теория/Диффи-Хелмань кілттер алмасу алгоритмі/Диффи-Хелмань кілттер алмасу алгоритмі.pptx" download>Жүктеу</a>
-        </div>
-
-        <div class="presentation-container">
-            <object data="Практикалық сабақтар/Криптография теория/Хэштеу/хэш.html"  class="presentation-iframe">
-               
-            </object>
-           
-             <a class="download-button" href="Практикалық сабақтар/Криптография теория/Хэштеу/Хэш-функция.pptx" download>Жүктеу</a>
-        </div>
-    </div>
-
-    <script>
-      let currentPresentations = [0, 0, 0, 0, 0, 0];
+        // --- Существующий JavaScript для вкладок ---
+        let currentPresentations = [0, 0, 0, 0, 0, 0];
 
         function showPresentation(index) {
             const tabs = document.querySelectorAll('.tab');
-            tabs.forEach(tab => tab.classList.remove('active'));
             const containers = document.querySelectorAll('.presentation-container');
-            containers.forEach(container => container.classList.remove('active'));
+            
+            tabs.forEach(tab => { if(tab) tab.classList.remove('active'); });
+            containers.forEach(container => { if(container) container.classList.remove('active'); });
 
-            tabs[index].classList.add('active');
-            containers[index].classList.add('active');
-
+            if (tabs[index]) {
+                tabs[index].classList.add('active');
+            }
+            if (containers[index]) {
+                containers[index].classList.add('active');
+            }
         }
 
-        function nextSlide(presentationIndex) {
+        // ... (остальные функции nextSlide, prevSlide, updateIframe без изменений) ...
+         function nextSlide(presentationIndex) {
           currentPresentations[presentationIndex]++;
           updateIframe(presentationIndex);
         }
@@ -315,9 +90,12 @@
             }
               updateIframe(presentationIndex);
         }
-      function updateIframe(index){
-         //Метод для измение слайдов
-      }
+        function updateIframe(index){
+         // Логика обновления <object>
+        }
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+          showPresentation(0); 
+        });
     </script>
-</body>
-</html>
