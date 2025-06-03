@@ -21,40 +21,29 @@
             text-align: center;
             padding: 20px;
             box-sizing: border-box; /* Include padding in height */
-            transition: background-color 0.5s ease-in-out; /* Smooth transition for background */
-
-            /* Animation properties */
-            position: absolute; /* Allows pages to stack and animate */
+            position: absolute; 
             width: 100%;
             top: 0;
             left: 0;
-            opacity: 0; /* Hidden by default */
-            transform: translateX(100%); /* Start off-screen to the right */
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out; /* Smooth animation */
+            opacity: 0; 
+            transform: translateX(100%); 
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out; 
         }
-
         .page-content.active {
-            opacity: 1; /* Fully visible */
-            transform: translateX(0); /* Slide into view */
+            opacity: 1;
+            transform: translateX(0);
         }
-
-        /* Animation for sliding out to the left */
         .page-content.active.slide-out-left {
             opacity: 0;
             transform: translateX(-100%);
         }
-
-        /* Animation for sliding out to the right */
         .page-content.active.slide-out-right {
             opacity: 0;
             transform: translateX(100%);
         }
-
-        /* Page 1 specific styles */
         .page-one {
-            background-color: transparent; /* Video background will show through */
+            background-color: transparent;
         }
-
         .background-video {
             position: fixed;
             top: 0;
@@ -62,9 +51,9 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 0; /* Initially hidden, JavaScript will control opacity */
+            opacity: 0;
             z-index: -1;
-            transition: opacity 0.5s ease-in-out; /* Smooth transition for video opacity */
+            transition: opacity 0.5s ease-in-out;
         }
         .page-one-content h1 {
             background: rgba(235, 232, 232, 0.6);
@@ -74,7 +63,6 @@
             padding: 10px 20px;
             border-radius: 10px;
         }
-
         .page-one-content p {
             font-size: 30px;
             max-width: 800px;
@@ -83,41 +71,35 @@
             padding: 20px;
             border-radius: 10px;
             color: white;
+            margin-left: auto;
+            margin-right: auto;
         }
-
-        /* Page 2 specific styles */
         .page-two {
-            background-color: transparent; /* Video background will show through */
+            background-color: transparent;
         }
-
         .page-two-content {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             max-width: 800px;
-            margin-top: 80px; /* To account for fixed navbar */
-            
-            background: rgba(255, 255, 255, 0.8); /* White with 80% opacity */
-            padding: 40px; /* Increased padding for better appearance */
-            border-radius: 15px; /* Rounded corners for the block */
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* More prominent shadow */
+            background: rgba(255, 255, 255, 0.8);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
         }
-
         .page-two-content img {
-            max-width: 300px; /* Adjust image size as needed */
+            max-width: 300px;
             height: auto;
             margin-bottom: 20px;
-            border-radius: 15px; /* Optional: rounded corners for image */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow */
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
-
         .page-two-content h2 {
             font-size: 36px;
             color: #333;
             margin-bottom: 30px;
         }
-
         .page-two-button {
             padding: 15px 30px;
             font-size: 24px;
@@ -127,16 +109,13 @@
             border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.2s ease;
-            text-decoration: none; /* For the anchor tag */
-            display: inline-block; /* Allows padding and margin to work correctly */
+            text-decoration: none;
+            display: inline-block;
         }
-
         .page-two-button:hover {
             background-color: #c00707;
             transform: translateY(-2px);
         }
-
-        /* Navbar styles remain the same */
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -149,33 +128,41 @@
             left: 0;
             width: 100%;
             z-index: 1000;
+            box-sizing: border-box;
         }
-
         .navbar .title {
             font-size: 24px;
             font-weight: bold;
         }
-
         .nav-menu {
             list-style: none;
             display: flex;
             padding: 0;
             margin: 0;
         }
-
         .nav-menu li {
             position: relative;
             margin: 0 15px;
             cursor: pointer;
             padding: 10px;
         }
-
-        .nav-menu li:hover, .nav-menu li.active {
+        .nav-menu li:hover, 
+        .nav-menu li.active:not(.mobile-menu-active) { /* :not added for specificity */
             background-color: white;
             color: #e90909;
             border-radius: 5px;
         }
-
+        .nav-menu li a {
+            display: block;
+            color: inherit;
+            text-decoration: none;
+            margin: -10px; 
+            padding: 10px; 
+        }
+        .nav-menu li:hover a, 
+        .nav-menu li.active:not(.mobile-menu-active) a { /* :not added for specificity */
+             color: #e90909;
+        }
         .dropdown {
             display: none;
             position: absolute;
@@ -188,211 +175,200 @@
             border-radius: 5px;
             z-index: 1000;
         }
-
         .dropdown a {
             display: block;
             padding: 10px;
             text-decoration: none;
-            color: black;
+            color: black !important;
         }
-
         .dropdown a:hover {
             background-color: #e90909;
-            color: white;
+            color: white !important;
         }
-
-        .nav-menu li:hover .dropdown {
+        .nav-menu li:hover .dropdown { /* This handles desktop hover */
             display: block;
         }
-
-        a {
+        .hamburger-menu {
+            display: none;
+            font-size: 30px;
+            background: none;
+            border: none;
             color: white;
-            text-decoration: none;
+            cursor: pointer;
+            padding: 0 10px;
         }
-        a:hover {
-            color: red;
-        }
-
-        /* Arrow navigation buttons */
         .nav-arrow {
             position: fixed;
             top: 50%;
             transform: translateY(-50%);
-            background-color: rgba(233, 9, 9, 0.7); /* Red with transparency */
+            background-color: rgba(233, 9, 9, 0.7);
             color: white;
             border: none;
             padding: 15px 20px;
-            font-size: 40px; /* Larger arrows */
+            font-size: 40px;
             cursor: pointer;
-            z-index: 990; /* Below navbar, above content */
-            border-radius: 50%; /* Make them circular */
+            z-index: 990;
+            border-radius: 50%;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            display: flex; /* Use flexbox to center arrow symbol */
+            transition: background-color 0.3s ease, transform 0.2s ease, top 0.3s ease, bottom 0.3s ease, left 0.3s ease, right 0.3s ease;
+            display: flex;
             justify-content: center;
             align-items: center;
-            width: 60px; /* Fixed width for better circular shape */
-            height: 60px; /* Fixed height for better circular shape */
+            width: 60px;
+            height: 60px;
         }
-
         .nav-arrow:hover {
-            background-color: rgba(233, 9, 9, 0.9); /* More opaque on hover */
+            background-color: rgba(233, 9, 9, 0.9);
             transform: translateY(-50%) scale(1.05);
         }
-
         .nav-arrow.left {
             left: 20px;
         }
-
         .nav-arrow.right {
             right: 20px;
         }
 
-        /* Burger menu icon */
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            padding: 10px;
-            margin-right: 20px;
-        }
-
-        .menu-toggle .bar {
-            width: 25px;
-            height: 3px;
-            background-color: white;
-            margin: 4px 0;
-            transition: 0.4s;
-        }
-
-        /* Responsive design for smaller screens */
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .navbar {
-                flex-direction: row;
-                justify-content: space-between;
-                padding: 10px 20px;
-            }
-
             .navbar .title {
                 font-size: 20px;
             }
-
+            .hamburger-menu {
+                display: block;
+            }
             .nav-menu {
-                display: none; /* Hide menu by default */
+                display: none;
                 flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
                 width: 100%;
                 background-color: #e90909;
-                position: absolute;
-                top: 60px; /* Below navbar */
-                left: 0;
-                padding: 10px 0;
-                text-align: center;
+                padding: 0;
+                margin:0;
+                z-index: 1100;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             }
-
-            .nav-menu.active {
-                display: flex; /* Show menu when active */
+            .nav-menu.mobile-active { /* Renamed class for clarity from previous step */
+                display: flex;
             }
-
             .nav-menu li {
-                margin: 5px 0;
+                margin: 0;
                 width: 100%;
+                text-align: center;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            }
+            .nav-menu li:last-child {
+                border-bottom: none;
+            }
+            .nav-menu li a, .nav-menu li { 
+                padding: 15px 0;
+                color: white;
+                display: block;
             }
 
-            .dropdown {
-                position: static;
-                width: 100%;
-                box-shadow: none;
-                border-radius: 0;
-                background-color: #e90909; /* Match navbar background */
-            }
-
-            .dropdown a {
+            /* Mobile menu item hover (non-active) */
+            .nav-menu li:not(.active):hover { 
+                background-color: rgba(255,255,255,0.1);
                 color: white;
             }
-
-            .dropdown a:hover {
+            .nav-menu li:not(.active):hover a {
+                color: white;
+            }
+            
+            /* Mobile menu active item ("Басты бет") */
+            .nav-menu li.active {
+                background-color: white;
+                color: #e90909; /* Red text */
+            }
+            .nav-menu li.active a { /* Ensure link text color also changes */
+                color: #e90909;
+            }
+             /* Keep active state on hover for mobile */
+            .nav-menu li.active:hover {
                 background-color: white;
                 color: #e90909;
             }
-
-            .menu-toggle {
-                display: flex; /* Show burger icon */
+            .nav-menu li.active:hover a {
+                color: #e90909;
             }
 
+            /* Dropdown in mobile menu */
+            .nav-menu li .dropdown { /* General style for dropdown div itself */
+                position: static;
+                /* display: block; /* Removed: will be controlled by JS via .dropdown-active */
+                background-color: rgba(0,0,0,0.15); /* Slightly different background for sub-items */
+                box-shadow: none;
+                min-width: 100%;
+                border-top: 1px solid rgba(255, 255, 255, 0.2);
+                padding-left: 10px; /* Indent sub-items slightly */
+            }
+
+            /* Hide "Сабақтар" dropdown content by default on mobile */
+            .nav-menu li#sabaktarItem > .dropdown {
+                display: none;
+            }
+            /* Show "Сабақтар" dropdown content when parent li has .dropdown-active */
+            .nav-menu li#sabaktarItem.dropdown-active > .dropdown {
+                display: block;
+            }
+
+            .nav-menu .dropdown a { /* Links within mobile dropdown */
+                padding: 12px 20px;
+                color: white !important;
+                text-align: center;
+            }
+            .nav-menu .dropdown a:hover {
+                background-color: rgba(255,255,255,0.2);
+                color: white !important;
+            }
             .page-content {
-                padding: 10px;
+                padding-top: 80px;
             }
-
             .page-one-content h1 {
-                font-size: 40px;
-                padding: 5px 10px;
+                font-size: 32px;
+                padding: 8px 15px;
             }
-
             .page-one-content p {
-                font-size: 20px;
+                font-size: 16px;
+                max-width: 90%;
                 padding: 15px;
             }
-
             .page-two-content {
-                max-width: 95%;
+                max-width: 90%;
                 padding: 20px;
-                margin-top: 70px; /* Adjust for fixed navbar height */
+                margin-top: 0; 
             }
-
             .page-two-content img {
                 max-width: 200px;
             }
-
             .page-two-content h2 {
-                font-size: 28px;
+                font-size: 24px;
                 margin-bottom: 20px;
             }
-
             .page-two-button {
-                padding: 10px 20px;
-                font-size: 20px;
+                padding: 12px 24px;
+                font-size: 18px;
             }
-
             .nav-arrow {
-                width: 45px;
-                height: 45px;
+                top: auto;
+                bottom: 20px;
+                width: 50px;
+                height: 50px;
                 font-size: 30px;
                 padding: 10px 15px;
             }
             .nav-arrow.left {
-                left: 10px;
+                left: calc(50% - 55px - 5px); 
+                transform: none;
             }
             .nav-arrow.right {
-                right: 10px;
+                right: calc(50% - 55px - 5px);
+                left: auto; 
+                transform: none;
             }
-        }
-
-        @media (max-width: 480px) {
-            .navbar .title {
-                font-size: 16px;
-            }
-
-            .page-one-content h1 {
-                font-size: 30px;
-            }
-
-            .page-one-content p {
-                font-size: 16px;
-            }
-
-            .page-two-content h2 {
-                font-size: 22px;
-            }
-
-            .page-two-button {
-                font-size: 18px;
-            }
-
-            .nav-arrow {
-                width: 35px;
-                height: 35px;
-                font-size: 24px;
-                padding: 5px 10px;
+             .nav-arrow:hover { 
+                transform: scale(1.05);
             }
         }
     </style>
@@ -401,15 +377,10 @@
 
     <div class="navbar">
         <div class="title">ИНТЕРНЕТ ЖӘНЕ ҚАУІПСІЗДІК</div>
-        <div class="menu-toggle" id="mobile-menu">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-        </div>
-        <ul class="nav-menu" id="nav-menu">
-            <li class="active">Басты бет</li>
-            <li>
-                Сабақтар
+        <button class="hamburger-menu" id="hamburgerIcon">&#9776;</button>
+        <ul class="nav-menu" id="mainNavMenu">
+            <li class="active"><a href="#">Басты бет</a></li>
+            <li id="sabaktarItem"> Сабақтар 
                 <div class="dropdown">
                     <a href="1-тарау.html">1-Интернеттегі қауіпсіздік негіздері</a>
                     <a href="2-тарау.html">2-Әлеуметтік инженерия және фишинг</a>
@@ -427,11 +398,9 @@
         <source src="Видео/videoback.mp4" type="video/mp4">
         Ваш браузер не поддерживает видео.
     </video>
-
     <video autoplay loop muted class="background-video" id="backgroundVideoTwo">
         <source src="Видео/download.mp4" type="video/mp4"> Ваш браузер не поддерживает видео.
     </video>
-
     <div class="page-content page-one" id="pageOne">
         <div class="page-one-content">
             <h1>СӘЛЕМЕТСІЗ БЕ! <br> ҚОШ КЕЛДІҢІЗ!</h1>
@@ -441,15 +410,13 @@
                 криптография және жеке деректерді қорғау тақырыптарын қамтиды.</p>
         </div>
     </div>
-
     <div class="page-content page-two" id="pageTwo">
         <div class="page-two-content"> 
             <img src="Суреттер/интернет.png" alt="Қауіпсіздік суреті"> 
-            <h2>Интернет және қауіпсіздік бойынша біліміңізді тексеріңіз.</h2>
-            <a href="https://studio--cybersecedu-fh02r.us-central1.hosted.app/" class="page-two-button" target="_blank">ӨТУ</a>
+            <h2>Интернет және қауіпсіздік бойынша біліміңізді тексеріп, жеке оқу жоспарын алыңыз.</h2>
+            <a href="https://9000-firebase-studio-1748544694496.cluster-l6vkdperq5ebaqo3qy4ksvoqom.cloudworkstations.dev" class="page-two-button" target="_blank">ӨТУ</a>
         </div>
     </div>
-
     <button class="nav-arrow left" id="arrowLeft">&#8249;</button> 
     <button class="nav-arrow right" id="arrowRight">&#8250;</button> 
     
@@ -457,12 +424,15 @@
         const pageOne = document.getElementById('pageOne');
         const pageTwo = document.getElementById('pageTwo');
         const backgroundVideoOne = document.getElementById('backgroundVideoOne');
-        const backgroundVideoTwo = document.getElementById('backgroundVideoTwo'); 
+        const backgroundVideoTwo = document.getElementById('backgroundVideoTwo');
         const arrowLeft = document.getElementById('arrowLeft');
         const arrowRight = document.getElementById('arrowRight');
+        const hamburgerIcon = document.getElementById('hamburgerIcon'); 
+        const mainNavMenu = document.getElementById('mainNavMenu'); 
+        const sabaktarItem = document.getElementById('sabaktarItem'); // Получаем элемент "Сабақтар"
 
-        let currentPage = 1; 
-        const totalPages = 2; 
+        let currentPage = 1;
+        const totalPages = 2;
 
         function showPage(pageNumber, direction) {
             const currentPageElement = (currentPage === 1) ? pageOne : pageTwo;
@@ -473,7 +443,6 @@
                 } else if (direction === 'prev') {
                     currentPageElement.classList.add('slide-out-right');
                 }
-                currentPageElement.classList.remove('active');
             }
 
             setTimeout(() => {
@@ -481,20 +450,20 @@
                 pageTwo.classList.remove('active', 'slide-out-left', 'slide-out-right');
                 
                 if (pageNumber === 1) {
-                    pageOne.classList.add('active'); 
-                    backgroundVideoOne.style.opacity = 0.4; 
-                    backgroundVideoTwo.style.opacity = 0; 
+                    pageOne.classList.add('active');
+                    backgroundVideoOne.style.opacity = 0.4;
+                    backgroundVideoTwo.style.opacity = 0;
                 } else if (pageNumber === 2) {
-                    pageTwo.classList.add('active'); 
-                    backgroundVideoOne.style.opacity = 0; 
-                    backgroundVideoTwo.style.opacity = 0.4; 
+                    pageTwo.classList.add('active');
+                    backgroundVideoOne.style.opacity = 0;
+                    backgroundVideoTwo.style.opacity = 0.4;
                 }
                 currentPage = pageNumber;
 
                 arrowLeft.style.display = (currentPage === 1) ? 'none' : 'flex';
                 arrowRight.style.display = (currentPage === totalPages) ? 'none' : 'flex';
 
-            }, 500); 
+            }, currentPageElement.classList.contains('active') ? 300 : 0); 
         }
 
         arrowRight.addEventListener('click', () => {
@@ -509,16 +478,45 @@
             }
         });
 
-        document.addEventListener('DOMContentLoaded', () => {
-            showPage(1);
+        hamburgerIcon.addEventListener('click', () => {
+            mainNavMenu.classList.toggle('mobile-active');
+            // Если меню закрывается, также скрыть выпадающий список "Сабақтар"
+            if (!mainNavMenu.classList.contains('mobile-active') && sabaktarItem) {
+                sabaktarItem.classList.remove('dropdown-active');
+            }
+        });
+        
+        // Закрытие мобильного меню при клике на любую ссылку в нем
+        mainNavMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (mainNavMenu.classList.contains('mobile-active')) {
+                     mainNavMenu.classList.remove('mobile-active');
+                     // Также скрыть выпадающий список "Сабақтар", если он был открыт
+                     if (sabaktarItem) {
+                         sabaktarItem.classList.remove('dropdown-active');
+                     }
+                }
+            });
         });
 
-        // Mobile menu toggle for index.html
-        const mobileMenu = document.getElementById('mobile-menu');
-        const navMenu = document.getElementById('nav-menu');
+        // Переключение видимости выпадающего списка "Сабақтар" в мобильном меню
+        if (sabaktarItem) {
+            sabaktarItem.addEventListener('click', function(event) {
+                // Эта логика применяется только когда активно мобильное меню
+                if (mainNavMenu.classList.contains('mobile-active')) {
+                    // Если клик был по ссылке внутри выпадающего списка,
+                    // то ничего не делаем здесь (обработчик выше закроет все меню)
+                    if (event.target.closest('.dropdown a')) {
+                        return;
+                    }
+                    // Переключаем класс для показа/скрытия подменю
+                    this.classList.toggle('dropdown-active');
+                }
+            });
+        }
 
-        mobileMenu.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
+        document.addEventListener('DOMContentLoaded', () => {
+            showPage(1);
         });
     </script>
 </body>
