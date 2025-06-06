@@ -21,13 +21,13 @@
             text-align: center;
             padding: 20px;
             box-sizing: border-box; /* Include padding in height */
-            position: absolute; 
+            position: absolute;
             width: 100%;
             top: 0;
             left: 0;
-            opacity: 0; 
-            transform: translateX(100%); 
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out; 
+            opacity: 0;
+            transform: translateX(100%);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
         .page-content.active {
             opacity: 1;
@@ -146,7 +146,7 @@
             cursor: pointer;
             padding: 10px;
         }
-        .nav-menu li:hover, 
+        .nav-menu li:hover,
         .nav-menu li.active:not(.mobile-menu-active) { /* :not added for specificity */
             background-color: white;
             color: #e90909;
@@ -156,12 +156,12 @@
             display: block;
             color: inherit;
             text-decoration: none;
-            margin: -10px; 
-            padding: 10px; 
+            margin: -10px;
+            padding: 10px;
         }
-        .nav-menu li:hover a, 
+        .nav-menu li:hover a,
         .nav-menu li.active:not(.mobile-menu-active) a { /* :not added for specificity */
-             color: #e90909;
+            color: #e90909;
         }
         .dropdown {
             display: none;
@@ -261,21 +261,21 @@
             .nav-menu li:last-child {
                 border-bottom: none;
             }
-            .nav-menu li a, .nav-menu li { 
+            .nav-menu li a, .nav-menu li {
                 padding: 15px 0;
                 color: white;
                 display: block;
             }
 
             /* Mobile menu item hover (non-active) */
-            .nav-menu li:not(.active):hover { 
+            .nav-menu li:not(.active):hover {
                 background-color: rgba(255,255,255,0.1);
                 color: white;
             }
             .nav-menu li:not(.active):hover a {
                 color: white;
             }
-            
+
             /* Mobile menu active item ("Басты бет") */
             .nav-menu li.active {
                 background-color: white;
@@ -284,7 +284,7 @@
             .nav-menu li.active a { /* Ensure link text color also changes */
                 color: #e90909;
             }
-             /* Keep active state on hover for mobile */
+            /* Keep active state on hover for mobile */
             .nav-menu li.active:hover {
                 background-color: white;
                 color: #e90909;
@@ -323,7 +323,7 @@
                 color: white !important;
             }
             .page-content {
-                padding-top: 80px;
+                padding-top: 60px; /* Adjust padding for fixed navbar height */
             }
             .page-one-content h1 {
                 font-size: 32px;
@@ -337,7 +337,7 @@
             .page-two-content {
                 max-width: 90%;
                 padding: 20px;
-                margin-top: 0; 
+                margin-top: 0;
             }
             .page-two-content img {
                 max-width: 200px;
@@ -351,24 +351,51 @@
                 font-size: 18px;
             }
             .nav-arrow {
+                position: fixed;
                 top: auto;
-                bottom: 20px;
+                bottom: 80px; /* Adjust bottom position */
                 width: 50px;
                 height: 50px;
                 font-size: 30px;
                 padding: 10px 15px;
             }
             .nav-arrow.left {
-                left: calc(50% - 55px - 5px); 
+                left: calc(50% - 60px); /* Adjust position */
                 transform: none;
             }
             .nav-arrow.right {
-                right: calc(50% - 55px - 5px);
-                left: auto; 
+                right: calc(50% - 60px); /* Adjust position */
+                left: auto;
                 transform: none;
             }
-             .nav-arrow:hover { 
+            .nav-arrow:hover {
                 transform: scale(1.05);
+            }
+        }
+
+        /* Extra small devices (phones, less than 576px) */
+        @media (max-width: 576px) {
+            .page-one-content h1 {
+                font-size: 28px;
+            }
+            .page-one-content p {
+                font-size: 14px;
+            }
+            .page-two-content h2 {
+                font-size: 20px;
+            }
+            .page-two-button {
+                font-size: 16px;
+                padding: 10px 20px;
+            }
+            .nav-arrow {
+                bottom: 60px; /* Further adjust if needed */
+            }
+            .navbar .title {
+                font-size: 18px;
+            }
+            .hamburger-menu {
+                font-size: 26px;
             }
         }
     </style>
@@ -380,7 +407,7 @@
         <button class="hamburger-menu" id="hamburgerIcon">&#9776;</button>
         <ul class="nav-menu" id="mainNavMenu">
             <li class="active"><a href="#">Басты бет</a></li>
-            <li id="sabaktarItem"> Сабақтар 
+            <li id="sabaktarItem"> Сабақтар
                 <div class="dropdown">
                     <a href="1-тарау.html">1-Интернеттегі қауіпсіздік негіздері</a>
                     <a href="2-тарау.html">2-Әлеуметтік инженерия және фишинг</a>
@@ -393,7 +420,7 @@
             <li><a href="Қосымша.html">Қосымша</a></li>
         </ul>
     </div>
-    
+
     <video autoplay loop muted class="background-video" id="backgroundVideoOne">
         <source src="Видео/videoback.mp4" type="video/mp4">
         Ваш браузер не поддерживает видео.
@@ -404,22 +431,22 @@
     <div class="page-content page-one" id="pageOne">
         <div class="page-one-content">
             <h1>СӘЛЕМЕТСІЗ БЕ! <br> ҚОШ КЕЛДІҢІЗ!</h1>
-            <p>"Интернет және қауіпсіздік" курсы бойынша цифрлық білім беру ресурсы деректерді қорғаудың 
-                және желідегі қауіпсіз мінез-құлықтың негізгі аспектілерін зерттеуге арналған. 
-                Ол интернеттегі қауіп-қатер, қорғаныс әдістері, әлеуметтік инженерия және фишинг, 
+            <p>"Интернет және қауіпсіздік" курсы бойынша цифрлық білім беру ресурсы деректерді қорғаудың
+                және желідегі қауіпсіз мінез-құлықтың негізгі аспектілерін зерттеуге арналған.
+                Ол интернеттегі қауіп-қатер, қорғаныс әдістері, әлеуметтік инженерия және фишинг,
                 криптография және жеке деректерді қорғау тақырыптарын қамтиды.</p>
         </div>
     </div>
     <div class="page-content page-two" id="pageTwo">
-        <div class="page-two-content"> 
-            <img src="Суреттер/интернет.png" alt="Қауіпсіздік суреті"> 
-            <h2>Интернет және қауіпсіздік бойынша біліміңізді тексеріңіз.</h2>
+        <div class="page-two-content">
+            <img src="Суреттер/интернет.png" alt="Қауіпсіздік суреті">
+            <h2>Интернет және қауіпсіздік бойынша біліміңізді тексеріп, жеке оқу жоспарын алыңыз.</h2>
             <a href="https://studio--cybersecedu-fh02r.us-central1.hosted.app/" class="page-two-button" target="_blank">ӨТУ</a>
         </div>
     </div>
-    <button class="nav-arrow left" id="arrowLeft">&#8249;</button> 
-    <button class="nav-arrow right" id="arrowRight">&#8250;</button> 
-    
+    <button class="nav-arrow left" id="arrowLeft">&#8249;</button>
+    <button class="nav-arrow right" id="arrowRight">&#8250;</button>
+
     <script>
         const pageOne = document.getElementById('pageOne');
         const pageTwo = document.getElementById('pageTwo');
@@ -427,8 +454,8 @@
         const backgroundVideoTwo = document.getElementById('backgroundVideoTwo');
         const arrowLeft = document.getElementById('arrowLeft');
         const arrowRight = document.getElementById('arrowRight');
-        const hamburgerIcon = document.getElementById('hamburgerIcon'); 
-        const mainNavMenu = document.getElementById('mainNavMenu'); 
+        const hamburgerIcon = document.getElementById('hamburgerIcon');
+        const mainNavMenu = document.getElementById('mainNavMenu');
         const sabaktarItem = document.getElementById('sabaktarItem'); // Получаем элемент "Сабақтар"
 
         let currentPage = 1;
@@ -436,7 +463,7 @@
 
         function showPage(pageNumber, direction) {
             const currentPageElement = (currentPage === 1) ? pageOne : pageTwo;
-            
+
             if (currentPageElement.classList.contains('active')) {
                 if (direction === 'next') {
                     currentPageElement.classList.add('slide-out-left');
@@ -448,7 +475,7 @@
             setTimeout(() => {
                 pageOne.classList.remove('active', 'slide-out-left', 'slide-out-right');
                 pageTwo.classList.remove('active', 'slide-out-left', 'slide-out-right');
-                
+
                 if (pageNumber === 1) {
                     pageOne.classList.add('active');
                     backgroundVideoOne.style.opacity = 0.4;
@@ -463,7 +490,7 @@
                 arrowLeft.style.display = (currentPage === 1) ? 'none' : 'flex';
                 arrowRight.style.display = (currentPage === totalPages) ? 'none' : 'flex';
 
-            }, currentPageElement.classList.contains('active') ? 300 : 0); 
+            }, currentPageElement.classList.contains('active') ? 300 : 0);
         }
 
         arrowRight.addEventListener('click', () => {
@@ -485,16 +512,16 @@
                 sabaktarItem.classList.remove('dropdown-active');
             }
         });
-        
+
         // Закрытие мобильного меню при клике на любую ссылку в нем
         mainNavMenu.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 if (mainNavMenu.classList.contains('mobile-active')) {
-                     mainNavMenu.classList.remove('mobile-active');
-                     // Также скрыть выпадающий список "Сабақтар", если он был открыт
-                     if (sabaktarItem) {
-                         sabaktarItem.classList.remove('dropdown-active');
-                     }
+                    mainNavMenu.classList.remove('mobile-active');
+                    // Также скрыть выпадающий список "Сабақтар", если он был открыт
+                    if (sabaktarItem) {
+                        sabaktarItem.classList.remove('dropdown-active');
+                    }
                 }
             });
         });
